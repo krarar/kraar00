@@ -2,88 +2,96 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إدخال البيانات</title>
+    <title>نموذج معلومات</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             direction: rtl;
             text-align: right;
+            margin: 20px;
+            background-color: #f0f0f0;
         }
-        form {
-            max-width: 600px;
-            margin: 0 auto;
+        .container {
+            background-color: #fff;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        label, input, select, textarea {
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
             display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
             width: 100%;
-            margin: 10px 0;
-        }
-        input, select, textarea {
             padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            box-sizing: border-box;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            border: none;
+        .form-group input[type="submit"] {
+            background-color: #4CAF50;
             color: white;
-            border-radius: 5px;
+            border: none;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #0056b3;
+        .form-group input[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <form action="submit_form.php" method="post">
-        <h2>إدخال البيانات</h2>
 
-        <label for="name">الاسم:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="father_name">اسم الأب:</label>
-        <input type="text" id="father_name" name="father_name" required>
-
-        <label for="mother_name">اسم الأم:</label>
-        <input type="text" id="mother_name" name="mother_name" required>
-
-        <label for="age">العمر:</label>
-        <input type="number" id="age" name="age" required>
-
-        <label for="marital_status">الحالة الاجتماعية:</label>
-        <input type="text" id="marital_status" name="marital_status" required>
-
-        <label for="profession">المهنة:</label>
-        <input type="text" id="profession" name="profession" required>
-
-        <label for="children_boys">عدد الأطفال (ذكور):</label>
-        <input type="number" id="children_boys" name="children_boys" required>
-
-        <label for="children_girls">عدد الأطفال (إناث):</label>
-        <input type="number" id="children_girls" name="children_girls" required>
-
-        <label for="income_source">مصدر الدخل:</label>
-        <input type="text" id="income_source" name="income_source" required>
-
-        <label for="income_amount">مقدار الدخل:</label>
-        <input type="number" id="income_amount" name="income_amount" required>
-
-        <label for="phone1">رقم الهاتف الأول:</label>
-        <input type="text" id="phone1" name="phone1" required>
-
-        <label for="phone2">رقم الهاتف الثاني:</label>
-        <input type="text" id="phone2" name="phone2">
-
-        <label for="comments">ملاحظات:</label>
-        <textarea id="comments" name="comments"></textarea>
-
-        <button type="submit">حفظ</button>
+<div class="container">
+    <h1>نموذج معلومات</h1>
+    <form id="infoForm">
+        <div class="form-group">
+            <label for="name">الاسم:</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="fatherName">اسم الأب:</label>
+            <input type="text" id="fatherName" name="fatherName">
+        </div>
+        <div class="form-group">
+            <label for="age">العمر:</label>
+            <input type="number" id="age" name="age">
+        </div>
+        <div class="form-group">
+            <label for="maritalStatus">الحالة الاجتماعية:</label>
+            <input type="text" id="maritalStatus" name="maritalStatus">
+        </div>
+        <div class="form-group">
+            <label for="operation">نوع العملية:</label>
+            <input type="text" id="operation" name="operation">
+        </div>
+        <div class="form-group">
+            <label for="neededAmount">المبلغ الكلي:</label>
+            <input type="number" id="neededAmount" name="neededAmount">
+        </div>
+        <div class="form-group">
+            <label for="phone">رقم الهاتف:</label>
+            <input type="tel" id="phone" name="phone">
+        </div>
+        <div class="form-group">
+            <label for="notes">ملاحظات:</label>
+            <textarea id="notes" name="notes" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="حفظ">
+        </div>
     </form>
+</div>
+
+<script>
+    document.getElementById('infoForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        alert('تم حفظ المعلومات بنجاح');
+    });
+</script>
+
 </body>
 </html>
