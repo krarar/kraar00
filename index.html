@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>نموذج معلومات</title>
+    <title>إدخال المعلومات</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,35 +46,35 @@
 <body>
 
 <div class="container">
-    <h1>نموذج معلومات</h1>
-    <form id="infoForm">
+    <h1>إدخال المعلومات</h1>
+    <form id="infoForm" onsubmit="saveData(event)">
         <div class="form-group">
             <label for="name">الاسم:</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" required>
         </div>
         <div class="form-group">
             <label for="fatherName">اسم الأب:</label>
-            <input type="text" id="fatherName" name="fatherName">
+            <input type="text" id="fatherName" name="fatherName" required>
         </div>
         <div class="form-group">
             <label for="age">العمر:</label>
-            <input type="number" id="age" name="age">
+            <input type="number" id="age" name="age" required>
         </div>
         <div class="form-group">
             <label for="maritalStatus">الحالة الاجتماعية:</label>
-            <input type="text" id="maritalStatus" name="maritalStatus">
+            <input type="text" id="maritalStatus" name="maritalStatus" required>
         </div>
         <div class="form-group">
             <label for="operation">نوع العملية:</label>
-            <input type="text" id="operation" name="operation">
+            <input type="text" id="operation" name="operation" required>
         </div>
         <div class="form-group">
             <label for="neededAmount">المبلغ الكلي:</label>
-            <input type="number" id="neededAmount" name="neededAmount">
+            <input type="number" id="neededAmount" name="neededAmount" required>
         </div>
         <div class="form-group">
             <label for="phone">رقم الهاتف:</label>
-            <input type="tel" id="phone" name="phone">
+            <input type="tel" id="phone" name="phone" required>
         </div>
         <div class="form-group">
             <label for="notes">ملاحظات:</label>
@@ -87,10 +87,21 @@
 </div>
 
 <script>
-    document.getElementById('infoForm').addEventListener('submit', function(event) {
+    function saveData(event) {
         event.preventDefault();
-        alert('تم حفظ المعلومات بنجاح');
-    });
+        const data = {
+            name: document.getElementById('name').value,
+            fatherName: document.getElementById('fatherName').value,
+            age: document.getElementById('age').value,
+            maritalStatus: document.getElementById('maritalStatus').value,
+            operation: document.getElementById('operation').value,
+            neededAmount: document.getElementById('neededAmount').value,
+            phone: document.getElementById('phone').value,
+            notes: document.getElementById('notes').value,
+        };
+        localStorage.setItem('formData', JSON.stringify(data));
+        window.location.href = 'display.html';
+    }
 </script>
 
 </body>
