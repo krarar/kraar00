@@ -1,108 +1,37 @@
 <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>إدخال المعلومات</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            direction: rtl;
-            text-align: right;
-            margin: 20px;
-            background-color: #f0f0f0;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .form-group input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .form-group input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1>إدخال المعلومات</h1>
-    <form id="infoForm" onsubmit="saveData(event)">
-        <div class="form-group">
-            <label for="name">الاسم:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="fatherName">اسم الأب:</label>
-            <input type="text" id="fatherName" name="fatherName" required>
-        </div>
-        <div class="form-group">
-            <label for="age">العمر:</label>
-            <input type="number" id="age" name="age" required>
-        </div>
-        <div class="form-group">
-            <label for="maritalStatus">الحالة الاجتماعية:</label>
-            <input type="text" id="maritalStatus" name="maritalStatus" required>
-        </div>
-        <div class="form-group">
-            <label for="operation">نوع العملية:</label>
-            <input type="text" id="operation" name="operation" required>
-        </div>
-        <div class="form-group">
-            <label for="neededAmount">المبلغ الكلي:</label>
-            <input type="number" id="neededAmount" name="neededAmount" required>
-        </div>
-        <div class="form-group">
-            <label for="phone">رقم الهاتف:</label>
-            <input type="tel" id="phone" name="phone" required>
-        </div>
-        <div class="form-group">
-            <label for="notes">ملاحظات:</label>
-            <textarea id="notes" name="notes" rows="4"></textarea>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="حفظ">
-        </div>
-    </form>
-</div>
-
-<script>
-    function saveData(event) {
-        event.preventDefault();
-        const data = {
-            name: document.getElementById('name').value,
-            fatherName: document.getElementById('fatherName').value,
-            age: document.getElementById('age').value,
-            maritalStatus: document.getElementById('maritalStatus').value,
-            operation: document.getElementById('operation').value,
-            neededAmount: document.getElementById('neededAmount').value,
-            phone: document.getElementById('phone').value,
-            notes: document.getElementById('notes').value,
-        };
-        localStorage.setItem('formData', JSON.stringify(data));
-        window.location.href = 'display.html';
-    }
-</script>
-
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="manifest.json" />
+<!-- ios support -->
+<link rel="apple-touch-icon" href="images/icons/icon-72x72.png" />
+<link rel="apple-touch-icon" href="images/icons/icon-96x96.png" />
+<link rel="apple-touch-icon" href="images/icons/icon-128x128.png" />
+<link rel="apple-touch-icon" href="images/icons/icon-144x144.png" />
+<link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
+<link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
+<link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
+<link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
+<meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+<meta name="theme-color" content="#db4938" />
+ 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Dev'Coffee PWA</title>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <h1>Dev'Coffee</h1>
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Blog</li>
+        </ul>
+      </nav>
+      <div class="container"></div>
+    </main>
+    <script src="app.js"></script>
+  </body>
 </html>
