@@ -1,0 +1,98 @@
+/* استيراد خطوط من Google Fonts */
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
+
+/* إعادة تعيين بعض الخصائص الافتراضية */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* تنسيق الجسم */
+body {
+  background: #fdfdfd;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+}
+
+/* إعدادات الحاوية الرئيسية */
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+/* تنسيق التنقل */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* تنسيق قائمة التنقل */
+ul {
+  list-style: none;
+  display: flex;
+}
+
+/* تنسيق عناصر قائمة التنقل */
+li {
+  margin-right: 1rem;
+}
+
+/* تنسيق العنوان */
+h1 {
+  color: #e74c3c;
+  margin-bottom: 0.5rem;
+}
+
+/* تنسيق الحاوية */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 1rem 0;
+}
+
+/* تنسيق بطاقة المحتوى */
+.card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 15rem auto;
+  height: 15rem;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 10px;
+  margin: auto;
+  overflow: hidden;
+}
+
+/* تنسيق الصورة داخل البطاقة */
+.card--avatar {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+}
+
+/* تنسيق عنوان البطاقة */
+.card--title {
+  color: #222;
+  font-weight: 700;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+/* تنسيق رابط البطاقة */
+.card--link {
+  text-decoration: none;
+  background: #db4938;
+  color: #fff;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+}
