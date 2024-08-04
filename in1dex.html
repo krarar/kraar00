@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=72">
+    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=96">
+    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=128">
+    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=144">
+    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=152">
+    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=192">
+    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=384">
+    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=512">
+    <meta name="apple-mobile-web-app-status-bar" content="#db4938">
+    <meta name="theme-color" content="#db4938">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --primary-color: #880E4F;
+            --secondary-color: #ffffff;
+            --background-color: #1B1B1B;
+            --card-color: #333333;
+            --text-color: #E0E0E0;
+            --accent-color: #FFC107;
+            --highlight-color: #B71C1C;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin: 20px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            transition: left 1s ease-in-out;
+        }
+
+        .carousel img.active {
+            left: 0;
+        }
+
+        .carousel-content {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: var(--secondary-color);
+            text-align: center;
+            z-index: 1;
+        }
+
+        .carousel-content h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .carousel-content p {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
+        .carousel-content button {
+            background-color: var(--highlight-color);
+            color: var(--secondary-color);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .carousel-content button:hover {
+            background-color: #f1f1f1;
+            color: var(--highlight-color);
+        }
+
+        .grid-container {
+            display: grid;
+            gap: 0;
+            padding: 0;
+            grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+        }
+
+        .product-card {
+            background-color: var(--card-color);
+            border: 2px solid var(--accent-color);
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            color: var(--text-color);
+            transition: transform 0.3s;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 2/2;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-card h3 {
+            margin-top: 25px;
+            font-size: 1.25rem;
+        }
+
+        .product-card p {
+            margin: 5px 0;
+            font-size: 1.1rem;
+            color: var(--accent-color);
+        }
+
+        .product-card .rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 5px;
+        }
+
+        .product-card .rating i {
+            color: var(--highlight-color);
+            margin: 0 2px;
+        }
+
+    
+    .content {
+        padding: 20px;
+    }
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #2e2d25;
+        border-top: 1px solid #d7da19;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+    }
+    .footer i {
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .notification-bell {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        font-size: 100px;
+        cursor: pointer;
+    }
+    .notification-bell .count {
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 8px;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        font-size: 12px;
+    }
+    .notification-badge {
+        background-color: rgb(255, 4, 17);
+        color: rgb(255, 255, 255);
+        border-radius: 50%;
+        padding: 1px 1;
+        position: absolute;
+        top: 0px;
+        right: 100;
+        display: none;
+    }
+    .notifications-container {
+        display: none;
+        background-color: #10aa437c;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 40px; left: 40px;
+        right: 4em;
+        width: 300px;
+    }
+    .notification-item {
+        border-bottom: dashed red;
+        padding: 10px 0;
+    }
+    .notification-item img {
+        max-width: 100%;
+        border-radius: 8px;
+    }
+
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .search-modal.active {
+            display: flex;
+        }
+
+        .search-modal input {
+            width: 80%;
+            padding: 10px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 4px;
+          }
+          .stories-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            scrollbar-width: none;
+        }
+        .stories-container::-webkit-scrollbar {
+            display: none;
+        }
+        .story, .add-story {
+            flex: 0 0 auto;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 15px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .story-border {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+        .story-content, .add-story-content {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .story-content video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .story p, .add-story p {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 5px;
+            color: #262626;
+        }
+        .add-story-content {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: #007bff;
+        }
+        .swal2-input {
+            margin: 5px 0;
+        }
+        .story-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .story-viewer video {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .story-nav {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            cursor: pointer;
+        }
+        .story-nav.prev {
+            left: 0;
+        }
+        .story-nav.next {
+            right: 0;
+        }
+        .close-viewer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+    <title>Product Showcase</title>
+</head>
+<body>
+    <div class="notification-bell" onclick="goToNotifications()">
+        <i class="fas fa-bell"></i>
+        <span class="count" id="notification-count"></span>
+    </div>
+ <div class="content">
+        <!-- شريط التمرير التلقائي (Carousel) -->
+        <div class="carousel">
+        <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
+
+            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" class="active" alt="Image 1" data-url="index.html">
+            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Image 2" data-url="order.html">
+            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Image 3" data-url="orders.html">
+            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Image 4" data-url="details.html">
+            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Image 5" data-url="details.html">
+            <div class="carousel-content">
+                <h1>Welcome To Nyazek Store</h1>
+                <p>Get your 25% discount Now</p>
+                <button id="shop-now-button">SHOP NOW</button>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <div class="stories-container" id="stories-container">
+            <!-- القصص ستتم إضافتها هنا ديناميكيًا عبر Firebase -->
+        </div>
+        
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+         <div class="grid-container">
+            <!-- بطاقة المنتج 1 -->
+            <div class="product-card" onclick="location.href='in1dex.html'">
+                <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
+                <h3> Name</h3>
+                <p>$24.95</p>
+                <div class="rating">
+                    <span>⭐⭐⭐⭐⭐</span>
+                    <span class="favorite">❤</span>
+                </div>
+            </div>
+            <!-- بطاقة المنتج 2 -->
+            <div class="product-card" onclick="location.href='in1dex.html'">
+                <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
+                <h3>Product Name</h3>
+                <p>$24.95</p>
+                <div class="rating">
+                    <span>⭐⭐⭐⭐⭐</span>
+                    <span class="favorite">❤</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- عنوان قسم المنتجات الأكثر شعبية -->
+        <h2 class="section-title">Most Popular</h2>
+        <div class="grid-container">
+            <!-- بطاقة المنتج 3 -->
+            <div class="product-card" onclick="location.href='in1dex.html'">
+                <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
+                <h3>Girls at the Front</h3>
+                <p>$24.95</p>
+                <div class="rating">
+                    <span>⭐⭐⭐⭐⭐</span>
+                    <span class="favorite">❤</span>
+                </div>
+            </div>
+            <!-- بطاقة المنتج 4 -->
+            <div class="product-card" onclick="location.href='in1dex.html'">
+                <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
+                <h3>Girls at the Front</h3>
+                <p>$24.95</p>
+                <div class="rating">
+                    <span>⭐⭐⭐⭐⭐</span>
+                    <span class="favorite">❤</span>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <!-- شريط الأدوات السفلي -->
+    <div class="footer">
+        <i class="fa fa-home" onclick="location.href='index.html'"></i>
+        <i class="fa fa-search" onclick="openSearch()"></i>
+        <i class="fa fa-bell notification" onclick="location.href='notifications.html'">
+            <span id="notification-badge" class="notification-badge">0</span>
+        </i>
+        <i class="fa fa-user" onclick="location.href='profile.html'"></i>
+    </div>
+
+    
+
+    <script>
+        
+
+        function goToNotifications() {
+            window.location.href = 'notifications.html';
+        }
+
+        function updateNotificationCount() {
+            const count = localStorage.getItem('notificationCount') || 0;
+            document.getElementById('notification-count').innerText = count;
+        }
+
+        // تحديث عدد الإشعارات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', updateNotificationCount);
+        // وظيفة لجلب عدد الإشعارات من Local Storage وتحديث العرض
+        function updateNotificationDisplay() {
+            const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+            const badge = document.getElementById('notification-badge');
+            badge.textContent = notifications.length;
+            badge.style.display = notifications.length > 0 ? 'flex' : 'none';
+        }
+
+        // تحديث العرض عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', (event) => {
+            updateNotificationDisplay();
+        });
+        
+
+        // تحديث العرض عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', (event) => {
+            updateNotificationDisplay();
+        });
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.carousel img');
+        const totalImages = images.length;
+    
+        function showNextImage() {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % totalImages;
+            images[currentIndex].classList.add('active');
+        }
+    
+        setInterval(showNextImage, 3000); // تغيير الصورة كل 3 ثواني
+    
+        function openSearch() {
+            document.getElementById('search-modal').style.display = 'flex';
+        }
+    
+        function closeSearch() {
+            document.getElementById('search-modal').style.display = 'none';
+        }
+    
+        function addItem() {
+    
+            closeSearch(); // إغلاق شريط البحث بعد إجراء البحث
+        }
+    
+        document.getElementById('shop-now-button').addEventListener('click', function() {
+            const activeImage = document.querySelector('.carousel img.active');
+            const url = activeImage.getAttribute('data-url');
+            if (url) {
+                window.location.href = url;
+            }
+        });
+
+        // وظيفة لتحديث عدد الإشعارات
+        let notificationCount = 0;
+
+        function updateNotificationCount(count) {
+            notificationCount += count;
+            document.getElementById('notification-badge').textContent = notificationCount;
+        }
+
+        // لتحديث العدد عند إضافة منتج جديد (يمكنك استدعاء هذه الوظيفة عند إضافة منتج جديد)
+        updateNotificationCount(1);
+        
+          // مثال: زيادة العدد بواحد
+          
+        document.addEventListener('DOMContentLoaded', () => {
+            const stories = document.querySelectorAll('.story');
+            
+            stories.forEach(story => {
+                const video = story.querySelector('video');
+                video.play();
+
+                story.addEventListener('click', () => {
+                    const videoUrl = story.getAttribute('data-video');
+                    Swal.fire({
+                        html: <video src="${videoUrl}" controls autoplay style="width: 100%; max-height: 80vh; border-radius: 10px;"></video>,
+                        showConfirmButton: false,
+                        background: '#000',
+                        padding: '0',
+                        width: '100%',
+                        customClass: {
+                            popup: 'story-popup'
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    </main>
+    <!-- ربط ملف الجافا سكريبت -->
+    <script src="js/app.js"></script>
+     <!-- Firebase scripts -->
+     <script src="https://www.gstatic.co
