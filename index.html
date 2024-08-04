@@ -6,17 +6,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=72">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=96">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=128">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=144">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=152">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=192">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=384">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=512">
-    <meta name="apple-mobile-web-app-status-bar" content="#db4938">
-    <meta name="theme-color" content="#db4938">
-    <link rel="stylesheet" href="css/style.css">
-   
     <style>
         :root {
             --primary-color: #3498db;
@@ -173,10 +162,9 @@
             font-family: monospace;
             font-size: 14px;
         }
-        .fullscreen-btn {
+        .fullscreen-btn, .close-btn {
             position: absolute;
             top: 10px;
-            right: 10px;
             background-color: rgba(0,0,0,0.5);
             color: white;
             border: none;
@@ -184,7 +172,12 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        
+        .fullscreen-btn {
+            right: 40px;
+        }
+        .close-btn {
+            right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -210,138 +203,145 @@
                 <div class="display-controls">
                     <button onclick="setDisplaySize('phone')" title="عرض الهاتف"><i class="fas fa-mobile-alt"></i></button>
                     <button onclick="setDisplaySize('desktop')" title="عرض سطح المكتب"><i class="fas fa-desktop"></i></button>
-                    <button onclick="toggleSidebar()" title="تبديل الشريط الجانبي"><i class="fas fa-bars"></i></button>
-                    <button onclick="openCodeEditor()" title="فتح محرر الكود"><i class="fas fa-code"></i></button>
-                    <button onclick="addCustomPage()" title="إضافة صفحة مخصصة"><i class="fas fa-plus"></i></button>
-                    <button onclick="addCustomPage()" title="صفحة مخصصة 1"><i class="fas fa-file"></i></button>
-                    <button onclick="addCustomPage()" title="صفحة مخصصة 2"><i class="fas fa-file"></i></button>
-                    <button onclick="addCustomPage()" title="صفحة مخصصة 3"><i class="fas fa-file"></i></button>
-                    <button onclick="addCustomPage()" title="صفحة مخصصة 4"><i class="fas fa-file"></i></button>
-                    <button onclick="addCustomPage()" title="صفحة مخصصة 5"><i class="fas fa-file"></i></button>
-                </div>
-            </header>
-            <div class="iframe-container" id="iframeContainer"></div>
-        </div>
+                    <button onclick="toggleSidebar()" title="تبديل الشريط الجانبي"><i class="fas
+fa-bars"></i></button>
+<button onclick="openCodeEditor()" title="فتح محرر الكود"><i class="fas fa-code"></i></button>
+<button onclick="addCustomPage()" title="إضافة صفحة مخصصة"><i class="fas fa-plus"></i></button>
+<button onclick="addCustomPage()" title="صفحة مخصصة 1"><i class="fas fa-file"></i></button>
+<button onclick="addCustomPage()" title="صفحة مخصصة 2"><i class="fas fa-file"></i></button>
+<button onclick="addCustomPage()" title="صفحة مخصصة 3"><i class="fas fa-file"></i></button>
+<button onclick="addCustomPage()" title="صفحة مخصصة 4"><i class="fas fa-file"></i></button>
+<button onclick="addCustomPage()" title="صفحة مخصصة 5"><i class="fas fa-file"></i></button>
+</div>
+</header>
+<div class="iframe-container" id="iframeContainer"></div>
+</div>
+</div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <pre id="fileContent"></pre>
+        <textarea id="codeEditor" style="display: none;"></textarea>
+        <button onclick="saveChanges()" style="display: none;">حفظ التغييرات</button>
     </div>
+</div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <pre id="fileContent"></pre>
-            <textarea id="codeEditor" style="display: none;"></textarea>
-            <button onclick="saveChanges()" style="display: none;">حفظ التغييرات</button>
-        </div>
-    </div>
-    
 
-    <script>
-        const links = document.querySelectorAll('.sidebar a');
-        const pageTitle = document.getElementById('pageTitle');
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.querySelector('.main-content');
-        const iframeContainer = document.getElementById('iframeContainer');
+<script>
+    const links = document.querySelectorAll('.sidebar a');
+    const pageTitle = document.getElementById('pageTitle');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('.main-content');
+    const iframeContainer = document.getElementById('iframeContainer');
 
-        links.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                pageTitle.textContent = this.textContent.trim();
-                addIframe(this.href);
-            });
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            pageTitle.textContent = this.textContent.trim();
+            addIframe(this.href);
         });
+    });
 
-        function addIframe(src) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'iframe-wrapper';
-            
-            const iframe = document.createElement('iframe');
-            iframe.src = src;
-            
-            const fullscreenBtn = document.createElement('button');
-            fullscreenBtn.className = 'fullscreen-btn';
-            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-            fullscreenBtn.onclick = () => toggleFullscreen(wrapper);
-            
-            wrapper.appendChild(iframe);
-            wrapper.appendChild(fullscreenBtn);
-            iframeContainer.appendChild(wrapper);
-        }
+    function addIframe(src) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'iframe-wrapper';
+        
+        const iframe = document.createElement('iframe');
+        iframe.src = src;
+        
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'fullscreen-btn';
+        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+        fullscreenBtn.onclick = () => toggleFullscreen(wrapper);
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        closeBtn.onclick = () => wrapper.remove();
+        
+        wrapper.appendChild(iframe);
+        wrapper.appendChild(fullscreenBtn);
+        wrapper.appendChild(closeBtn);
+        iframeContainer.appendChild(wrapper);
+    }
 
-        function toggleFullscreen(wrapper) {
-            wrapper.classList.toggle('fullscreen');
-            const icon = wrapper.querySelector('.fullscreen-btn i');
-            icon.classList.toggle('fa-expand');
-            icon.classList.toggle('fa-compress');
-        }
+    function toggleFullscreen(wrapper) {
+        wrapper.classList.toggle('fullscreen');
+        const icon = wrapper.querySelector('.fullscreen-btn i');
+        icon.classList.toggle('fa-expand');
+        icon.classList.toggle('fa-compress');
+    }
 
-        function setDisplaySize(size) {
-            const iframes = document.querySelectorAll('.iframe-wrapper');
-            iframes.forEach(iframe => {
-                if (size === 'phone') {
-                    iframe.style.width = '375px';
-                    iframe.style.height = '667px';
-                } else {
-                    iframe.style.width = 'calc(50% - 10px)';
-                    iframe.style.height = '400px';
-                }
-            });
-        }
-
-        function loadFile(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('fileContent').textContent = e.target.result;
-                    document.getElementById('myModal').style.display = 'block';
-                }
-                reader.readAsText(file);
+    function setDisplaySize(size) {
+        const iframes = document.querySelectorAll('.iframe-wrapper');
+        iframes.forEach(iframe => {
+            if (size === 'phone') {
+                iframe.style.width = '375px';
+                iframe.style.height = '667px';
+            } else {
+                iframe.style.width = 'calc(50% - 10px)';
+                iframe.style.height = '400px';
             }
-        }
-
-        function closeModal() {
-            document.getElementById('myModal').style.display = 'none';
-            document.getElementById('fileContent').style.display = 'block';
-            document.getElementById('codeEditor').style.display = 'none';
-            document.querySelector('.modal-content button').style.display = 'none';
-        }
-
-        function toggleSidebar() {
-            const currentWidth = sidebar.style.width;
-            sidebar.style.width = currentWidth === '0px' ? '250px' : '0px';
-            mainContent.style.marginRight = currentWidth === '0px' ? '250px' : '0';
-        }
-
-        function openCodeEditor() {
-            const modal = document.getElementById('myModal');
-            const fileContent = document.getElementById('fileContent');
-            const codeEditor = document.getElementById('codeEditor');
-            const saveButton = document.querySelector('.modal-content button');
-
-            modal.style.display = 'block';
-            fileContent.style.display = 'none';
-            codeEditor.style.display = 'block';
-            saveButton.style.display = 'block';
-
-            codeEditor.value = document.documentElement.outerHTML;
-        }
-
-        function saveChanges() {
-            const codeEditor = document.getElementById('codeEditor');
-            document.documentElement.innerHTML = codeEditor.value;
-            closeModal();
-        }
-
-        function addCustomPage() {
-            const customUrl = prompt('أدخل عنوان URL للصفحة المخصصة:');
-            if (customUrl) {
-                addIframe(customUrl);
-            }
-        }
-
-        // تحميل الصفحة الافتراضية
-        window.addEventListener('load', () => {
-            addIframe('https://krarar.github.io/index0/');
         });
-    </script>
+    }
+
+    function loadFile(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('fileContent').textContent = e.target.result;
+                document.getElementById('myModal').style.display = 'block';
+            }
+            reader.readAsText(file);
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+        document.getElementById('fileContent').style.display = 'block';
+        document.getElementById('codeEditor').style.display = 'none';
+        document.querySelector('.modal-content button').style.display = 'none';
+    }
+
+    function toggleSidebar() {
+        const currentWidth = sidebar.style.width;
+        sidebar.style.width = currentWidth === '0px' ? '250px' : '0px';
+        mainContent.style.marginRight = currentWidth === '0px' ? '250px' : '0';
+    }
+
+    function openCodeEditor() {
+        const modal = document.getElementById('myModal');
+        const fileContent = document.getElementById('fileContent');
+        const codeEditor = document.getElementById('codeEditor');
+        const saveButton = document.querySelector('.modal-content button');
+
+        modal.style.display = 'block';
+        fileContent.style.display = 'none';
+        codeEditor.style.display = 'block';
+        saveButton.style.display = 'block';
+
+        codeEditor.value = document.documentElement.outerHTML;
+    }
+
+    function saveChanges() {
+        const codeEditor = document.getElementById('codeEditor');
+        document.documentElement.innerHTML = codeEditor.value;
+        closeModal();
+    }
+
+    function addCustomPage() {
+        const customUrl = prompt('أدخل عنوان URL للصفحة المخصصة:');
+        if (customUrl) {
+            addIframe(customUrl);
+        }
+    }
+
+    // تحميل الصفحة الافتراضية
+    window.addEventListener('load', () => {
+        addIframe('https://krarar.github.io/index0/');
+    });
+</script>
 </body>
 </html>
+```
