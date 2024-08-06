@@ -1,549 +1,556 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>لوحة التحكم المحسنة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=72">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=96">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=128">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=144">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=152">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=192">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=384">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=512">
-    <meta name="apple-mobile-web-app-status-bar" content="#db4938">
-    <meta name="theme-color" content="#db4938">
-    <link rel="stylesheet" href="css/style.css">
     <style>
         :root {
-            --primary-color: #880E4F;
-            --secondary-color: #ffffff;
-            --background-color: #1B1B1B;
-            --card-color: #333333;
-            --text-color: #E0E0E0;
-            --accent-color: #FFC107;
-            --highlight-color: #B71C1C;
+            --primary-color: #4a90e2;
+            --secondary-color: #34495e;
+            --background-color: #f5f7fa;
+            --hover-color: rgba(255,255,255,0.2);
+            --text-color: #333;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
+        
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
             background-color: var(--background-color);
             color: var(--text-color);
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            padding-bottom: 60px;
+        }
+        
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background-color: var(--secondary-color);
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            box-shadow: var(--box-shadow);
         }
-
-        .content {
-            flex: 1;
-        }
-
-        .carousel {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            border-radius: 8px;
-            margin: 20px auto;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .carousel img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 100%;
-            transition: left 1s ease-in-out;
-        }
-
-        .carousel img.active {
-            left: 0;
-        }
-
-        .carousel-content {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: var(--secondary-color);
-            text-align: center;
-            z-index: 1;
-        }
-
-        .carousel-content h1 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .carousel-content p {
-            font-size: 1rem;
-            margin: 10px 0;
-        }
-
-        .carousel-content button {
-            background-color: var(--highlight-color);
-            color: var(--secondary-color);
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .carousel-content button:hover {
-            background-color: #f1f1f1;
-            color: var(--highlight-color);
-        }
-
-        .grid-container {
-            display: grid;
-            gap: 0;
-            padding: 0;
-            grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
-        }
-
-        .product-card {
-            background-color: var(--card-color);
-            border: 2px solid var(--accent-color);
-            border-radius: 5px;
-            padding: 10px;
-            text-align: center;
-            color: var(--text-color);
-            transition: transform 0.3s;
-            box-sizing: border-box;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: scale(1.05);
-        }
-
-        .product-card img {
-            width: 100%;
-            aspect-ratio: 2/2;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .product-card h3 {
-            margin-top: 25px;
-            font-size: 1.25rem;
-        }
-
-        .product-card p {
-            margin: 5px 0;
-            font-size: 1.1rem;
-            color: var(--accent-color);
-        }
-
-        .product-card .rating {
+        
+        .sidebar a, .sidebar button {
+            color: white;
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-size: 16px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-top: 5px;
+            transition: all 0.3s ease;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            background: none;
+            border: none;
+            cursor: pointer;
         }
-
-        .product-card .rating i {
-            color: var(--highlight-color);
-            margin: 0 2px;
+        
+        .sidebar a:hover, .sidebar button:hover {
+            background-color: var(--hover-color);
+            transform: translateX(-5px);
         }
-
-    
-    .content {
-        padding: 20px;
-    }
-    .footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background-color: #2e2d25;
-        border-top: 1px solid #d7da19;
-        display: flex;
-        justify-content: space-around;
-        padding: 10px 0;
-    }
-    .footer i {
-        font-size: 20px;
-        cursor: pointer;
-    }
-
-    .notification-bell {
-        position: absolute;
-        top: 50px;
-        right: 50px;
-        font-size: 100px;
-        cursor: pointer;
-    }
-    .notification-bell .count {
-        background-color: red;
-        color: white;
-        border-radius: 50%;
-        padding: 2px 8px;
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        font-size: 12px;
-    }
-    .notification-badge {
-        background-color: rgb(255, 4, 17);
-        color: rgb(255, 255, 255);
-        border-radius: 50%;
-        padding: 1px 1;
-        position: absolute;
-        top: 0px;
-        right: 100;
-        display: none;
-    }
-    .notifications-container {
-        display: none;
-        background-color: #10aa437c;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: absolute;
-        top: 40px; left: 40px;
-        right: 4em;
-        width: 300px;
-    }
-    .notification-item {
-        border-bottom: dashed red;
-        padding: 10px 0;
-    }
-    .notification-item img {
-        max-width: 100%;
-        border-radius: 8px;
-    }
-
-        .search-modal {
+        
+        .sidebar a i, .sidebar button i {
+            margin-left: 15px;
+            font-size: 20px;
+        }
+        
+        .main-content {
+            flex-grow: 10;
+            padding: 10px;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .iframe-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .iframe-wrapper {
+            position: relative;
+            width: calc(50% - 15px);
+            height: 450px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .iframe-wrapper.fullscreen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
             z-index: 1000;
-            display: none;
         }
-
-        .search-modal.active {
-            display: flex;
-        }
-
-        .search-modal input {
-            width: 80%;
-            padding: 10px;
-            font-size: 1.2rem;
+        
+        iframe {
+            width: 100%;
+            height: 100%;
             border: none;
-            border-radius: 4px;
-          }
-          .stories-container {
-            display: flex;
-            overflow-x: auto;
-            padding: 10px 0;
-            scrollbar-width: none;
+            background-color: white;
+            transition: all 0.3s ease;
         }
-        .stories-container::-webkit-scrollbar {
+        
+        .file-input {
             display: none;
         }
-        .story, .add-story {
-            flex: 0 0 auto;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-right: 15px;
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-        }
-        .story-border {
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
-        .story-content, .add-story-content {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            bottom: 2px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-        .story-content video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .story p, .add-story p {
-            text-align: center;
-            font-size: 12px;
-            margin-top: 5px;
-            color: #262626;
-        }
-        .add-story-content {
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            color: #007bff;
-        }
-        .swal2-input {
-            margin: 5px 0;
-        }
-        .story-viewer {
+        
+        .modal {
+            display: none;
             position: fixed;
-            top: 0;
+            z-index: 1001;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background-color: #000;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-content {
+            background-color: #700505;
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #fff5f5;
+            width: 80%;
+            max-width: 800px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .modal-content pre, .modal-content textarea {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 500px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .close {
+            color: #aaa;
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .display-controls {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            gap: 15px;
+            margin-bottom: 20px;
         }
-        .story-viewer video {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-        .story-nav {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50%;
+        
+        .display-controls button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
             cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
         }
-        .story-nav.prev {
-            left: 0;
+        
+        .display-controls button:hover {
+            background-color: #3a7bd5;
+            transform: translateY(-2px);
         }
-        .story-nav.next {
-            right: 0;
+        
+        #codeEditor {
+            width: 100%;
+            height: 350px;
+            margin-top: 20px;
+            font-size: 14px;
+            line-height: 1.5;
         }
-        .close-viewer {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #fff;
-            font-size: 30px;
+
+        .container {
+            text-align: center;
+        }
+        .icon {
+            font-size: 40px;
+            color: #ffc400;
             cursor: pointer;
+            text-decoration: none;
         }
+        .icon:hover {
+            color: #b36b00;
+       
+        }
+        .fullscreen-btn, .close-btn {
+            position: absolute;
+            top: 10px;
+            background-color: rgba(190, 42, 42, 0.6);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .fullscreen-btn {
+            right: 50px;
+        }
+        
+        .close-btn {
+            right: 10px;
+        }
+        
+        .fullscreen-btn:hover, .close-btn:hover {
+            background-color: rgba(173, 22, 22, 0.8);
+        }
+        
+        .icon-link-input {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .icon-link-input input {
+            flex-grow: 1;
+            margin-right: 15px;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                padding: 0;
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            
+            .iframe-wrapper {
+                width: 100%;
+            }
+        }
+        
     </style>
-    <title>Product Showcase</title>
 </head>
 <body>
-    <div class="notification-bell" onclick="goToNotifications()">
-        <i class="fas fa-bell"></i>
-        <span class="count" id="notification-count"></span>
-    </div>
- <div class="content">
-        <!-- شريط التمرير التلقائي (Carousel) -->
-        <div class="carousel">
-        <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
-
-            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" class="active" alt="Image 1" data-url="index.html">
-            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Image 2" data-url="order.html">
-            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Image 3" data-url="orders.html">
-            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Image 4" data-url="details.html">
-            <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Image 5" data-url="details.html">
-            <div class="carousel-content">
-                <h1>Welcome To Nyazek Store</h1>
-                <p>Get your 25% discount Now</p>
-                <button id="shop-now-button">SHOP NOW</button>
-            </div>
-        </div>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    </head>
-    <body>
-        <div class="stories-container" id="stories-container">
-            <!-- القصص ستتم إضافتها هنا ديناميكيًا عبر Firebase -->
+    
+    <div class="dashboard">
+        <div class="sidebar" id="sidebar">
+            <a href="https://krarar.github.io/index0/dashboard.html" target="content-frame"><i class="fas fa-home"></i>لوحة القيادة</a>
+            <a href="https://www.youtube.com/watch?v=d4YQEWhTBZg" target="content-frame"><i class="fas fa-users"></i>المستخدمين</a>
+            <a href="https://krarar.github.io/index0/in1dex.html" target="content-frame"><i class="fas fa-box"></i>المنتجات</a>
+            <a href="https://krarar.github.io/index0/order.html?id=-O34jSIpHAIF_a_wqje8&image=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fmessageemeapp.appspot.com%2Fo%2Fproducts%252FIMG_20240723_224157_174.jpg%3Falt%3Dmedia%26token%3D3e103410-27fb-4b74-848e-0463d6f1c247" target="content-frame"><i class="fas fa-shopping-cart"></i>الطلبات</a>
+            <a href="https://krarar.github.io/index0/details.html?id=-O34jSIpHAIF_a_wqje8" target="content-frame"><i class="fas fa-chart-bar"></i>تفاصيل المنتج</a>
+            <a href="https://krarar.github.io/index0/settings.html" target="content-frame"><i class="fas fa-cog"></i>الإعدادات</a>
+            <a href="https://krarar.github.io/index0/orders.html" target="content-frame"><i class="fas fa-envelope"></i>الرسائل</a>
+            <a href="https://krarar.github.io/index0/notifications.html" target="content-frame"><i class="fas fa-bell"></i>الاشعارات</a>
+            <a href="https://krarar.github.io/index0/notif1ications.htmll" target="content-frame"><i class="fas fa-plus-circle"></i>إضافة إشعارات</a>
+            <a href="https://krarar.github.io/index0/reports.html" target="content-frame"><i class="fas fa-file-alt"></i>التقارير</a>
+            <button onclick="document.getElementById('fileInput').click()"><i class="fas fa-upload"></i>تحميل ملف HTML</button>
+            <input type="file" id="fileInput" class="file-input" accept=".html" onchange="loadFile(event)">
+            <button onclick="openIconLinksModal()"><i class="fas fa-link"></i>تعديل روابط الأيقونات</button>
+            
         </div>
         
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-         <div class="grid-container">
-            <!-- بطاقة المنتج 1 -->
-            <div class="product-card" onclick="location.href='in1dex.html'">
-                <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
-                <h3> Name</h3>
-                <p>$24.95</p>
-                <div class="rating">
-                    <span>⭐⭐⭐⭐⭐</span>
-                    <span class="favorite">❤</span>
+        <div class="main-content">
+            <header>
+                <div class="container">
+                    <a href="kraar.html" class="icon">
+                        <i class="fas fa-edit"></i>
+                    </a>
                 </div>
-            </div>
-            <!-- بطاقة المنتج 2 -->
-            <div class="product-card" onclick="location.href='in1dex.html'">
-                <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
-                <h3>Product Name</h3>
-                <p>$24.95</p>
-                <div class="rating">
-                    <span>⭐⭐⭐⭐⭐</span>
-                    <span class="favorite">❤</span>
+                <span id="pageTitle">التقارير</span>
+                <div class="display-controls">
+                    <button onclick="setDisplaySize('phone')" title="عرض الهاتف"><i class="fas fa-mobile-alt"></i></button>
+                    <button onclick="setDisplaySize('desktop')" title="عرض سطح المكتب"><i class="fas fa-desktop"></i></button>
+                    <button onclick="toggleSidebar()" title="تبديل الشريط الجانبي"><i class="fas fa-bars"></i></button>
+                    <button onclick="openCodeEditor()" title="فتح محرر الكود"><i class="fas fa-code"></i></button>
+                    <button onclick="addCustomPage()" title="إضافة صفحة مخصصة"><i class="fas fa-plus"></i></button>
+                    <button onclick="refreshAllIframes()" title="تحديث جميع الإطارات"><i class="fas fa-sync-alt"></i></button>
+                    <button onclick="loadAndDisplayFile()" title="تحميل وفتح ملف HTML"><i class="fas fa-folder-open"></i></button>
+                    
                 </div>
-            </div>
-        </div>
-
-        <!-- عنوان قسم المنتجات الأكثر شعبية -->
-        <h2 class="section-title">Most Popular</h2>
-        <div class="grid-container">
-            <!-- بطاقة المنتج 3 -->
-            <div class="product-card" onclick="location.href='in1dex.html'">
-                <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
-                <h3>Girls at the Front</h3>
-                <p>$24.95</p>
-                <div class="rating">
-                    <span>⭐⭐⭐⭐⭐</span>
-                    <span class="favorite">❤</span>
-                </div>
-            </div>
-            <!-- بطاقة المنتج 4 -->
-            <div class="product-card" onclick="location.href='in1dex.html'">
-                <img src="https://firebasestorage.googleapis.com/v0/b/chatapp-e6143.appspot.com/o/ads%2F1720736479851.jpg?alt=media&token=c7379cf2-1996-4ec2-bf87-2bfb48cc383e" alt="Product Image">
-                <h3>Girls at the Front</h3>
-                <p>$24.95</p>
-                <div class="rating">
-                    <span>⭐⭐⭐⭐⭐</span>
-                    <span class="favorite">❤</span>
-                </div>
-            </div>
+            </header>
+            
+            <div class="iframe-container" id="iframeContainer"></div>
         </div>
     </div>
-  
-    <!-- شريط الأدوات السفلي -->
-    <div class="footer">
-        <i class="fa fa-home" onclick="location.href='index.html'"></i>
-        <i class="fa fa-search" onclick="openSearch()"></i>
-        <i class="fa fa-bell notification" onclick="location.href='notifications.html'">
-            <span id="notification-badge" class="notification-badge">0</span>
-        </i>
-        <i class="fa fa-user" onclick="location.href='profile.html'"></i>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <pre id="fileContent"></pre>
+            <textarea id="codeEditor" style="display: none;"></textarea>
+            <button onclick="saveChanges()" style="display: none;">حفظ التغييرات</button>
+        </div>
     </div>
-
+    <div id="iconLinksModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeIconLinksModal()">&times;</span>
+            <h2>تعديل روابط الأيقونات</h2>
+            <div id="iconLinksForm"></div>
+            <button onclick="saveIconLinks()">حفظ التغييرات</button>
+        </div>
+    </div>
     
 
     <script>
         
-
-        function goToNotifications() {
-            window.location.href = 'notifications.html';
-        }
-
-        function updateNotificationCount() {
-            const count = localStorage.getItem('notificationCount') || 0;
-            document.getElementById('notification-count').innerText = count;
-        }
-
-        // تحديث عدد الإشعارات عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', updateNotificationCount);
-        // وظيفة لجلب عدد الإشعارات من Local Storage وتحديث العرض
-        function updateNotificationDisplay() {
-            const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
-            const badge = document.getElementById('notification-badge');
-            badge.textContent = notifications.length;
-            badge.style.display = notifications.length > 0 ? 'flex' : 'none';
-        }
-
-        // تحديث العرض عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', (event) => {
-            updateNotificationDisplay();
-        });
-        
-
-        // تحديث العرض عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', (event) => {
-            updateNotificationDisplay();
-        });
-        let currentIndex = 0;
-        const images = document.querySelectorAll('.carousel img');
-        const totalImages = images.length;
+        const links = document.querySelectorAll('.sidebar a');
+        const pageTitle = document.getElementById('pageTitle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.querySelector('.main-content');
+        const iframeContainer = document.getElementById('iframeContainer');
     
-        function showNextImage() {
-            images[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex + 1) % totalImages;
-            images[currentIndex].classList.add('active');
-        }
-    
-        setInterval(showNextImage, 3000); // تغيير الصورة كل 3 ثواني
-    
-        function openSearch() {
-            document.getElementById('search-modal').style.display = 'flex';
-        }
-    
-        function closeSearch() {
-            document.getElementById('search-modal').style.display = 'none';
-        }
-    
-        function addItem() {
-    
-            closeSearch(); // إغلاق شريط البحث بعد إجراء البحث
-        }
-    
-        document.getElementById('shop-now-button').addEventListener('click', function() {
-            const activeImage = document.querySelector('.carousel img.active');
-            const url = activeImage.getAttribute('data-url');
-            if (url) {
-                window.location.href = url;
-            }
-        });
-
-        // وظيفة لتحديث عدد الإشعارات
-        let notificationCount = 0;
-
-        function updateNotificationCount(count) {
-            notificationCount += count;
-            document.getElementById('notification-badge').textContent = notificationCount;
-        }
-
-        // لتحديث العدد عند إضافة منتج جديد (يمكنك استدعاء هذه الوظيفة عند إضافة منتج جديد)
-        updateNotificationCount(1);
-        
-          // مثال: زيادة العدد بواحد
-          
-        document.addEventListener('DOMContentLoaded', () => {
-            const stories = document.querySelectorAll('.story');
-            
-            stories.forEach(story => {
-                const video = story.querySelector('video');
-                video.play();
-
-                story.addEventListener('click', () => {
-                    const videoUrl = story.getAttribute('data-video');
-                    Swal.fire({
-                        html: <video src="${videoUrl}" controls autoplay style="width: 100%; max-height: 80vh; border-radius: 10px;"></video>,
-                        showConfirmButton: false,
-                        background: '#000',
-                        padding: '0',
-                        width: '100%',
-                        customClass: {
-                            popup: 'story-popup'
-                        }
-                    });
-                });
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                pageTitle.textContent = this.textContent.trim();
+                addIframe(this.href);
             });
         });
+    
+        function loadFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                fileContent = e.target.result;
+                document.getElementById('fileContent').innerText = fileContent;
+                document.getElementById('myModal').style.display = 'block';
+                openCodeEditor();
+            };
+            reader.readAsText(file);
+        }
+    
+        function loadAndDisplayFile() {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.html';
+            fileInput.style.display = 'none';
+    
+            fileInput.onchange = function(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+    
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'iframe-wrapper';
+    
+                    const iframe = document.createElement('iframe');
+                    iframe.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(content);
+    
+                    const fullscreenBtn = document.createElement('button');
+                    fullscreenBtn.className = 'fullscreen-btn';
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                    fullscreenBtn.onclick = () => toggleFullscreen(wrapper);
+    
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'close-btn';
+                    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    closeBtn.onclick = () => closeIframe(wrapper);
+    
+                    wrapper.appendChild(iframe);
+                    wrapper.appendChild(fullscreenBtn);
+                    wrapper.appendChild(closeBtn);
+                    iframeContainer.appendChild(wrapper);
+                };
+                reader.readAsText(file);
+            };
+    
+            document.body.appendChild(fileInput);
+            fileInput.click();
+            document.body.removeChild(fileInput);
+        }
+    
+        function setDisplaySize(size) {
+            const iframes = document.querySelectorAll('.iframe-wrapper');
+            iframes.forEach(iframe => {
+                iframe.style.width = size === 'phone' ? '375px' : 'calc(50% - 15px)';
+                iframe.style.height = size === 'phone' ? '667px' : '450px';
+            });
+        }
+    
+        function toggleFullscreen(wrapper) {
+            wrapper.classList.toggle('fullscreen');
+            const icon = wrapper.querySelector('.fullscreen-btn i');
+            icon.classList.toggle('fa-expand');
+            icon.classList.toggle('fa-compress');
+        }
+    
+        function closeIframe(wrapper) {
+            wrapper.remove();
+        }
+    
+        function addIframe(src) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'iframe-wrapper';
+    
+            const iframe = document.createElement('iframe');
+            iframe.src = src;
+    
+            const fullscreenBtn = document.createElement('button');
+            fullscreenBtn.className = 'fullscreen-btn';
+            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            fullscreenBtn.onclick = () => toggleFullscreen(wrapper);
+    
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'close-btn';
+            closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+            closeBtn.onclick = () => closeIframe(wrapper);
+    
+            wrapper.appendChild(iframe);
+            wrapper.appendChild(fullscreenBtn);
+            wrapper.appendChild(closeBtn);
+            iframeContainer.appendChild(wrapper);
+        }
+    
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+            document.getElementById('fileContent').style.display = 'block';
+            document.getElementById('codeEditor').style.display = 'none';
+            document.querySelector('.modal-content button').style.display = 'none';
+        }
+    
+        function toggleSidebar() {
+            const isClosed = sidebar.style.width === '0px';
+            sidebar.style.width = isClosed ? '280px' : '0px';
+            mainContent.style.marginRight = isClosed ? '280px' : '0';
+        }
+    
+        let fileContent = '';
+    
+        function openCodeEditor() {
+            const modal = document.getElementById('myModal');
+            const fileContentElement = document.getElementById('fileContent');
+            const codeEditor = document.getElementById('codeEditor');
+            const saveButton = document.querySelector('.modal-content button');
+    
+            modal.style.display = 'block';
+            fileContentElement.style.display = 'none';
+            codeEditor.style.display = 'block';
+            saveButton.style.display = 'block';
+    
+            codeEditor.value = fileContent;
+        }
+    
+        function saveChanges() {
+            const codeEditor = document.getElementById('codeEditor');
+            fileContent = codeEditor.value;
+            const iframe = document.querySelector('iframe[src="data:text/html;charset=utf-8,' + encodeURIComponent(fileContent) + '"]');
+            if (iframe) {
+                const doc = iframe.contentWindow.document;
+                doc.open();
+                doc.write(fileContent);
+                doc.close();
+            }
+            closeModal();
+        }
+    
+        function addCustomPage() {
+            const customUrl = prompt('أدخل عنوان URL للصفحة المخصصة:');
+            if (customUrl) {
+                addIframe(customUrl);
+            }
+        }
+    
+        function openIconLinksModal() {
+            const modal = document.getElementById('iconLinksModal');
+            const form = document.getElementById('iconLinksForm');
+            form.innerHTML = '';
+    
+            const links = document.querySelectorAll('.sidebar a');
+            links.forEach((link, index) => {
+                const input = document.createElement('div');
+                input.className = 'icon-link-input';
+                input.innerHTML = `
+                    <input type="text" id="iconLink${index}" value="${link.href}" placeholder="${link.textContent.trim()}">
+                `;
+                form.appendChild(input);
+            });
+    
+            modal.style.display = 'block';
+        }
+    
+        function closeIconLinksModal() {
+            document.getElementById('iconLinksModal').style.display = 'none';
+        }
+    
+        function saveIconLinks() {
+            const links = document.querySelectorAll('.sidebar a');
+            links.forEach((link, index) => {
+                const input = document.getElementById(`iconLink${index}`);
+                if (input && input.value) {
+                    link.href = input.value;
+                }
+            });
+            closeIconLinksModal();
+        }
+    
+        function refreshAllIframes() {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                iframe.src = iframe.src; // تحديث iframe
+            });
+        }
+    
+        // تحميل الصفحة الافتراضية
+        window.addEventListener('load', () => {
+            addIframe('https://krarar.github.io/index0/');
+        });
+    
+        // إغلاق النوافذ المنبثقة عند النقر خارجها
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let modal of modals) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        }
     </script>
-    </main>
-    <!-- ربط ملف الجافا سكريبت -->
-    <script src="js/app.js"></script>
-     <!-- Firebase scripts -->
-     <script src="https://www.gstatic.co
+    </body>
+    </html>
+    
