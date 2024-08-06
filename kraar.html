@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محرر HTML المحسّن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        #sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .main-content {
+            margin-right: 250px;
+            padding: 20px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .iframe-wrapper {
+            position: relative;
+            width: calc(50% - 20px);
+            height: 450px;
+            display: inline-block;
+            margin: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .iframe-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .fullscreen-btn, .close-btn, .edit-btn {
+            position: absolute;
+            top: 10px;
+            background-color: rgba(255,255,255,0.7);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .fullscreen-btn:hover, .close-btn:hover, .edit-btn:hover {
+            background-color: rgba(255,255,255,0.9);
+        }
+
+        .fullscreen-btn {
+            left: 90px;
+        }
+
+        .edit-btn {
+            left: 50px;
+        }
+
+        .close-btn {
+            left: 10px;
+        }
+
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1000;
+            margin: 0;
+        }
+
+        #sideEditor {
+            position: fixed;
+            top: 0;
+            left: -50%;
+            width: 50%;
+            height: 100vh;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            transition: left 0.3s ease-in-out;
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #sideEditor.open {
+            left: 0;
+        }
+
+        #codeEditor {
+            flex-grow: 1;
+            font-family: monospace;
+            font-size: 14px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+            margin-bottom: 20px;
+        }
+
+        .editor-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        #sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .sidebar-icon {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-icon:hover {
+            background-color: #34495e;
+        }
+
+        .sidebar-icon i {
+            margin-left: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <h2>لوحة التحكم</h2>
+        <!-- يمكنك إضافة عناصر القائمة الجانبية هنا -->
+        <div id="sidebar">
+            <h2>لوحة التحكم</h2>
+            <a href="kraar.html" class="sidebar-icon">
+                <i class="fas fa-home"></i>
+                الرئيسية
+            </a>
+           
+            <a href="documents.html" class="sidebar-icon">
+                <i class="fas fa-file-alt"></i>
+                المستندات
+            </a>
+            <a href="kraar.html" class="sidebar-icon">
+                <i class="fas fa-cog"></i>
+                الإعدادات
+            </a>
+            <a href="kraar.html" class="sidebar-icon">
+                <i class="fas fa-user"></i>
+                الملف الشخصي
+            </a>
+            <a href="kraar.html" class="sidebar-icon">
+                <i class="fas fa-question-circle"></i>
+                المساعدة
+            </a>
+            
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <h1>محرر HTML المحسّن</h1>
+        <button onclick="loadAndDisplayFile()">
+            <i class="fas fa-file-upload"></i> تحميل ملف HTML
+        </button>
+        <div id="iframeContainer"></div>
+    </div>
+
+    <!-- النافذة الجانبية للتحرير -->
+    <div id="sideEditor">
+        <h2>تحرير الكود</h2>
+        <textarea id="codeEditor"></textarea>
+        <div class="editor-buttons">
+            <button onclick="saveChanges()">
+                <i class="fas fa-save"></i> حفظ التغييرات
+            </button>
+            <button onclick="closeSideEditor()">
+                <i class="fas fa-times"></i> إغلاق
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ... الكود JavaScript السابق يبقى كما هو ...
+
+        // إضافة وظيفة للتنقل إلى صفحة kraar.html
+        function navigateToKraar(event) {
+            event.preventDefault();
+            window.location.href = 'kraar.html';
+        }
+
+        // إضافة مستمع الحدث لجميع روابط الشريط الجانبي
+        document.querySelectorAll('.sidebar-icon').forEach(link => {
+            link.addEventListener('click', navigateToKraar);
+        });
+        let currentEditingIframe;
+
+        function loadAndDisplayFile() {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.html';
+            fileInput.style.display = 'none';
+        
+            fileInput.onchange = function(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+        
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    createIframeWrapper(content, file.name);
+                };
+                reader.readAsText(file);
+            };
+        
+            document.body.appendChild(fileInput);
+            fileInput.click();
+            document.body.removeChild(fileInput);
+        }
+        function createIframeWrapper(content) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'iframe-wrapper';
+
+            const iframe = document.createElement('iframe');
+            iframe.srcdoc = content;
+
+            const fullscreenBtn = document.createElement('button');
+            fullscreenBtn.className = 'fullscreen-btn';
+            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            fullscreenBtn.onclick = (e) => {
+                e.stopPropagation();
+                toggleFullscreen(wrapper);
+            };
+
+            const editBtn = document.createElement('button');
+            editBtn.className = 'edit-btn';
+            editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+            editBtn.onclick = (e) => {
+                e.stopPropagation();
+                openSideEditor(iframe);
+            };
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'close-btn';
+            closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+            closeBtn.onclick = (e) => {
+                e.stopPropagation();
+                closeIframe(wrapper);
+            };
+
+            wrapper.appendChild(iframe);
+            wrapper.appendChild(fullscreenBtn);
+            wrapper.appendChild(editBtn);
+            wrapper.appendChild(closeBtn);
+            
+            document.getElementById('iframeContainer').appendChild(wrapper);
+        }
+        function saveChanges() {
+            if (currentEditingIframe) {
+                const codeEditor = document.getElementById('codeEditor');
+                currentEditingIframe.srcdoc = codeEditor.value;
+        
+                // حفظ معلومات المستند المحرر
+                const documents = JSON.parse(localStorage.getItem('editedDocuments')) || [];
+                const existingDocIndex = documents.findIndex(doc => doc.name === currentEditingIframe.dataset.filename);
+                
+                if (existingDocIndex !== -1) {
+                    documents[existingDocIndex].lastEdited = new Date().toISOString();
+                } else {
+                    documents.push({
+                        name: currentEditingIframe.dataset.filename || 'مستند بدون اسم',
+                        lastEdited: new Date().toISOString()
+                    });
+                }
+                
+                localStorage.setItem('editedDocuments', JSON.stringify(documents));
+            }
+            closeSideEditor();
+        }
+
+        function toggleFullscreen(wrapper) {
+            wrapper.classList.toggle('fullscreen');
+            const icon = wrapper.querySelector('.fullscreen-btn i');
+            icon.classList.toggle('fa-expand');
+            icon.classList.toggle('fa-compress');
+        }
+
+        function closeIframe(wrapper) {
+            wrapper.remove();
+        }
+
+        function openSideEditor(iframe) {
+            currentEditingIframe = iframe;
+            const sideEditor = document.getElementById('sideEditor');
+            const codeEditor = document.getElementById('codeEditor');
+            
+            codeEditor.value = iframe.srcdoc;
+            sideEditor.classList.add('open');
+        }
+
+        function saveChanges() {
+            if (currentEditingIframe) {
+                const codeEditor = document.getElementById('codeEditor');
+                currentEditingIframe.srcdoc = codeEditor.value;
+            }
+            closeSideEditor();
+        }
+
+        function closeSideEditor() {
+            const sideEditor = document.getElementById('sideEditor');
+            sideEditor.classList.remove('open');
+            currentEditingIframe = null;
+        }
+    </script>
+
+</body>
+</html>
