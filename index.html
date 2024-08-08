@@ -2,12 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم المحسنة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق لوحة التحكم</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=72">
-<style>
+    <style>
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
@@ -229,8 +227,10 @@
 <body>
     <div class="app-container">
         <header>
-            <span id="pageTitle">لوحة التحكم</span><a href="kraar.html" class="icon">
-                        <i class="fas fa-code">انقر هنا</i>
+            <span id="pageTitle">لوحة التحكم</span>
+            <a href="kraar.html" class="icon">
+                <i class="fas fa-code">انقر هنا</i>
+            </a>
         </header>
 
         <div class="sidebar" id="sidebar">
@@ -294,147 +294,7 @@
         const pageTitle = document.getElementById('pageTitle');
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.querySelector('.content');
-        const iframeContainer = document.getElementById('iframeContainer');
-
-        links.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                pageTitle.textContent = this.textContent.trim();
-                addIframe(this.href);
-            });
-        });
-
-        function loadFile(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                fileContent = e.target.result;
-                document.getElementById('fileContent').innerText = fileContent;
-                document.getElementById('myModal').style.display = 'block';
-                openCodeEditor();
-            };
-            reader.readAsText(file);
-        }
-
-        function loadAndDisplayFile() {
-            const fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.accept = '.html';
-            fileInput.style.display = 'none';
-
-            fileInput.onchange = function(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const content = e.target.result;
-                    addIframe('data:text/html;charset=utf-8,' + encodeURIComponent(content));
-                };
-                reader.readAsText(file);
-            };
-
-            document.body.appendChild(fileInput);
-            fileInput.click();
-            document.body.removeChild(fileInput);
-        }
-
-        function setDisplaySize(size) {
-            const iframes = document.querySelectorAll('.iframe-wrapper');
-            iframes.forEach(iframe => {
-                iframe.style.width = size === 'phone' ? '375px' : 'calc(50% - 15px)';
-                iframe.style.height = size === 'phone' ? '667px' : '450px';
-            });
-        }
-
-        function addIframe(src) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'iframe-wrapper';
-
-            const iframe = document.createElement('iframe');
-            iframe.src = src;
-
-            const controls = document.createElement('div');
-            controls.className = 'iframe-controls';
-
-            const zoomInBtn = document.createElement('button');
-            zoomInBtn.innerHTML = '<i class="fas fa-search-plus"></i>';
-            zoomInBtn.onclick = () => zoomWrapper(wrapper, 1.1);
-
-            const zoomOutBtn = document.createElement('button');
-            zoomOutBtn.innerHTML = '<i class="fas fa-search-minus"></i>';
-            zoomOutBtn.onclick = () => zoomWrapper(wrapper, 0.9);
-
-            const resetZoomBtn = document.createElement('button');
-            resetZoomBtn.innerHTML = '<i class="fas fa-undo"></i>';
-            resetZoomBtn.onclick = () => resetZoomWrapper(wrapper);
-
-            const fullscreenBtn = document.createElement('button');
-            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-            fullscreenBtn.onclick = () => toggleFullscreen(wrapper);
-
-            const closeBtn = document.createElement('button');
-            closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-            closeBtn.onclick = () => closeIframe(wrapper);
-
-            controls.appendChild(zoomInBtn);
-            controls.appendChild(zoomOutBtn);
-            controls.appendChild(resetZoomBtn);
-            controls.appendChild(fullscreenBtn);
-            controls.appendChild(closeBtn);
-
-            wrapper.appendChild(iframe);
-            wrapper.appendChild(controls);
-            iframeContainer.appendChild(wrapper);
-        }
-
-        function zoomWrapper(wrapper, factor) {
-            const currentScale = wrapper.style.transform ? parseFloat(wrapper.style.transform.split('(')[1]) : 1;
-            const newScale = currentScale * factor;
-            wrapper.style.transform = `scale(${newScale})`;
-            wrapper.style.transformOrigin = 'top left';
-            adjustWrapperSize(wrapper, newScale);
-        }
-
-        function resetZoomWrapper(wrapper) {
-            wrapper.style.transform = 'scale(1)';
-            wrapper.style.height = '300px';  // Reset to original height
-        }
-
-        function adjustWrapperSize(wrapper, scale) {
-            const originalHeight = 300;  // Original height of the wrapper
-            wrapper.style.height = `${originalHeight * scale}px`;
-        }
-
-        function toggleFullscreen(wrapper) {
-            if (!document.fullscreenElement) {
-                if (wrapper.requestFullscreen) {
-                    wrapper.requestFullscreen();
-                } else if (wrapper.mozRequestFullScreen) { // Firefox
-                    wrapper.mozRequestFullScreen();
-                } else if (wrapper.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    wrapper.webkitRequestFullscreen();
-                } else if (wrapper.msRequestFullscreen) { // IE/Edge
-                    wrapper.msRequestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.mozCancelFullScreen) { // Firefox
-                    document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { // IE/Edge
-                    document.msExitFullscreen();
-                }
-            }
-        }
-
-        function closeIframe(wrapper) {
-            wrapper.remove();
-        }
+        let iframeUrls = [];
 
         function closeModal() {
             document.getElementById('myModal').style.display = 'none';
@@ -526,6 +386,36 @@
             }
         }
 
+        function addIframe(url) {
+            const iframeContainer = document.getElementById('iframeContainer');
+            const iframeWrapper = document.createElement('div');
+            iframeWrapper.className = 'iframe-wrapper';
+
+            const iframeControls = document.createElement('div');
+            iframeControls.className = 'iframe-controls';
+
+            const closeButton = document.createElement('button');
+            closeButton.innerHTML = '<i class="fas fa-times"></i>';
+            closeButton.addEventListener('click', () => {
+                iframeContainer.removeChild(iframeWrapper);
+                iframeUrls = iframeUrls.filter(u => u !== url);
+            });
+
+            iframeControls.appendChild(reloadButton);
+            iframeControls.appendChild(closeButton);
+
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.onload = function() {
+                // تخزين عنوان URL الإطار في المصفوفة
+                iframeUrls.push(url);
+            };
+
+            iframeWrapper.appendChild(iframeControls);
+            iframeWrapper.appendChild(iframe);
+            iframeContainer.appendChild(iframeWrapper);
+        }
+
         // تحميل الصفحة الافتراضية
         window.addEventListener('load', () => {
             addIframe('https://krarar.github.io/index0/');
@@ -540,6 +430,20 @@
                 }
             }
         }
+
+        // إعادة تحميل الإطارات المفتوحة عند تحديث الصفحة
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('iframeUrls', JSON.stringify(iframeUrls));
+        });
+
+        window.addEventListener('load', () => {
+            const storedUrls = JSON.parse(localStorage.getItem('iframeUrls'));
+            if (storedUrls) {
+                storedUrls.forEach(url => {
+                    addIframe(url);
+                });
+            }
+        });
     </script>
 </body>
 </html>
