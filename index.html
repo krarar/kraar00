@@ -7,124 +7,145 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=72">
-    <style>
+<style>
         :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #34495e;
-            --background-color: #f5f7fa;
-            --hover-color: rgba(255,255,255,0.2);
-            --text-color: #333;
-            --border-radius: 10px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #f0f3f4;
+            --text-color: #34495e;
+            --border-radius: 12px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
+            -webkit-tap-highlight-color: transparent;
         }
-        
-        .dashboard {
-            display: flex;
-            height: 100vh;
-        }
-        
-        .sidebar {
-            width: 280px;
-            background-color: var(--secondary-color);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-            overflow-y: auto;
+
+        .app-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
             box-shadow: var(--box-shadow);
         }
-        
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar {
+            background-color: var(--secondary-color);
+            padding: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex;
+            box-shadow: var(--box-shadow);
+        }
+
         .sidebar a, .sidebar button {
             color: white;
             text-decoration: none;
-            margin-bottom: 15px;
-            font-size: 16px;
-            display: flex;
+            margin-right: 15px;
+            font-size: 14px;
+            display: inline-flex;
             align-items: center;
-            transition: all 0.3s ease;
-            padding: 12px;
+            padding: 8px;
             border-radius: var(--border-radius);
             background: none;
             border: none;
             cursor: pointer;
         }
-        
-        .sidebar a:hover, .sidebar button:hover {
-            background-color: var(--hover-color);
-            transform: translateX(-5px);
-        }
-        
+
         .sidebar a i, .sidebar button i {
-            margin-left: 15px;
-            font-size: 20px;
+            margin-left: 5px;
+            font-size: 18px;
         }
-        
-        .main-content {
-            flex-grow: 10;
-            padding: 10px;
-            overflow-y: auto;
-            transition: all 0.3s ease;
+
+        .content {
+            padding: 20px;
         }
-        
-        header {
+
+        .display-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 5px;
+        }
+
+        .display-controls button {
             background-color: var(--primary-color);
             color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 30px;
+            border: none;
+            padding: 8px 12px;
             border-radius: var(--border-radius);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--box-shadow);
+            cursor: pointer;
+            font-size: 14px;
         }
-        
+
         .iframe-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 15px;
         }
-        
+
         .iframe-wrapper {
             position: relative;
-            width: calc(50% - 15px);
-            height: 450px;
+            width: 100%;
+            height: 300px;
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--box-shadow);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
-        
-        .iframe-wrapper.fullscreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1000;
+
+        .iframe-controls {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            display: flex;
+            gap: 5px;
+            z-index: 10;
         }
-        
+
+        .iframe-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
         iframe {
             width: 100%;
             height: 100%;
             border: none;
             background-color: white;
-            transition: all 0.3s ease;
         }
-        
-        .file-input {
-            display: none;
-        }
-        
+
         .modal {
             display: none;
             position: fixed;
@@ -135,186 +156,121 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0,0,0,0.6);
-            transition: all 0.3s ease;
         }
-        
+
         .modal-content {
-            background-color: #700505;
+            background-color: #fff;
             margin: 10% auto;
-            padding: 30px;
-            border: 1px solid #fff5f5;
-            width: 80%;
-            max-width: 800px;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 600px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
         }
-        
-        .modal-content pre, .modal-content textarea {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            max-height: 500px;
-            overflow-y: auto;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            font-family: 'Courier New', Courier, monospace;
-        }
-        
+
         .close {
             color: #aaa;
             float: left;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
-        
-        .close:hover {
-            color: #000;
+
+        #codeEditor {
+            width: 100%;
+            height: 200px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.5;
         }
-        
-        .display-controls {
+
+        .icon-link-input {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
-        
-        .display-controls button {
+
+        .icon-link-input input {
+            flex-grow: 1;
+            margin-right: 10px;
+            padding: 8px;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
             background-color: var(--primary-color);
             color: white;
             border: none;
             padding: 10px 15px;
             border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: all 0.3s ease;
             font-size: 16px;
-        }
-        
-        .display-controls button:hover {
-            background-color: #3a7bd5;
-            transform: translateY(-2px);
-        }
-        
-        #codeEditor {
+            cursor: pointer;
             width: 100%;
-            height: 350px;
-            margin-top: 20px;
-            font-size: 14px;
-            line-height: 1.5;
+            margin-top: 10px;
         }
-
-        .container {
-            text-align: center;
-        }
-        .icon {
-            font-size: 40px;
-            color: #ffc400;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .icon:hover {
-            color: #b36b00;
-       
-        }
-        .fullscreen-btn, .close-btn {
-            position: absolute;
-            top: 10px;
-            background-color: rgba(190, 42, 42, 0.6);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .fullscreen-btn {
-            right: 50px;
-        }
-        
-        .close-btn {
-            right: 10px;
-        }
-        
-        .fullscreen-btn:hover, .close-btn:hover {
-            background-color: rgba(173, 22, 22, 0.8);
-        }
-        
-        .icon-link-input {
-            display: flex;
-            margin-bottom: 15px;
-        }
-        
-        .icon-link-input input {
-            flex-grow: 1;
-            margin-right: 15px;
-            padding: 10px;
-            border-radius: var(--border-radius);
-            border: 1px solid #ddd;
-            font-size: 16px;
-        }
-        
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 0;
-                padding: 0;
-            }
-            
-            .main-content {
-                margin-right: 0;
-            }
-            
-            
-            .iframe-wrapper {
-                width: 100%;
-            }
-        }
-        
     </style>
 </head>
 <body>
-    
-    <div class="dashboard">
+    <div class="app-container">
+        <header>
+            <span id="pageTitle">لوحة التحكم</span><a href="kraar.html" class="icon">
+                        <i class="fas fa-code">انقر هنا</i>
+        </header>
+
         <div class="sidebar" id="sidebar">
-            <a href="https://krarar.github.io/index0/dashboard.html" target="content-frame"><i class="fas fa-home"></i>لوحة القيادة</a>
+            <a href="https://krarar.github.io/index0/dashboard.html" target="content-frame"><i class="fas fa-home"></i>الرئيسية</a>
             <a href="https://www.youtube.com/watch?v=d4YQEWhTBZg" target="content-frame"><i class="fas fa-users"></i>المستخدمين</a>
             <a href="https://krarar.github.io/index0/in1dex.html" target="content-frame"><i class="fas fa-box"></i>المنتجات</a>
             <a href="https://krarar.github.io/index0/order.html?id=-O34jSIpHAIF_a_wqje8&image=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fmessageemeapp.appspot.com%2Fo%2Fproducts%252FIMG_20240723_224157_174.jpg%3Falt%3Dmedia%26token%3D3e103410-27fb-4b74-848e-0463d6f1c247" target="content-frame"><i class="fas fa-shopping-cart"></i>الطلبات</a>
-            <a href="https://krarar.github.io/index0/details.html?id=-O34jSIpHAIF_a_wqje8" target="content-frame"><i class="fas fa-chart-bar"></i>تفاصيل المنتج</a>
             <a href="https://krarar.github.io/index0/settings.html" target="content-frame"><i class="fas fa-cog"></i>الإعدادات</a>
-            <a href="https://krarar.github.io/index0/orders.html" target="content-frame"><i class="fas fa-envelope"></i>الرسائل</a>
-            <a href="https://krarar.github.io/index0/notifications.html" target="content-frame"><i class="fas fa-bell"></i>الاشعارات</a>
-            <a href="https://krarar.github.io/index0/notif1ications.htmll" target="content-frame"><i class="fas fa-plus-circle"></i>إضافة إشعارات</a>
-            <a href="https://krarar.github.io/index0/reports.html" target="content-frame"><i class="fas fa-file-alt"></i>التقارير</a>
-            <button onclick="document.getElementById('fileInput').click()"><i class="fas fa-upload"></i>تحميل ملف HTML</button>
-            <input type="file" id="fileInput" class="file-input" accept=".html" onchange="loadFile(event)">
-            <button onclick="openIconLinksModal()"><i class="fas fa-link"></i>تعديل روابط الأيقونات</button>
-            
+            <button onclick="document.getElementById('fileInput').click()"><i class="fas fa-upload"></i>تحميل ملف</button>
+            <input type="file" id="fileInput" style="display: none;" accept=".html" onchange="loadFile(event)">
+            <button onclick="openIconLinksModal()"><i class="fas fa-link"></i>تعديل الروابط</button>
         </div>
         
-        <div class="main-content">
-            <header>
-                <div class="container">
-                    <a href="kraar.html" class="icon">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                </div>
-                <span id="pageTitle">التقارير</span>
-                <div class="display-controls">
-                    <button onclick="setDisplaySize('phone')" title="عرض الهاتف"><i class="fas fa-mobile-alt"></i></button>
-                    <button onclick="setDisplaySize('desktop')" title="عرض سطح المكتب"><i class="fas fa-desktop"></i></button>
-                    <button onclick="toggleSidebar()" title="تبديل الشريط الجانبي"><i class="fas fa-bars"></i></button>
-                    <button onclick="openCodeEditor()" title="فتح محرر الكود"><i class="fas fa-code"></i></button>
-                    <button onclick="addCustomPage()" title="إضافة صفحة مخصصة"><i class="fas fa-plus"></i></button>
-                    <button onclick="refreshAllIframes()" title="تحديث جميع الإطارات"><i class="fas fa-sync-alt"></i></button>
-                    <button onclick="loadAndDisplayFile()" title="تحميل وفتح ملف HTML"><i class="fas fa-folder-open"></i></button>
-                    
-                </div>
-            </header>
-            
+        <div class="content">
+            <div class="display-controls">
+                <button onclick="setDisplaySize('phone')" title="عرض الهاتف"><i class="fas fa-mobile-alt"></i></button>
+                <button onclick="setDisplaySize('desktop')" title="عرض سطح المكتب"><i class="fas fa-desktop"></i></button>
+                <button onclick="openCodeEditor()" title="فتح محرر الكود"><i class="fas fa-code"></i></button>
+                <button onclick="addCustomPage()" title="إضافة صفحة مخصصة"><i class="fas fa-plus"></i></button>
+                <button onclick="refreshAllIframes()" title="تحديث جميع الإطارات"><i class="fas fa-sync-alt"></i></button>
+                <button onclick="loadAndDisplayFile()" title="تحميل وفتح ملف HTML"><i class="fas fa-folder-open"></i></button>
+            </div>
+
+            <div class="card">
+                <h2>إحصائيات سريعة</h2>
+                <p>عدد المستخدمين: 1,234</p>
+                <p>إجمالي المبيعات: $5,678</p>
+                <p>الطلبات الجديدة: 56</p>
+            </div>
+
+            <div class="card">
+                <h2>آخر الإجراءات</h2>
+                <button class="btn" onclick="loadCustomPage()">تحميل صفحة مخصصة</button>
+                <button class="btn" onclick="openCodeEditor()">فتح محرر الكود</button>
+            </div>
+
             <div class="iframe-container" id="iframeContainer"></div>
         </div>
     </div>
+
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -323,6 +279,7 @@
             <button onclick="saveChanges()" style="display: none;">حفظ التغييرات</button>
         </div>
     </div>
+
     <div id="iconLinksModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeIconLinksModal()">&times;</span>
@@ -331,16 +288,14 @@
             <button onclick="saveIconLinks()">حفظ التغييرات</button>
         </div>
     </div>
-    
 
     <script>
-        
         const links = document.querySelectorAll('.sidebar a');
         const pageTitle = document.getElementById('pageTitle');
         const sidebar = document.getElementById('sidebar');
-        const mainContent = document.querySelector('.main-content');
+        const mainContent = document.querySelector('.content');
         const iframeContainer = document.getElementById('iframeContainer');
-    
+
         links.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -348,7 +303,7 @@
                 addIframe(this.href);
             });
         });
-    
+
         function loadFile(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -362,49 +317,30 @@
             };
             reader.readAsText(file);
         }
-    
+
         function loadAndDisplayFile() {
             const fileInput = document.createElement('input');
             fileInput.type = 'file';
             fileInput.accept = '.html';
             fileInput.style.display = 'none';
-    
+
             fileInput.onchange = function(event) {
                 const file = event.target.files[0];
                 if (!file) return;
-    
+
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const content = e.target.result;
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'iframe-wrapper';
-    
-                    const iframe = document.createElement('iframe');
-                    iframe.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(content);
-    
-                    const fullscreenBtn = document.createElement('button');
-                    fullscreenBtn.className = 'fullscreen-btn';
-                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-                    fullscreenBtn.onclick = () => toggleFullscreen(wrapper);
-    
-                    const closeBtn = document.createElement('button');
-                    closeBtn.className = 'close-btn';
-                    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    closeBtn.onclick = () => closeIframe(wrapper);
-    
-                    wrapper.appendChild(iframe);
-                    wrapper.appendChild(fullscreenBtn);
-                    wrapper.appendChild(closeBtn);
-                    iframeContainer.appendChild(wrapper);
+                    addIframe('data:text/html;charset=utf-8,' + encodeURIComponent(content));
                 };
                 reader.readAsText(file);
             };
-    
+
             document.body.appendChild(fileInput);
             fileInput.click();
             document.body.removeChild(fileInput);
         }
-    
+
         function setDisplaySize(size) {
             const iframes = document.querySelectorAll('.iframe-wrapper');
             iframes.forEach(iframe => {
@@ -412,95 +348,142 @@
                 iframe.style.height = size === 'phone' ? '667px' : '450px';
             });
         }
-    
-        function toggleFullscreen(wrapper) {
-            wrapper.classList.toggle('fullscreen');
-            const icon = wrapper.querySelector('.fullscreen-btn i');
-            icon.classList.toggle('fa-expand');
-            icon.classList.toggle('fa-compress');
-        }
-    
-        function closeIframe(wrapper) {
-            wrapper.remove();
-        }
-    
+
         function addIframe(src) {
             const wrapper = document.createElement('div');
             wrapper.className = 'iframe-wrapper';
-    
+
             const iframe = document.createElement('iframe');
             iframe.src = src;
-    
+
+            const controls = document.createElement('div');
+            controls.className = 'iframe-controls';
+
+            const zoomInBtn = document.createElement('button');
+            zoomInBtn.innerHTML = '<i class="fas fa-search-plus"></i>';
+            zoomInBtn.onclick = () => zoomWrapper(wrapper, 1.1);
+
+            const zoomOutBtn = document.createElement('button');
+            zoomOutBtn.innerHTML = '<i class="fas fa-search-minus"></i>';
+            zoomOutBtn.onclick = () => zoomWrapper(wrapper, 0.9);
+
+            const resetZoomBtn = document.createElement('button');
+            resetZoomBtn.innerHTML = '<i class="fas fa-undo"></i>';
+            resetZoomBtn.onclick = () => resetZoomWrapper(wrapper);
+
             const fullscreenBtn = document.createElement('button');
-            fullscreenBtn.className = 'fullscreen-btn';
             fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
             fullscreenBtn.onclick = () => toggleFullscreen(wrapper);
-    
+
             const closeBtn = document.createElement('button');
-            closeBtn.className = 'close-btn';
             closeBtn.innerHTML = '<i class="fas fa-times"></i>';
             closeBtn.onclick = () => closeIframe(wrapper);
-    
+
+            controls.appendChild(zoomInBtn);
+            controls.appendChild(zoomOutBtn);
+            controls.appendChild(resetZoomBtn);
+            controls.appendChild(fullscreenBtn);
+            controls.appendChild(closeBtn);
+
             wrapper.appendChild(iframe);
-            wrapper.appendChild(fullscreenBtn);
-            wrapper.appendChild(closeBtn);
+            wrapper.appendChild(controls);
             iframeContainer.appendChild(wrapper);
         }
-    
+
+        function zoomWrapper(wrapper, factor) {
+            const currentScale = wrapper.style.transform ? parseFloat(wrapper.style.transform.split('(')[1]) : 1;
+            const newScale = currentScale * factor;
+            wrapper.style.transform = `scale(${newScale})`;
+            wrapper.style.transformOrigin = 'top left';
+            adjustWrapperSize(wrapper, newScale);
+        }
+
+        function resetZoomWrapper(wrapper) {
+            wrapper.style.transform = 'scale(1)';
+            wrapper.style.height = '300px';  // Reset to original height
+        }
+
+        function adjustWrapperSize(wrapper, scale) {
+            const originalHeight = 300;  // Original height of the wrapper
+            wrapper.style.height = `${originalHeight * scale}px`;
+        }
+
+        function toggleFullscreen(wrapper) {
+            if (!document.fullscreenElement) {
+                if (wrapper.requestFullscreen) {
+                    wrapper.requestFullscreen();
+                } else if (wrapper.mozRequestFullScreen) { // Firefox
+                    wrapper.mozRequestFullScreen();
+                } else if (wrapper.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                    wrapper.webkitRequestFullscreen();
+                } else if (wrapper.msRequestFullscreen) { // IE/Edge
+                    wrapper.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) { // Firefox
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { // IE/Edge
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        function closeIframe(wrapper) {
+            wrapper.remove();
+        }
+
         function closeModal() {
             document.getElementById('myModal').style.display = 'none';
             document.getElementById('fileContent').style.display = 'block';
             document.getElementById('codeEditor').style.display = 'none';
             document.querySelector('.modal-content button').style.display = 'none';
         }
-    
+
         function toggleSidebar() {
             const isClosed = sidebar.style.width === '0px';
             sidebar.style.width = isClosed ? '280px' : '0px';
             mainContent.style.marginRight = isClosed ? '280px' : '0';
         }
-    
+
         let fileContent = '';
-    
+
         function openCodeEditor() {
             const modal = document.getElementById('myModal');
             const fileContentElement = document.getElementById('fileContent');
             const codeEditor = document.getElementById('codeEditor');
             const saveButton = document.querySelector('.modal-content button');
-    
+
             modal.style.display = 'block';
             fileContentElement.style.display = 'none';
             codeEditor.style.display = 'block';
             saveButton.style.display = 'block';
-    
-            codeEditor.value = fileContent;
+
+            codeEditor.value = fileContent || '<!-- أدخل الكود HTML هنا -->';
         }
-    
+
         function saveChanges() {
             const codeEditor = document.getElementById('codeEditor');
             fileContent = codeEditor.value;
-            const iframe = document.querySelector('iframe[src="data:text/html;charset=utf-8,' + encodeURIComponent(fileContent) + '"]');
-            if (iframe) {
-                const doc = iframe.contentWindow.document;
-                doc.open();
-                doc.write(fileContent);
-                doc.close();
-            }
+            addIframe('data:text/html;charset=utf-8,' + encodeURIComponent(fileContent));
             closeModal();
         }
-    
+
         function addCustomPage() {
             const customUrl = prompt('أدخل عنوان URL للصفحة المخصصة:');
             if (customUrl) {
                 addIframe(customUrl);
             }
         }
-    
+
         function openIconLinksModal() {
             const modal = document.getElementById('iconLinksModal');
             const form = document.getElementById('iconLinksForm');
             form.innerHTML = '';
-    
+
             const links = document.querySelectorAll('.sidebar a');
             links.forEach((link, index) => {
                 const input = document.createElement('div');
@@ -510,14 +493,14 @@
                 `;
                 form.appendChild(input);
             });
-    
+
             modal.style.display = 'block';
         }
-    
+
         function closeIconLinksModal() {
             document.getElementById('iconLinksModal').style.display = 'none';
         }
-    
+
         function saveIconLinks() {
             const links = document.querySelectorAll('.sidebar a');
             links.forEach((link, index) => {
@@ -528,19 +511,26 @@
             });
             closeIconLinksModal();
         }
-    
+
         function refreshAllIframes() {
             const iframes = document.querySelectorAll('iframe');
             iframes.forEach(iframe => {
-                iframe.src = iframe.src; // تحديث iframe
+                iframe.src = iframe.src;
             });
         }
-    
+
+        function loadCustomPage() {
+            const customUrl = prompt('أدخل عنوان URL للصفحة المخصصة:');
+            if (customUrl) {
+                addIframe(customUrl);
+            }
+        }
+
         // تحميل الصفحة الافتراضية
         window.addEventListener('load', () => {
             addIframe('https://krarar.github.io/index0/');
         });
-    
+
         // إغلاق النوافذ المنبثقة عند النقر خارجها
         window.onclick = function(event) {
             const modals = document.getElementsByClassName('modal');
@@ -551,6 +541,5 @@
             }
         }
     </script>
-    </body>
-    </html>
-    
+</body>
+</html>
