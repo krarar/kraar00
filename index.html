@@ -227,10 +227,8 @@
 <body>
     <div class="app-container">
         <header>
-            <span id="pageTitle">لوحة التحكم</span>
-            <a href="kraar.html" class="icon">
-                <i class="fas fa-code">انقر هنا</i>
-            </a>
+            <span id="pageTitle">لوحة التحكم</span><a href="kraar.html" class="icon">
+                        <i class="fas fa-code">انقر هنا</i>
         </header>
 
         <div class="sidebar" id="sidebar">
@@ -294,7 +292,7 @@
         const pageTitle = document.getElementById('pageTitle');
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.querySelector('.content');
-        let iframeUrls = [];
+        
 
         function closeModal() {
             document.getElementById('myModal').style.display = 'none';
@@ -386,36 +384,6 @@
             }
         }
 
-        function addIframe(url) {
-            const iframeContainer = document.getElementById('iframeContainer');
-            const iframeWrapper = document.createElement('div');
-            iframeWrapper.className = 'iframe-wrapper';
-
-            const iframeControls = document.createElement('div');
-            iframeControls.className = 'iframe-controls';
-
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '<i class="fas fa-times"></i>';
-            closeButton.addEventListener('click', () => {
-                iframeContainer.removeChild(iframeWrapper);
-                iframeUrls = iframeUrls.filter(u => u !== url);
-            });
-
-            iframeControls.appendChild(reloadButton);
-            iframeControls.appendChild(closeButton);
-
-            const iframe = document.createElement('iframe');
-            iframe.src = url;
-            iframe.onload = function() {
-                // تخزين عنوان URL الإطار في المصفوفة
-                iframeUrls.push(url);
-            };
-
-            iframeWrapper.appendChild(iframeControls);
-            iframeWrapper.appendChild(iframe);
-            iframeContainer.appendChild(iframeWrapper);
-        }
-
         // تحميل الصفحة الافتراضية
         window.addEventListener('load', () => {
             addIframe('https://krarar.github.io/index0/');
@@ -430,20 +398,6 @@
                 }
             }
         }
-
-        // إعادة تحميل الإطارات المفتوحة عند تحديث الصفحة
-        window.addEventListener('beforeunload', () => {
-            localStorage.setItem('iframeUrls', JSON.stringify(iframeUrls));
-        });
-
-        window.addEventListener('load', () => {
-            const storedUrls = JSON.parse(localStorage.getItem('iframeUrls'));
-            if (storedUrls) {
-                storedUrls.forEach(url => {
-                    addIframe(url);
-                });
-            }
-        });
     </script>
 </body>
 </html>
