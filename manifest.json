@@ -1,59 +1,51 @@
 {
   "name": "تاكسي العراق",
   "short_name": "تاكسي العراق",
-  "start_url": "https://alqasimmall.github.io/Al-Pasha/",
+  "start_url": "/Pasha-taxi/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#FFD700",
   "orientation": "portrait-primary",
   "gcm_sender_id": "255034474844",
   "description": "خدمة حجز سيارات الأجرة الأفضل في العراق",
+  "categories": ["travel", "transportation"],
+  "lang": "ar",
+  "dir": "rtl",
   "icons": [
+
+    
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "permissions": [
-    "gcm",
-    "notifications",
-    "geolocation"
-  ],
-  "scope": "https://alqasimmall.github.io/Al-Pasha/"
-}
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-documents%2F1734644253154_804d270b-3b63-4acc-bf8b-7088cd1cd6d5.webp?alt=media&token=886c18d0-56b0-4f09-9b98-86d5434a19e3",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-documents%2F1734644253154_804d270b-3b63-4acc-bf8b-7088cd1cd6d5.webp?alt=media&token=886c18d0-56b0-4f09-9b98-86d5434a19e3",
       "type": "image/png",
       "sizes": "384x384"
     },
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-documents%2F1734644253154_804d270b-3b63-4acc-bf8b-7088cd1cd6d5.webp?alt=media&token=886c18d0-56b0-4f09-9b98-86d5434a19e3",
       "type": "image/png",
       "sizes": "512x512"
     },
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-documents%2F1734644253154_804d270b-3b63-4acc-bf8b-7088cd1cd6d5.webp?alt=media&token=886c18d0-56b0-4f09-9b98-86d5434a19e3",
       "type": "image/png",
       "sizes": "1024x1024"
     }
   ],
   "screenshots": [
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-documents%2F1734644253154_804d270b-3b63-4acc-bf8b-7088cd1cd6d5.webp?alt=media&token=886c18d0-56b0-4f09-9b98-86d5434a19e3",
       "type": "image/png",
       "sizes": "1080x1920"
     }
   ],
   "splash_screens": [
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-documents%2F1734644253154_804d270b-3b63-4acc-bf8b-7088cd1cd6d5.webp?alt=media&token=886c18d0-56b0-4f09-9b98-86d5434a19e3",
       "sizes": "2048x2732",
       "type": "image/png"
     }
@@ -63,10 +55,10 @@
   "shortcuts": [
     {
       "name": "البحث عن سائق",
-      "url": "/Al-Pasha/search",
+      "url": "/Pasha-taxi/search",
       "icons": [
         {
-          "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+          "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-documents%2F1734644253154_804d270b-3b63-4acc-bf8b-7088cd1cd6d5.webp?alt=media&token=886c18d0-56b0-4f09-9b98-86d5434a19e3",
           "sizes": "96x96"
         }
       ]
@@ -83,7 +75,7 @@
     "geolocation"
   ],
   "serviceworker": {
-    "src": "/Al-Pasha/firebase-messaging-sw.js",
-    "scope": "/Al-Pasha/"
+    "src": "/Pasha-taxi/firebase-messaging-sw.js",
+    "scope": "/Pasha-taxi/"
   }
 }
