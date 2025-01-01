@@ -1,556 +1,992 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم المحسنة</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/ads%2F%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%AA%D8%AC%D8%B1-%D8%A7%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A.jpg?alt=media&token=0b48f422-d863-4a43-98f9-c5f43c2d531b&size=72">
-    <style>
-        :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #34495e;
-            --background-color: #f5f7fa;
-            --hover-color: rgba(255,255,255,0.2);
-            --text-color: #333;
-            --border-radius: 10px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-color);
-            color: var(--text-color);
-        }
-        
-        .dashboard {
-            display: flex;
-            height: 100vh;
-        }
-        
-        .sidebar {
-            width: 280px;
-            background-color: var(--secondary-color);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-            overflow-y: auto;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .sidebar a, .sidebar button {
-            color: white;
-            text-decoration: none;
-            margin-bottom: 15px;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            padding: 12px;
-            border-radius: var(--border-radius);
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .sidebar a:hover, .sidebar button:hover {
-            background-color: var(--hover-color);
-            transform: translateX(-5px);
-        }
-        
-        .sidebar a i, .sidebar button i {
-            margin-left: 15px;
-            font-size: 20px;
-        }
-        
-        .main-content {
-            flex-grow: 10;
-            padding: 10px;
-            overflow-y: auto;
-            transition: all 0.3s ease;
-        }
-        
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 30px;
-            border-radius: var(--border-radius);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .iframe-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-        
-        .iframe-wrapper {
-            position: relative;
-            width: calc(50% - 15px);
-            height: 450px;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: all 0.3s ease;
-        }
-        
-        .iframe-wrapper.fullscreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1000;
-        }
-        
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background-color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .file-input {
-            display: none;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            transition: all 0.3s ease;
-        }
-        
-        .modal-content {
-            background-color: #700505;
-            margin: 10% auto;
-            padding: 30px;
-            border: 1px solid #fff5f5;
-            width: 80%;
-            max-width: 800px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-        
-        .modal-content pre, .modal-content textarea {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            max-height: 500px;
-            overflow-y: auto;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            font-family: 'Courier New', Courier, monospace;
-        }
-        
-        .close {
-            color: #aaa;
-            float: left;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .close:hover {
-            color: #000;
-        }
-        
-        .display-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .display-controls button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-        }
-        
-        .display-controls button:hover {
-            background-color: #3a7bd5;
-            transform: translateY(-2px);
-        }
-        
-        #codeEditor {
-            width: 100%;
-            height: 350px;
-            margin-top: 20px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="application-name" content="تاكسي العراق">
+<meta name="apple-mobile-web-app-title" content="تاكسي العراق">
+<meta name="theme-color" content="#FFD700">
+<meta name="msapplication-navbutton-color" content="#FFD700">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="msapplication-starturl" content="/Pasha-Taxi-/">
 
-        .container {
-            text-align: center;
-        }
-        .icon {
-            font-size: 40px;
-            color: #ffc400;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .icon:hover {
-            color: #b36b00;
-       
-        }
-        .fullscreen-btn, .close-btn {
-            position: absolute;
-            top: 10px;
-            background-color: rgba(190, 42, 42, 0.6);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .fullscreen-btn {
-            right: 50px;
-        }
-        
-        .close-btn {
-            right: 10px;
-        }
-        
-        .fullscreen-btn:hover, .close-btn:hover {
-            background-color: rgba(173, 22, 22, 0.8);
-        }
-        
-        .icon-link-input {
-            display: flex;
-            margin-bottom: 15px;
-        }
-        
-        .icon-link-input input {
-            flex-grow: 1;
-            margin-right: 15px;
-            padding: 10px;
-            border-radius: var(--border-radius);
-            border: 1px solid #ddd;
-            font-size: 16px;
-        }
-        
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 0;
-                padding: 0;
-            }
-            
-            .main-content {
-                margin-right: 0;
-            }
-            
-            
-            .iframe-wrapper {
-                width: 100%;
-            }
-        }
-        
+    <title>تاكسي العراق - خدمة حجز السيارات الأولى في العراق</title>
+
+    <!-- App Icons -->
+    <!-- Update this line in index.html -->
+<link rel="manifest" href="/Pasha-Taxi-/manifest.json">
+    <link rel="icon" type="image/png"
+        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <link rel="apple-touch-startup-image"
+        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- External CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="تاكسي العراق">
+    <meta property="og:description" content="خدمة حجز سيارات الأجرة الأفضل في العراق">
+    <meta property="og:image"
+        content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <meta property="og:url" content="https://taxi-iraq.com">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="تاكسي العراق">
+    <meta name="twitter:description" content="خدمة حجز سيارات الأجرة الأفضل في العراق">
+    <meta name="twitter:image"
+        content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+        <script src="/Pasha-Taxi-/install.js"></script>
+
+
+    <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+    
+
+
+
+    <!-- App Scripts -->
+
+ <script src="firebase-messaging-sw.js></script>
+ 
+ <script src=" script.js"></script>
+ 
+
+
+
+
+
+
+
+    <!-- Application CSS -->
+    <style>
+
     </style>
 </head>
-<body>
-    
-    <div class="dashboard">
-        <div class="sidebar" id="sidebar">
-            <a href="https://krarar.github.io/index0/dashboard.html" target="content-frame"><i class="fas fa-home"></i>لوحة القيادة</a>
-            <a href="https://www.youtube.com/watch?v=d4YQEWhTBZg" target="content-frame"><i class="fas fa-users"></i>المستخدمين</a>
-            <a href="https://krarar.github.io/index0/in1dex.html" target="content-frame"><i class="fas fa-box"></i>المنتجات</a>
-            <a href="https://krarar.github.io/index0/order.html?id=-O34jSIpHAIF_a_wqje8&image=https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Fmessageemeapp.appspot.com%2Fo%2Fproducts%252FIMG_20240723_224157_174.jpg%3Falt%3Dmedia%26token%3D3e103410-27fb-4b74-848e-0463d6f1c247" target="content-frame"><i class="fas fa-shopping-cart"></i>الطلبات</a>
-            <a href="https://krarar.github.io/index0/details.html?id=-O34jSIpHAIF_a_wqje8" target="content-frame"><i class="fas fa-chart-bar"></i>تفاصيل المنتج</a>
-            <a href="https://krarar.github.io/index0/settings.html" target="content-frame"><i class="fas fa-cog"></i>الإعدادات</a>
-            <a href="https://krarar.github.io/index0/orders.html" target="content-frame"><i class="fas fa-envelope"></i>الرسائل</a>
-            <a href="https://krarar.github.io/index0/notifications.html" target="content-frame"><i class="fas fa-bell"></i>الاشعارات</a>
-            <a href="https://krarar.github.io/index0/notif1ications.htmll" target="content-frame"><i class="fas fa-plus-circle"></i>إضافة إشعارات</a>
-            <a href="https://krarar.github.io/index0/reports.html" target="content-frame"><i class="fas fa-file-alt"></i>التقارير</a>
-            <button onclick="document.getElementById('fileInput').click()"><i class="fas fa-upload"></i>تحميل ملف HTML</button>
-            <input type="file" id="fileInput" class="file-input" accept=".html" onchange="loadFile(event)">
-            <button onclick="openIconLinksModal()"><i class="fas fa-link"></i>تعديل روابط الأيقونات</button>
-            
-        </div>
-        
-        <div class="main-content">
-            <header>
-                <div class="container">
-                    <a href="kraar.html" class="icon">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                </div>
-                <span id="pageTitle">التقارير</span>
-                <div class="display-controls">
-                    <button onclick="setDisplaySize('phone')" title="عرض الهاتف"><i class="fas fa-mobile-alt"></i></button>
-                    <button onclick="setDisplaySize('desktop')" title="عرض سطح المكتب"><i class="fas fa-desktop"></i></button>
-                    <button onclick="toggleSidebar()" title="تبديل الشريط الجانبي"><i class="fas fa-bars"></i></button>
-                    <button onclick="openCodeEditor()" title="فتح محرر الكود"><i class="fas fa-code"></i></button>
-                    <button onclick="addCustomPage()" title="إضافة صفحة مخصصة"><i class="fas fa-plus"></i></button>
-                    <button onclick="refreshAllIframes()" title="تحديث جميع الإطارات"><i class="fas fa-sync-alt"></i></button>
-                    <button onclick="loadAndDisplayFile()" title="تحميل وفتح ملف HTML"><i class="fas fa-folder-open"></i></button>
-                    
-                </div>
-            </header>
-            
-            <div class="iframe-container" id="iframeContainer"></div>
-        </div>
-    </div>
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <pre id="fileContent"></pre>
-            <textarea id="codeEditor" style="display: none;"></textarea>
-            <button onclick="saveChanges()" style="display: none;">حفظ التغييرات</button>
-        </div>
-    </div>
-    <div id="iconLinksModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeIconLinksModal()">&times;</span>
-            <h2>تعديل روابط الأيقونات</h2>
-            <div id="iconLinksForm"></div>
-            <button onclick="saveIconLinks()">حفظ التغييرات</button>
-        </div>
-    </div>
-    
 
-    <script>
-        
-        const links = document.querySelectorAll('.sidebar a');
-        const pageTitle = document.getElementById('pageTitle');
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.querySelector('.main-content');
-        const iframeContainer = document.getElementById('iframeContainer');
-    
-        links.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                pageTitle.textContent = this.textContent.trim();
-                addIframe(this.href);
-            });
-        });
-    
-        function loadFile(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                fileContent = e.target.result;
-                document.getElementById('fileContent').innerText = fileContent;
-                document.getElementById('myModal').style.display = 'block';
-                openCodeEditor();
-            };
-            reader.readAsText(file);
-        }
-    
-        function loadAndDisplayFile() {
-            const fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.accept = '.html';
-            fileInput.style.display = 'none';
-    
-            fileInput.onchange = function(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-    
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const content = e.target.result;
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'iframe-wrapper';
-    
-                    const iframe = document.createElement('iframe');
-                    iframe.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(content);
-    
-                    const fullscreenBtn = document.createElement('button');
-                    fullscreenBtn.className = 'fullscreen-btn';
-                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-                    fullscreenBtn.onclick = () => toggleFullscreen(wrapper);
-    
-                    const closeBtn = document.createElement('button');
-                    closeBtn.className = 'close-btn';
-                    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    closeBtn.onclick = () => closeIframe(wrapper);
-    
-                    wrapper.appendChild(iframe);
-                    wrapper.appendChild(fullscreenBtn);
-                    wrapper.appendChild(closeBtn);
-                    iframeContainer.appendChild(wrapper);
-                };
-                reader.readAsText(file);
-            };
-    
-            document.body.appendChild(fileInput);
-            fileInput.click();
-            document.body.removeChild(fileInput);
-        }
-    
-        function setDisplaySize(size) {
-            const iframes = document.querySelectorAll('.iframe-wrapper');
-            iframes.forEach(iframe => {
-                iframe.style.width = size === 'phone' ? '375px' : 'calc(50% - 15px)';
-                iframe.style.height = size === 'phone' ? '667px' : '450px';
-            });
-        }
-    
-        function toggleFullscreen(wrapper) {
-            wrapper.classList.toggle('fullscreen');
-            const icon = wrapper.querySelector('.fullscreen-btn i');
-            icon.classList.toggle('fa-expand');
-            icon.classList.toggle('fa-compress');
-        }
-    
-        function closeIframe(wrapper) {
-            wrapper.remove();
-        }
-    
-        function addIframe(src) {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'iframe-wrapper';
-    
-            const iframe = document.createElement('iframe');
-            iframe.src = src;
-    
-            const fullscreenBtn = document.createElement('button');
-            fullscreenBtn.className = 'fullscreen-btn';
-            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-            fullscreenBtn.onclick = () => toggleFullscreen(wrapper);
-    
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'close-btn';
-            closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-            closeBtn.onclick = () => closeIframe(wrapper);
-    
-            wrapper.appendChild(iframe);
-            wrapper.appendChild(fullscreenBtn);
-            wrapper.appendChild(closeBtn);
-            iframeContainer.appendChild(wrapper);
-        }
-    
-        function closeModal() {
-            document.getElementById('myModal').style.display = 'none';
-            document.getElementById('fileContent').style.display = 'block';
-            document.getElementById('codeEditor').style.display = 'none';
-            document.querySelector('.modal-content button').style.display = 'none';
-        }
-    
-        function toggleSidebar() {
-            const isClosed = sidebar.style.width === '0px';
-            sidebar.style.width = isClosed ? '280px' : '0px';
-            mainContent.style.marginRight = isClosed ? '280px' : '0';
-        }
-    
-        let fileContent = '';
-    
-        function openCodeEditor() {
-            const modal = document.getElementById('myModal');
-            const fileContentElement = document.getElementById('fileContent');
-            const codeEditor = document.getElementById('codeEditor');
-            const saveButton = document.querySelector('.modal-content button');
-    
-            modal.style.display = 'block';
-            fileContentElement.style.display = 'none';
-            codeEditor.style.display = 'block';
-            saveButton.style.display = 'block';
-    
-            codeEditor.value = fileContent;
-        }
-    
-        function saveChanges() {
-            const codeEditor = document.getElementById('codeEditor');
-            fileContent = codeEditor.value;
-            const iframe = document.querySelector('iframe[src="data:text/html;charset=utf-8,' + encodeURIComponent(fileContent) + '"]');
-            if (iframe) {
-                const doc = iframe.contentWindow.document;
-                doc.open();
-                doc.write(fileContent);
-                doc.close();
-            }
-            closeModal();
-        }
-    
-        function addCustomPage() {
-            const customUrl = prompt('أدخل عنوان URL للصفحة المخصصة:');
-            if (customUrl) {
-                addIframe(customUrl);
-            }
-        }
-    
-        function openIconLinksModal() {
-            const modal = document.getElementById('iconLinksModal');
-            const form = document.getElementById('iconLinksForm');
-            form.innerHTML = '';
-    
-            const links = document.querySelectorAll('.sidebar a');
-            links.forEach((link, index) => {
-                const input = document.createElement('div');
-                input.className = 'icon-link-input';
-                input.innerHTML = `
-                    <input type="text" id="iconLink${index}" value="${link.href}" placeholder="${link.textContent.trim()}">
-                `;
-                form.appendChild(input);
-            });
-    
-            modal.style.display = 'block';
-        }
-    
-        function closeIconLinksModal() {
-            document.getElementById('iconLinksModal').style.display = 'none';
-        }
-    
-        function saveIconLinks() {
-            const links = document.querySelectorAll('.sidebar a');
-            links.forEach((link, index) => {
-                const input = document.getElementById(`iconLink${index}`);
-                if (input && input.value) {
-                    link.href = input.value;
-                }
-            });
-            closeIconLinksModal();
-        }
-    
-        function refreshAllIframes() {
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                iframe.src = iframe.src; // تحديث iframe
-            });
-        }
-    
-        // تحميل الصفحة الافتراضية
-        window.addEventListener('load', () => {
-            addIframe('https://krarar.github.io/index0/');
-        });
-    
-        // إغلاق النوافذ المنبثقة عند النقر خارجها
-        window.onclick = function(event) {
-            const modals = document.getElementsByClassName('modal');
-            for (let modal of modals) {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            }
-        }
-    </script>
-    </body>
-    </html>
-    
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark app-header fixed-top">
+
+        <div class="container">
+            <a class="app-logo navbar-brand" href="#">
+                <i class="fas fa-taxi"></i>
+                تاكسي العراق
+            </a>
+            <!-- زر فتح الشريط الجانبي -->
+            <button class="nav-toggle" onclick="toggleSideNav()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="navbar app-header fixed-top">
+                <div class="container d-flex justify-content-between align-items-center">
+                    <!-- اللوجو واسم التطبيق مع أيقونة البحث -->
+                    <div class="d-flex align-items-center app-title">
+                        <a class="app-logo d-flex align-items-center" href="index.html">
+                            <i class="fas fa-taxi me-2"></i>
+                            <span>ataxiPash</span>
+                        </a>
+                        <!-- أيقونة البحث بجانب الاسم -->
+                        <div class="side-nav" id="sideNav">
+                            <div class="side-nav-header">
+                                <h2 class="side-nav-title">تاكسي العراق</h2>
+                                <button class="side-nav-close" onclick="toggleSideNav()">×</button>
+                            </div>
+                            <div class="side-nav-items">
+                                <a href="/" class="side-nav-item"><i class="fas fa-home"></i> الرئيسية</a>
+                                <a href="/drivers" class="side-nav-item"><i class="fas fa-users"></i> السائقين</a>
+                                <!-- زر الإضافة تحت السائقين -->
+                                <button class="add-driver-btn side-nav-item" onclick="showAddDriverModal()">
+                                    <i class="fas fa-user-plus"></i> إضافة سائق
+                                </button>
+                                <a href="/trips" class="side-nav-item"><i class="fas fa-car"></i> الرحلات</a>
+                                <a href="/map" class="side-nav-item"><i class="fas fa-map"></i> الخريطة</a>
+                                <a href="/notifications" class="side-nav-item"><i class="fas fa-bell"></i> الإشعارات</a>
+                                <a href="/messages" class="side-nav-item"><i class="fas fa-envelope"></i> الرسائل</a>
+                                <a href="/settings" class="side-nav-item"><i class="fas fa-cog"></i> الإعدادات</a>
+                            </div>
+                        </div>
+
+                        <!-- شريط الأدوات السفلي -->
+                        <div class="bottom-nav">
+                            <a href="/" class="bottom-nav-item">
+                                <i class="fas fa-home"></i>
+                                <span>الرئيسية</span>
+                            </a>
+                            <a href="/explore" class="bottom-nav-item">
+                                <i class="fas fa-compass"></i>
+                                <span>استكشاف</span>
+                            </a>
+                            <a href="/favorites" class="bottom-nav-item">
+                                <i class="fas fa-star"></i>
+                                <span>المفضلة</span>
+                            </a>
+                            <a href="/trips" class="bottom-nav-item">
+                                <i class="fas fa-car"></i>
+                                <span>الرحلات</span>
+                            </a>
+                        </div>
+
+
+
+                        <!-- كود الـ Backdrop للشريط الجانبي -->
+                        <div class="nav-backdrop" id="navBackdrop" onclick="toggleSideNav()"></div>
+</body>
+
+
+<!-- الأدوات الأخرى (التنبيهات، حسابي) -->
+<div class="tools d-flex align-items-center">
+    <!-- Search Icon -->
+    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#searchModal">
+        <i class="fas fa-search"></i>
+    </a>
+
+    <!-- Notifications Icon -->
+    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#notificationsModal">
+        <i class="fas fa-bell"></i>
+    </a>
+
+    <!-- Profile/Account Icon - يفتح نافذة اختيار نوع الحساب -->
+    <a class="nav-link user-profile-btn" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
+        <i class="fas fa-user"></i>
+        <span class="ms-1 d-none d-md-inline">تسجيل</span>
+    </a>
+</div>
+
+</nav>
+
+</a>
+</div>
+</div>
+</nav>
+
+</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Map View -->
+    <div id="map"></div>
+
+    <!-- Location Filter -->
+    <div class="location-filter">
+        <div class="location-chips" id="locationFilter">
+            <span class="location-chip active" data-location="all">
+                <i class="fas fa-globe"></i>
+                الكل
+            </span>
+            <span class="location-chip" data-location="بغداد">
+                <i class="fas fa-map-marker-alt"></i>
+                بغداد
+            </span>
+            <span class="location-chip" data-location="الكرخ">
+                <i class="fas fa-map-marker-alt"></i>
+                الكرخ
+            </span>
+            <span class="location-chip" data-location="الرصافة">
+                <i class="fas fa-map-marker-alt"></i>
+                الرصافة
+            </span>
+            <span class="location-chip" data-location="البصرة">
+                <i class="fas fa-map-marker-alt"></i>
+                البصرة
+            </span>
+            <span class="location-chip" data-location="نينوى">
+                <i class="fas fa-map-marker-alt"></i>
+                نينوى
+            </span>
+            <span class="location-chip" data-location="الموصل">
+                <i class="fas fa-map-marker-alt"></i>
+                الموصل
+            </span>
+            <span class="location-chip" data-location="النجف">
+                <i class="fas fa-map-marker-alt"></i>
+                النجف
+            </span>
+            <span class="location-chip" data-location="الكوفة">
+                <i class="fas fa-map-marker-alt"></i>
+                الكوفة
+            </span>
+            <span class="location-chip" data-location="كربلاء">
+                <i class="fas fa-map-marker-alt"></i>
+                كربلاء
+            </span>
+            <span class="location-chip" data-location="الحسينية">
+                <i class="fas fa-map-marker-alt"></i>
+                الحسينية
+            </span>
+            <span class="location-chip" data-location="أربيل">
+                <i class="fas fa-map-marker-alt"></i>
+                أربيل
+            </span>
+            <span class="location-chip" data-location="كركوك">
+                <i class="fas fa-map-marker-alt"></i>
+                كركوك
+            </span>
+            <span class="location-chip" data-location="الأنبار">
+                <i class="fas fa-map-marker-alt"></i>
+                الأنبار
+            </span>
+            <span class="location-chip" data-location="الرمادي">
+                <i class="fas fa-map-marker-alt"></i>
+                الرمادي
+            </span>
+            <span class="location-chip" data-location="الفلوجة">
+                <i class="fas fa-map-marker-alt"></i>
+                الفلوجة
+            </span>
+            <span class="location-chip" data-location="بابل">
+                <i class="fas fa-map-marker-alt"></i>
+                بابل
+            </span>
+            <span class="location-chip" data-location="الحلة">
+                <i class="fas fa-map-marker-alt"></i>
+                الحلة
+            </span>
+            <span class="location-chip" data-location="المسيب">
+                <i class="fas fa-map-marker-alt"></i>
+                المسيب
+            </span>
+            <span class="location-chip" data-location="الهاشمية">
+                <i class="fas fa-map-marker-alt"></i>
+                الهاشمية
+            </span>
+            <span class="location-chip" data-location="القاسم">
+                <i class="fas fa-map-marker-alt"></i>
+                القاسم
+            </span>
+            <span class="location-chip" data-location="ديالى">
+                <i class="fas fa-map-marker-alt"></i>
+                ديالى
+            </span>
+            <span class="location-chip" data-location="بعقوبة">
+                <i class="fas fa-map-marker-alt"></i>
+                بعقوبة
+            </span>
+            <span class="location-chip" data-location="ذي قار">
+                <i class="fas fa-map-marker-alt"></i>
+                ذي قار
+            </span>
+            <span class="location-chip" data-location="الناصرية">
+                <i class="fas fa-map-marker-alt"></i>
+                الناصرية
+            </span>
+            <span class="location-chip" data-location="السليمانية">
+                <i class="fas fa-map-marker-alt"></i>
+                السليمانية
+            </span>
+            <span class="location-chip" data-location="صلاح الدين">
+                <i class="fas fa-map-marker-alt"></i>
+                صلاح الدين
+            </span>
+            <span class="location-chip" data-location="تكريت">
+                <i class="fas fa-map-marker-alt"></i>
+                تكريت
+            </span>
+            <span class="location-chip" data-location="واسط">
+                <i class="fas fa-map-marker-alt"></i>
+                واسط
+            </span>
+            <span class="location-chip" data-location="الكوت">
+                <i class="fas fa-map-marker-alt"></i>
+                الكوت
+            </span>
+            <span class="location-chip" data-location="ميسان">
+                <i class="fas fa-map-marker-alt"></i>
+                ميسان
+            </span>
+            <span class="location-chip" data-location="العمارة">
+                <i class="fas fa-map-marker-alt"></i>
+                العمارة
+            </span>
+            <span class="location-chip" data-location="المثنى">
+                <i class="fas fa-map-marker-alt"></i>
+                المثنى
+            </span>
+            <span class="location-chip" data-location="السماوة">
+                <i class="fas fa-map-marker-alt"></i>
+                السماوة
+            </span>
+            <span class="location-chip" data-location="دهوك">
+                <i class="fas fa-map-marker-alt"></i>
+                دهوك
+            </span>
+            <span class="location-chip" data-location="القادسية">
+                <i class="fas fa-map-marker-alt"></i>
+                القادسية
+            </span>
+            <span class="location-chip" data-location="الديوانية">
+                <i class="fas fa-map-marker-alt"></i>
+                الديوانية
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Drivers Grid -->
+    <div class="drivers-grid" id="driversGrid"></div>
+</div>
+
+
+
+<!-- Add Driver Modal -->
+<div class="modal fade" id="addDriverModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">إضافة سائق جديد</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+
+                <form id="addDriverForm" onsubmit="handleAddDriver(event)">
+                    <div class="mb-4 text-center">
+                        <div class="image-upload-container" onclick="document.getElementById('driverImage').click()">
+                            <input type="file" id="driverImage" accept="image/*" style="display: none"
+                                onchange="handleImagePreview(event)">
+                            <img id="imagePreview" src="#" alt=""
+                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-camera fa-2x mb-2"></i>
+                                <p>انقر لإضافة صورة</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">رابط موقع السائق</label>
+                        <input type="url" class="form-control" id="driverMapLink"
+                            placeholder="أدخل رابط الموقع (Google Maps)">
+                    </div>
+
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">اسم السائق</label>
+                            <input type="text" class="form-control" id="driverName" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">رقم الهاتف</label>
+                            <input type="tel" class="form-control" id="driverPhone" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">نوع السيارة</label>
+                            <input type="text" class="form-control" id="carType" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">موديل السيارة</label>
+                            <input type="number" class="form-control" id="carModel" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">المنطقة</label>
+                            <select class="form-control" id="driverLocation" required>
+                                <option value="">اختر المحافظة</option>
+                                <option value="بغداد">بغداد</option>
+                                <option value="الكرخ">الكرخ</option>
+                                <option value="الرصافة">الرصافة</option>
+                                <option value="البصرة">البصرة</option>
+                                <option value="نينوى">نينوى</option>
+                                <option value="الموصل">الموصل</option>
+                                <option value="النجف">النجف</option>
+                                <option value="الكوفة">الكوفة</option>
+                                <option value="كربلاء">كربلاء</option>
+                                <option value="الحسينية">الحسينية</option>
+                                <option value="أربيل">أربيل</option>
+                                <option value="كركوك">كركوك</option>
+                                <option value="الأنبار">الأنبار</option>
+                                <option value="الرمادي">الرمادي</option>
+                                <option value="الفلوجة">الفلوجة</option>
+                                <option value="بابل">بابل</option>
+                                <option value="الحلة">الحلة</option>
+                                <option value="المسيب">المسيب</option>
+                                <option value="الهاشمية">الهاشمية</option>
+                                <option value="القاسم">القاسم</option>
+                                <option value="ديالى">ديالى</option>
+                                <option value="بعقوبة">بعقوبة</option>
+                                <option value="ذي قار">ذي قار</option>
+                                <option value="الناصرية">الناصرية</option>
+                                <option value="السليمانية">السليمانية</option>
+                                <option value="صلاح الدين">صلاح الدين</option>
+                                <option value="تكريت">تكريت</option>
+                                <option value="واسط">واسط</option>
+                                <option value="الكوت">الكوت</option>
+                                <option value="ميسان">ميسان</option>
+                                <option value="العمارة">العمارة</option>
+                                <option value="المثنى">المثنى</option>
+                                <option value="السماوة">السماوة</option>
+                                <option value="دهوك">دهوك</option>
+                                <option value="القادسية">القادسية</option>
+                                <option value="الديوانية">الديوانية</option>
+
+
+
+                            </select>
+
+
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">معلومات إضافية</label>
+                            <textarea class="form-control" id="driverBio" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary w-100">إضافة السائق</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Loading Spinner -->
+<div class="loading-spinner" id="loadingSpinner">
+    <div class="spinner"></div>
+</div>
+<!-- نافذة تعديل بيانات السائق -->
+<div class="modal fade" id="editDriverModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">تعديل بيانات السائق</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editDriverForm" onsubmit="handleEditDriver(event)">
+                    <input type="hidden" id="editDriverId">
+
+                    <div class="mb-4 text-center">
+                        <div class="image-upload-container"
+                            onclick="document.getElementById('editDriverImage').click()">
+                            <input type="file" id="editDriverImage" accept="image/*" style="display: none"
+                                onchange="handleEditImagePreview(event)">
+                            <img id="editImagePreview" src="#" alt=""
+                                style="display: none; width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
+                            <div class="upload-placeholder">
+                                <i class="fas fa-camera fa-2x mb-2"></i>
+                                <p>انقر لتغيير الصورة</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">اسم السائق</label>
+                            <input type="text" class="form-control" id="editDriverName" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">رقم الهاتف</label>
+                            <input type="tel" class="form-control" id="editDriverPhone" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">نوع السيارة</label>
+                            <input type="text" class="form-control" id="editCarType" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">موديل السيارة</label>
+                            <input type="number" class="form-control" id="editCarModel" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">المنطقة</label>
+                            <select class="form-control" id="editDriverLocation" required>
+                                <option value="">اختر المحافظة</option>
+                                <option value="بغداد">بغداد</option>
+                                <option value="الكرخ">الكرخ</option>
+                                <option value="الرصافة">الرصافة</option>
+                                <option value="البصرة">البصرة</option>
+                                <option value="نينوى">نينوى</option>
+                                <option value="الموصل">الموصل</option>
+                                <option value="النجف">النجف</option>
+                                <option value="الكوفة">الكوفة</option>
+                                <option value="كربلاء">كربلاء</option>
+                                <option value="الحسينية">الحسينية</option>
+                                <option value="أربيل">أربيل</option>
+                                <option value="كركوك">كركوك</option>
+                                <option value="الأنبار">الأنبار</option>
+                                <option value="الرمادي">الرمادي</option>
+                                <option value="الفلوجة">الفلوجة</option>
+                                <option value="بابل">بابل</option>
+                                <option value="الحلة">الحلة</option>
+                                <option value="المسيب">المسيب</option>
+                                <option value="الهاشمية">الهاشمية</option>
+                                <option value="القاسم">القاسم</option>
+                                <option value="ديالى">ديالى</option>
+                                <option value="بعقوبة">بعقوبة</option>
+                                <option value="ذي قار">ذي قار</option>
+                                <option value="الناصرية">الناصرية</option>
+                                <option value="السليمانية">السليمانية</option>
+                                <option value="صلاح الدين">صلاح الدين</option>
+                                <option value="تكريت">تكريت</option>
+                                <option value="واسط">واسط</option>
+                                <option value="الكوت">الكوت</option>
+                                <option value="ميسان">ميسان</option>
+                                <option value="العمارة">العمارة</option>
+                                <option value="المثنى">المثنى</option>
+                                <option value="السماوة">السماوة</option>
+                                <option value="دهوك">دهوك</option>
+                                <option value="القادسية">القادسية</option>
+                                <option value="الديوانية">الديوانية</option>
+                                <!-- إضافة باقي المدن -->
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">معلومات إضافية</label>
+                            <textarea class="form-control" id="editDriverBio" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary w-100">حفظ التغييرات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">بحث عن سائق</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="search-wrapper">
+                    <!-- حقل البحث -->
+                    <div class="search-input-wrapper mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control search-input" id="navbarSearchInput"
+                                placeholder="ابحث عن اسم السائق، المنطقة، نوع السيارة..." autofocus>
+                            <span class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- خيارات البحث -->
+                    <div class="search-options mb-3">
+                        <div class="btn-group w-100" role="group">
+                            <input type="radio" class="btn-check" name="searchType" id="searchAll" checked>
+                            <label class="btn btn-outline-primary" for="searchAll">الكل</label>
+
+                            <input type="radio" class="btn-check" name="searchType" id="searchName">
+                            <label class="btn btn-outline-primary" for="searchName">الاسم</label>
+
+                            <input type="radio" class="btn-check" name="searchType" id="searchLocation">
+                            <label class="btn btn-outline-primary" for="searchLocation">المنطقة</label>
+
+                            <input type="radio" class="btn-check" name="searchType" id="searchCar">
+                            <label class="btn btn-outline-primary" for="searchCar">السيارة</label>
+                        </div>
+                    </div>
+
+                    <!-- نتائج البحث -->
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- نافذة المحادثة -->
+<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content chat-window">
+            <!-- رأس النافذة مع صورة واسم السائق -->
+            <div class="modal-header chat-header">
+                <img id="driverImage" src="default-avatar.png" alt="صورة السائق" class="rounded-circle me-2"
+                    style="width: 60px; height: 60px;">
+                <div>
+                    <h5 class="modal-title" id="driverName">اسم السائق</h5>
+                    <small id="driverCardInfo" style="color: #ffffff;">بطاقة السائق</small>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <!-- اختيار المشوار -->
+            <div class="modal-body chat-body">
+                <div id="tripSelection" class="mb-3">
+                    <small id="driverCardInfo" style="color: #ffffff;"> عدد الـــمشــوار </small>
+                    <input type="number" id="tripCount" class="form-control mb-2" placeholder="أدخل عدد المشاوير"
+                        min="1">
+
+                    <small id="driverCardInfo" style="color: #ffffff;"> نوع الواجــــهة</small>
+
+                    <input type="text" id="tripDestination" class="form-control mb-2" placeholder="أدخل الوجهة">
+
+                    <small id="driverCardInfo" style="color: #ffffff;"> نوع الرحـــله</small>
+                    <select id="tripType" class="form-control mb-3">
+                        <option value="ذهاب">ذهاب</option>
+                        <option value="ذهاب وعودة">ذهاب وعودة</option>
+                    </select>
+
+                    <button class="btn btn-success w-100" onclick="confirmTrip()">تأكيد المشوار</button>
+                </div>
+                <!-- منطقة الرسائل -->
+                <div id="chatMessages" class="chat-messages d-none"></div>
+            </div>
+            <!-- شريط الإدخال -->
+            <div class="modal-footer chat-footer d-none">
+                <div class="input-group">
+                    <input type="text" id="chatInput" class="form-control chat-input" placeholder="اكتب رسالتك هنا...">
+                    <button class="btn btn-primary send-btn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="profileModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center">
+                <h5 class="modal-title w-100">اختر نوع الحساب</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body py-4">
+                <div class="row g-4">
+                    <div class="col-6">
+                        <div class="account-type-card" onclick="openDriverRegistration()">
+                            <div class="icon-container mb-3">
+                                <i class="fas fa-taxi fa-3x"></i>
+                            </div>
+                            <h6>تسجيل كسائق</h6>
+                            <p class="small text-muted"> إلى فريق السائقين </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="account-type-card" onclick="openUserRegistration()">
+                            <div class="icon-container mb-3">
+                                <i class="fas fa-user fa-3x"></i>
+                            </div>
+                            <h6>تسجيل كمستخدم</h6>
+                            <p class="small text-muted">احجز رحلاتك بسهولة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة تسجيل السائق -->
+<div class="modal fade" id="driverRegistrationModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center w-100">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527"
+                        alt="شعار التطبيق" style="height: 60px;">
+                    <h5 class="modal-title mt-2">تسجيل سائق جديد</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="driverRegistrationForm" class="needs-validation" novalidate>
+                    <!-- المعلومات الشخصية -->
+                    <div class="registration-section mb-4">
+                        <h6 class="section-title">المعلومات الشخصية</h6>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="text-center mb-3">
+                                    <div class="driver-photo-upload"
+                                        onclick="document.getElementById('driverPhoto').click()">
+                                        <img id="driverPhotoPreview" src="#" alt="">
+                                        <div class="upload-placeholder">
+                                            <i class="fas fa-camera"></i>
+                                            <span>صورة شخصية</span>
+                                        </div>
+                                    </div>
+                                    <input type="file" id="driverPhoto" accept="image/*" style="display: none;"
+                                        onchange="previewDriverPhoto(this)">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">الاسم الثلاثي</label>
+                                <input type="text" class="form-control" name="fullName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">العمر</label>
+                                <input type="number" class="form-control" name="age" min="18" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">رقم الهاتف</label>
+                                <input type="tel" class="form-control" name="phone" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- معلومات المركبة -->
+                    <div class="registration-section mb-4">
+                        <h6 class="section-title">معلومات المركبة</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">نوع المركبة</label>
+                                <select class="form-select" name="vehicleType" required>
+                                    <option value="">اختر نوع المركبة</option>
+                                    <option value="أجرة">أجرة</option>
+                                    <option value="خصوصي">خصوصي</option>
+                                    <option value="باص">باص</option>
+                                    <option value="صالون">صالون</option>
+                                    <option value="تحميل">تحميل</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">موديل المركبة</label>
+                                <input type="number" class="form-control" name="vehicleModel" min="1990" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">رقم المركبة</label>
+                                <input type="text" class="form-control" name="vehicleNumber" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">لون المركبة</label>
+                                <input type="text" class="form-control" name="vehicleColor" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- المستمسكات -->
+                    <div class="registration-section mb-4">
+                        <h6 class="section-title">المستمسكات</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">صورة الهوية الوجه الأمامي</label>
+                                <div class="document-upload" onclick="document.getElementById('idFront').click()">
+                                    <div class="upload-placeholder">
+                                        <i class="fas fa-id-card"></i>
+                                        <span>اضغط للرفع</span>
+                                    </div>
+                                    <img id="idFrontPreview" src="#" alt="">
+                                </div>
+                                <input type="file" id="idFront" accept="image/*" style="display: none;"
+                                    onchange="previewDocument(this, 'idFrontPreview')" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">صورة الهوية الوجه الخلفي</label>
+                                <div class="document-upload" onclick="document.getElementById('idBack').click()">
+                                    <div class="upload-placeholder">
+                                        <i class="fas fa-id-card"></i>
+                                        <span>اضغط للرفع</span>
+                                    </div>
+                                    <img id="idBackPreview" src="#" alt="">
+                                </div>
+                                <input type="file" id="idBack" accept="image/*" style="display: none;"
+                                    onchange="previewDocument(this, 'idBackPreview')" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">إجازة السوق الوجه الأمامي</label>
+                                <div class="document-upload" onclick="document.getElementById('licenseFront').click()">
+                                    <div class="upload-placeholder">
+                                        <i class="fas fa-id-card"></i>
+                                        <span>اضغط للرفع</span>
+                                    </div>
+                                    <img id="licenseFrontPreview" src="#" alt="">
+                                </div>
+                                <input type="file" id="licenseFront" accept="image/*" style="display: none;"
+                                    onchange="previewDocument(this, 'licenseFrontPreview')" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">إجازة السوق الوجه الخلفي</label>
+                                <div class="document-upload" onclick="document.getElementById('licenseBack').click()">
+                                    <div class="upload-placeholder">
+                                        <i class="fas fa-id-card"></i>
+                                        <span>اضغط للرفع</span>
+                                    </div>
+                                    <img id="licenseBackPreview" src="#" alt="">
+                                </div>
+                                <input type="file" id="licenseBack" accept="image/*" style="display: none;"
+                                    onchange="previewDocument(this, 'licenseBackPreview')" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- معلومات السكن -->
+                    <div class="registration-section mb-4">
+                        <h6 class="section-title">معلومات السكن</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">المحافظة</label>
+                                <select class="form-select" name="province" onchange="loadAreas(this.value)" required>
+                                    <option value="">اختر المحافظة</option>
+                                    <!-- سيتم ملء الخيارات بواسطة JavaScript -->
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">المنطقة</label>
+                                <select class="form-select" name="area" required>
+                                    <option value="">اختر المنطقة</option>
+                                    <!-- سيتم ملء الخيارات بواسطة JavaScript -->
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">العنوان التفصيلي</label>
+                                <textarea class="form-control" name="address" rows="2" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-user-plus me-2"></i>
+                            تسجيل
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<select id="driverLocation" class="form-control" required>
+</select>
+<div id="locationOptions">
+    <!-- other elements -->
+</div>
+<!-- نافذة تسجيل المستخدم -->
+<div class="modal fade" id="userRegistrationModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center w-100">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527"
+                        alt="شعار التطبيق" style="height: 60px;">
+                    <h5 class="modal-title mt-2">تسجيل مستخدم جديد</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="userRegistrationForm" class="needs-validation" novalidate>
+                    <!-- المعلومات الشخصية -->
+                    <div class="registration-section mb-4">
+                        <h6 class="section-title">المعلومات الشخصية</h6>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="text-center mb-3">
+                                    <div class="user-photo-upload"
+                                        onclick="document.getElementById('userPhoto').click()">
+                                        <img id="userPhotoPreview" src="#" alt="">
+                                        <div class="upload-placeholder">
+                                            <i class="fas fa-camera"></i>
+                                            <span>صورة شخصية</span>
+                                        </div>
+                                    </div>
+                                    <input type="file" id="userPhoto" accept="image/*" style="display: none;"
+                                        onchange="previewUserPhoto(this)">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">الاسم الثلاثي</label>
+                                <input type="text" class="form-control" name="fullName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">رقم الهاتف</label>
+                                <input type="tel" class="form-control" name="phone" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">كلمة المرور</label>
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">تأكيد كلمة المرور</label>
+                                <input type="password" class="form-control" name="confirmPassword" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- معلومات السكن -->
+                    <div class="registration-section mb-4">
+                        <h6 class="section-title">معلومات السكن</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">المحافظة</label>
+                                <select class="form-select" name="province" onchange="loadAreas(this.value)" required>
+                                    <option value="">اختر المحافظة</option>
+                                    <!-- سيتم ملء الخيارات عبر JavaScript -->
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">المنطقة</label>
+                                <select class="form-select" name="area" required>
+                                    <option value="">اختر المنطقة</option>
+                                    <!-- سيتم ملء الخيارات عبر JavaScript -->
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">العنوان التفصيلي</label>
+                                <textarea class="form-control" name="address" rows="2" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الشروط والأحكام -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" name="terms" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            أوافق على <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">الشروط
+                                والأحكام</a>
+                        </label>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-user-plus me-2"></i>
+                            تسجيل
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</script>
+</main>
+<!-- ربط ملف الجافا سكريبت -->
+<script src="app.js"></script>
+
+</body>
+
+</html>
