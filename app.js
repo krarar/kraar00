@@ -28,13 +28,13 @@ class NotificationHandler {
 async initialize() {
     try {
         // محاولة تسجيل Service Worker
-       // يجب تحديث جميع المسارات لتتضمن /Al-Pasha/
-// مثلاً في ملف firebase-messaging-sw.js
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./firebase-messaging-sw.js', {
-        scope: './'
-    })
-}
+        if ('serviceWorker' in navigator) {
+          this.swRegistration = await navigator.serviceWorker.register('https://alqasimmall.github.io/Al-Pasha/firebase-messaging-sw.js', {
+            scope: '/Al-Pasha/'
+        });
+        
+            console.log('Service Worker registered successfully:', this.swRegistration);
+        }
 
         await this.checkNotificationSupport();
         await this.requestPermission();
@@ -2312,27 +2312,6 @@ notificationHandler.initialize().catch(console.error);
             grid.appendChild(card);
         });
     }
-    document.addEventListener('DOMContentLoaded', function() {
-        // التأكد من تحميل Firebase
-        if (typeof firebase !== 'undefined') {
-            // تهيئة Firebase
-            firebase.initializeApp(firebaseConfig);
-            
-            // بدء تحميل البيانات
-            loadDrivers();
-            
-            // تهيئة الخريطة
-            if (!window.mapInitialized) {
-                window.mapInitialized = true;
-                initMap();
-            }
-        } else {
-            console.error('Firebase not loaded');
-        }
-    });
-
-
-
 
     document.addEventListener('DOMContentLoaded', function () {
         displayAllDrivers(); // استدعاء الدالة التي تعرض جميع السائقين
@@ -2757,10 +2736,10 @@ document.addEventListener('DOMContentLoaded', () => {
     requestNotificationPermission();
 });
 
-// في ملف app.js
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
-}
+  }
+
 
   function getAllDrivers() {
     return firebase.database().ref('drivers').once('value')

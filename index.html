@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="تطبيق تاكسي العراق - خدمة حجز سيارات الأجرة الأفضل في العراق">
-    <meta name="keywords" content="تاكسي العراق, سيارات أجرة, حجز تاكسي, نقل, مواصلات">
-    <meta name="author" content="تاكسي العراق">
-    <meta name="theme-color" content="#FFD700">
+      <!-- إضافة متطلبات PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="تاكسي العراق">
+    <meta name="theme-color" content="#FFD700">
+
+    <!-- تحديث المسارات -->
+    <link rel="manifest" href="https://alqasimmall.github.io/Al-Pasha/manifest.json">
+    <link rel="stylesheet" href="https://alqasimmall.github.io/Al-Pasha/style.css">
+
 
     <title>تاكسي العراق - خدمة حجز السيارات الأولى في العراق</title>
 
     <!-- App Icons -->
-    <link rel="icon" type="image/png" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
-    <link rel="apple-touch-startup-image" href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <link rel="icon" type="image/png"
+        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <link rel="apple-touch-startup-image"
+        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
 
     <!-- Web App Manifest -->
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="manifest.json">
 
     <!-- External CSS Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.rtl.min.css">
@@ -28,37 +36,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 
-    <!-- Meta Tags -->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="تاكسي العراق">
     <meta property="og:description" content="خدمة حجز سيارات الأجرة الأفضل في العراق">
-    <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <meta property="og:image"
+        content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
     <meta property="og:url" content="https://taxi-iraq.com">
+
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="تاكسي العراق">
     <meta name="twitter:description" content="خدمة حجز سيارات الأجرة الأفضل في العراق">
-    <meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
-</head>
-<body>
-    <!-- Content will be here -->
+    <meta name="twitter:image"
+        content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
 
-    <!-- External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
     <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-
-    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    
+    <!-- تحديث ترتيب السكربتات -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+    
+    <!-- إزالة الإشارة إلى firebase-messaging-sw.js -->
+    <!-- إضافة app.js -->
+    <script src="https://alqasimmall.github.io/Al-Pasha/app.js" defer></script>
 
-   
+
+
+
 
 
 
@@ -556,8 +571,6 @@
     </div>
 </div>
 
-    <div id="notificationStatus" class="mt-2 small text-muted"></div>
-</div>
 
 <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -963,14 +976,10 @@
 
 
 
-
+</script>
 </main>
- <!-- App Scripts -->
- <script src="./firebase-config.js"></script>
- <script src="./app.js"></script>
-</body>
-</html>
-
+<!-- ربط ملف الجافا سكريبت -->
+<script src="app.js"></script>
 
 </body>
 
