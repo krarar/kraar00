@@ -29,8 +29,8 @@ async initialize() {
     try {
         // محاولة تسجيل Service Worker
         if ('serviceWorker' in navigator) {
-          this.swRegistration = await navigator.serviceWorker.register('https://alqasimmall.github.io/Al-Pasha/firebase-messaging-sw.js', {
-            scope: '/Al-Pasha/'
+          this.swRegistration = await navigator.serviceWorker.register('https://alqasimmall.github.io/Pasha-taxi/firebase-messaging-sw.js', {
+            scope: '/Pasha-taxi/'
         });
         
             console.log('Service Worker registered successfully:', this.swRegistration);
@@ -200,6 +200,15 @@ notificationHandler.initialize().catch(console.error);
             return v.toString(16);
         });
     }
+    
+    let map;
+let markers = [];
+let userMarker;
+let userLocation = null;
+let markerLayer;
+let isLoadingDrivers = false;
+let isViewingDriverLocation = false;
+let currentDriverId = null;
 
     // Other application-specific logic
     let map;
@@ -455,213 +464,507 @@ notificationHandler.initialize().catch(console.error);
 
 
     function viewDriverLocation(driverId) {
-        isViewingDriverLocation = true; // تعطيل تحديث موقع المستخدم
+    isViewingDriverLocation = true;
 
-        database.ref(`drivers/${driverId}`).once('value', (snapshot) => {
-            const driver = snapshot.val();
-            if (driver && driver.coordinates) {
-                const { lat, lng } = driver.coordinates;
+    database.ref(`drivers/${driverId}`).once('value', (snapshot) => {
+        const driver = snapshot.val();
+        if (driver && driver.coordinates) {
+            const { lat, lng } = driver.coordinates;
+            const driverLocation = new google.maps.LatLng(lat, lng);
 
-                // تعيين موقع الخريطة إلى موقع السائق
-                map.setView([lat, lng], 15);
+            // تحريك الخريطة بتأثير انتقالي سلس
+            map.panTo(driverLocation);
+            map.setZoom(15);
 
-                // إضافة علامة موقع السائق
-                const driverMarker = L.marker([lat, lng], {
-                    icon: L.divIcon({
-                        html: `<i class="fas fa-taxi" style="color: #FFD700;"></i>`,
-                        className: 'driver-marker',
-                        iconSize: [30, 30],
-                    }),
-                }).addTo(markerLayer);
+            // حذف جميع العلامات السابقة
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
 
-                driverMarker.bindPopup(`
-                <div style="text-align: center;">
-                    <h6>${driver.name}</h6>
-                    <p>${driver.carType} - ${driver.carModel}</p>
-                    <button class="action-btn secondary" onclick="openChatWindow('${key}')">
-    <i class="fas fa-comment"></i> مراسلة
-</button>
+            // إنشاء علامة السائق المخصصة مع الصورة والأيقونة
+            const driverMarker = new google.maps.Marker({
+                position: driverLocation,
+                map: map,
+                icon: {
+                    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+                            <foreignObject width="60" height="60">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                                    <img src="${driver.imageUrl || 'default-avatar.png'}" 
+                                         style="width: 50px; height: 50px; border: 3px solid #FFD700; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3);" />
+                                    <i class="fas fa-taxi" style="position: absolute; bottom: -5px; right: 50%; transform: translateX(50%); color: #FFD700; font-size: 1.5rem;"></i>
+                                </div>
+                            </foreignObject>
+                        </svg>
+                    `),
+                    scaledSize: new google.maps.Size(60, 60),
+                    anchor: new google.maps.Point(30, 30)
+                },
+                animation: google.maps.Animation.DROP
+            });
 
+            markers.push(driverMarker);
 
-                </div>
-            `).openPopup();
-
-                scrollToMap();
-            } else {
-                showToast('لم يتم إضافة موقع للسائق', 'error');
-            }
-        });
-
-        // إعادة تفعيل تحديث موقع المستخدم بعد فترة
-        setTimeout(() => {
-            isViewingDriverLocation = false;
-        }, 30000); // 30 ثانية
-    }
-    function viewDriverLocation(driverId) {
-        database.ref(`drivers/${driverId}`).once('value', (snapshot) => {
-            const driver = snapshot.val();
-            if (driver && driver.coordinates) {
-                const { lat, lng } = driver.coordinates;
-                map.flyTo([lat, lng], 15, {
-                    animate: true,
-                    duration: 1.5
-                });
-
-                markerLayer.clearLayers();
-
-                const driverMarker = L.marker([lat, lng], {
-                    icon: L.divIcon({
-                        html: `
-                        <div style="position: relative; text-align: center;">
+            // إنشاء نافذة معلومات السائق
+            const infoWindow = new google.maps.InfoWindow({
+                content: `
+                    <div style="text-align: center; font-family: 'Segoe UI', sans-serif; min-width: 200px; background: #000000; border-radius: 10px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                        <div class="driver-popup-header" style="margin-bottom: 10px;">
                             <img src="${driver.imageUrl || 'default-avatar.png'}" 
                                  alt="صورة السائق" 
-                                 style="width: 50px; height: 50px; border: 3px solid #FFD700; 
-                                 border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                            <i class="fas fa-taxi" 
-                               style="position: absolute; bottom: -5px; right: 50%; transform: translateX(50%); 
-                               color: #FFD700; font-size: 1.5rem;"></i>
+                                 style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #FFD700; 
+                                 margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                            <h5 style="color: #FFFFFF; font-weight: bold; margin: 8px 0;">${driver.name}</h5>
                         </div>
-                    `,
-                        className: 'driver-marker',
-                        iconSize: [60, 60],
-                    }),
-                }).addTo(markerLayer);
-
-                const popupContent = `
-                <div style="text-align: center; font-family: 'Segoe UI', sans-serif; min-width: 200px; background: #000000; border-radius: 10px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-                    <div class="driver-popup-header" style="margin-bottom: 10px;">
-                        <img src="${driver.imageUrl || 'default-avatar.png'}" 
-                             alt="صورة السائق" 
-                             style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #FFD700; 
-                             margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-                        <h5 style="color: #FFFFFF; font-weight: bold; margin: 8px 0;">${driver.name}</h5>
-                    </div>
-                    
-                    <div class="driver-popup-stats" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 15px;">
-                        <div style="text-align: center;">
-                            <div style="font-weight: bold; color: #FFD700;">
-                                <i class="fas fa-star"></i> ${driver.rating ? driver.rating.toFixed(1) : '5.0'}
+                        
+                        <div class="driver-popup-stats" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 15px;">
+                            <div style="text-align: center;">
+                                <div style="font-weight: bold; color: #FFD700;">
+                                    <i class="fas fa-star"></i> ${driver.rating ? driver.rating.toFixed(1) : '5.0'}
+                                </div>
+                                <div style="font-size: 0.8rem; color: #FFFFFF;">التقييم</div>
                             </div>
-                            <div style="font-size: 0.8rem; color: #FFFFFF;">التقييم</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="font-weight: bold; color: #FFD700;">
-                                <i class="fas fa-route"></i> ${driver.trips || 0}
+                            <div style="text-align: center;">
+                                <div style="font-weight: bold; color: #FFD700;">
+                                    <i class="fas fa-route"></i> ${driver.trips || 0}
+                                </div>
+                                <div style="font-size: 0.8rem; color: #FFFFFF;">الرحلات</div>
                             </div>
-                            <div style="font-size: 0.8rem; color: #FFFFFF;">الرحلات</div>
+                        </div>
+                        
+                        <div class="driver-popup-info" style="margin-bottom: 15px; text-align: right; color: #FFFFFF;">
+                            <p style="margin: 5px 0;">
+                                <i class="fas fa-car" style="color: #FFD700; margin-left: 5px;"></i>
+                                ${driver.carType} - ${driver.carModel}
+                            </p>
+                            <p style="margin: 5px 0;">
+                                <i class="fas fa-map-marker-alt" style="color: #FFD700; margin-left: 5px;"></i>
+                                ${driver.location}
+                            </p>
+                            <p style="margin: 5px 0;">
+                                <i class="fas fa-phone" style="color: #FFD700; margin-left: 5px;"></i>
+                                ${driver.phone}
+                            </p>
+                        </div>
+                
+                        <div class="driver-popup-actions" style="display: grid; grid-template-columns: 1fr; gap: 8px;">
+                            <button onclick="openChatWindow('${driverId}')" 
+                                    style="background: #FFD700; color: #333; border: none; padding: 8px 15px; 
+                                    border-radius: 20px; cursor: pointer; font-weight: bold; 
+                                    display: flex; align-items: center; justify-content: center; gap: 5px;
+                                    transition: all 0.3s ease;">
+                                <i class="fas fa-comment"></i>
+                                مراسلة السائق
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="driver-popup-info" style="margin-bottom: 15px; text-align: right; color: #FFFFFF;">
-                        <p style="margin: 5px 0;">
-                            <i class="fas fa-car" style="color: #FFD700; margin-left: 5px;"></i>
-                            ${driver.carType} - ${driver.carModel}
-                        </p>
-                        <p style="margin: 5px 0;">
-                            <i class="fas fa-map-marker-alt" style="color: #FFD700; margin-left: 5px;"></i>
-                            ${driver.location}
-                        </p>
-                        <p style="margin: 5px 0;">
-                            <i class="fas fa-phone" style="color: #FFD700; margin-left: 5px;"></i>
-                            ${driver.phone}
-                        </p>
-                    </div>
-            
-                    <div class="driver-popup-actions" style="display: grid; grid-template-columns: 1fr; gap: 8px;">
-                        <button onclick="openChatWindow('${driverId}')" 
-                                style="background: #FFD700; color: #333; border: none; padding: 8px 15px; 
-                                border-radius: 20px; cursor: pointer; font-weight: bold; 
-                                display: flex; align-items: center; justify-content: center; gap: 5px;
-                                transition: all 0.3s ease;">
-                            <i class="fas fa-comment"></i>
-                            مراسلة السائق
-                        </button>
-                    </div>
-                </div>
-            `;
+                `,
+                maxWidth: 300,
+                pixelOffset: new google.maps.Size(0, -30)
+            });
 
+            // إضافة مستمع الأحداث للنقر على العلامة
+            driverMarker.addListener('click', () => {
+                infoWindow.open(map, driverMarker);
+            });
 
-                driverMarker.bindPopup(popupContent, {
-                    maxWidth: 300,
-                    className: 'custom-popup'
-                }).openPopup();
+            // فتح نافذة المعلومات مباشرة
+            infoWindow.open(map, driverMarker);
 
-                scrollToMap();
+            // تمرير إلى الخريطة بتأثير سلس
+            scrollToMap();
 
-                Swal.fire({
-                    title: '🚖 تم تحديد موقع السائق!',
-                    html: `
+            // عرض رسالة نجاح متحركة
+            Swal.fire({
+                title: '🚖 تم تحديد موقع السائق!',
+                html: `
                     <p style="font-size: 1rem; color: #555;">
                         السائق <b>${driver.name}</b> بانتظارك.
                     </p>
                     <p style="color: #666;">هل ترغب بمراسلته الآن؟</p>
                 `,
-                    icon: 'success',
-                    showCancelButton: true,
-                    confirmButtonColor: '#FFD700',
-                    cancelButtonColor: '#6c757d',
-                    confirmButtonText: '📨 نعم، مراسلة السائق',
-                    cancelButtonText: '❌ إغلاق',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        openChatWindow(driverId);
-                    }
-                });
-            } else {
-                showToast('لم يتم العثور على موقع السائق.', 'error');
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#FFD700',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '📨 نعم، مراسلة السائق',
+                cancelButtonText: '❌ إغلاق',
+                customClass: {
+                    popup: 'animated fadeInDown faster'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    openChatWindow(driverId);
+                }
+            });
+        } else {
+            showToast('لم يتم العثور على موقع السائق.', 'error');
+        }
+    });
+
+    // إعادة تفعيل تحديث موقع المستخدم بعد فترة
+    setTimeout(() => {
+        isViewingDriverLocation = false;
+    }, 30000);
+}
+
+
+   // تحديث التهيئة الأولية للخريطة
+function initMap() {
+    const defaultLocation = { lat: 33.3152, lng: 44.3661 };
+    
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: defaultLocation,
+        zoom: 12,
+        styles: [
+            {
+                "featureType": "all",
+                "elementType": "labels.text.fill",
+                "stylers": [{"color": "#000000"}]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [{"color": "#e9e9e9"}]
             }
-        });
+        ]
+    });
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(pos);
+                userLocation = pos;
+                addUserMarker(pos);
+                loadDrivers(); // تحميل السائقين بعد تحديد الموقع
+            },
+            () => {
+                showToast('تعذر الوصول إلى موقعك الحالي', 'error');
+            }
+        );
     }
 
+    // إضافة مستمع لأحداث النقر على الخريطة
+    map.addListener('click', function(event) {
+        placeMarker(event.latLng);
+    });
+}
 
-    function initMap() {
-        // الإحداثيات الافتراضية
-        const defaultLocation = [33.3152, 44.3661];
+// دالة إضافة علامة المستخدم
+function addUserMarker(position) {
+    const marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            fillColor: "#4285F4",
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: "#FFFFFF"
+        },
+        title: 'موقعك الحالي',
+        animation: google.maps.Animation.DROP
+    });
 
-        // إنشاء الخريطة مع خيارات التخصيص
-        map = L.map('map', {
-            center: defaultLocation,
-            zoom: 8,
-            zoomControl: false, // إخفاء التحكم الافتراضي بالتكبير/التصغير
-            attributionControl: false, // إخفاء شريط النسب
-        });
-        const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-        }).addTo(map);
-        // إضافة زر تكبير/تصغير مخصص
-        L.control.zoom({
-            position: 'topright',
-        }).addTo(map);
+    const infoWindow = new google.maps.InfoWindow({
+        content: `
+            <div class="custom-info-window">
+                <h5>موقعك الحالي</h5>
+                <p>${position.lat.toFixed(6)}, ${position.lng.toFixed(6)}</p>
+            </div>
+        `
+    });
 
-        // إضافة زر شريط النسبة المخصص
-        L.control.attribution({
-            position: 'bottomleft',
-            prefix: '<a href="https://leafletjs.com" target="_blank">Leaflet</a>',
-        }).addTo(map);
+    marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+    });
+}
 
-        // إضافة طبقة علامات مخصصة
-        markerLayer = L.layerGroup().addTo(map);
+// دالة إضافة علامة جديدة
+function placeMarker(location) {
+    const marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            fillColor: "#FFD700",
+            fillOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: "#000000"
+        }
+    });
+    
+    markers.push(marker);
 
-        // تمكين الموقع الجغرافي
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(
-                updateUserLocation,
-                handleLocationError,
-                { enableHighAccuracy: true }
-            );
+    marker.addListener('click', () => {
+        if (selectedMarkers.includes(marker)) {
+            selectedMarkers = selectedMarkers.filter(m => m !== marker);
+            marker.setIcon({
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 8,
+                fillColor: "#FFD700",
+                fillOpacity: 1,
+                strokeWeight: 2,
+                strokeColor: "#000000"
+            });
+        } else {
+            if (selectedMarkers.length < 2) {
+                selectedMarkers.push(marker);
+                marker.setIcon({
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 8,
+                    fillColor: "#00FF00",
+                    fillOpacity: 1,
+                    strokeWeight: 2,
+                    strokeColor: "#000000"
+                });
+            }
+        }
+        showMarkerInfo(marker);
+    });
+
+    saveLocationToFirebase(location);
+}
+
+// دالة عرض معلومات العلامة
+function showMarkerInfo(marker) {
+    const position = marker.getPosition();
+    const content = `
+        <div class="marker-info">
+            <h3 class="mb-3">معلومات الموقع</h3>
+            <p><i class="fas fa-map-marker-alt me-2"></i>خط العرض: ${position.lat().toFixed(6)}</p>
+            <p><i class="fas fa-map-marker-alt me-2"></i>خط الطول: ${position.lng().toFixed(6)}</p>
+            <button onclick="navigateToLocation(${position.lat()}, ${position.lng()})" class="btn btn-sm">
+                <i class="fas fa-directions"></i>
+                الذهاب إلى هنا
+            </button>
+        </div>
+    `;
+
+    const infoWindow = new google.maps.InfoWindow({
+        content: content
+    });
+
+    infoWindow.open(map, marker);
+}
+
+// دالة حساب المسافة
+function calculateDistance() {
+    if (selectedMarkers.length !== 2) {
+        showToast('يرجى تحديد موقعين لحساب المسافة بينهما', 'warning');
+        return;
+    }
+
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(
+        selectedMarkers[0].getPosition(),
+        selectedMarkers[1].getPosition()
+    );
+
+    Swal.fire({
+        title: 'المسافة بين الموقعين',
+        html: `
+            <div class="distance-result">
+                <i class="fas fa-ruler fa-2x mb-3" style="color: #FFD700;"></i>
+                <h3>${(distance / 1000).toFixed(2)} كم</h3>
+            </div>
+        `,
+        icon: 'info',
+        confirmButtonText: 'حسناً',
+        confirmButtonColor: '#FFD700'
+    });
+}
+
+// تحديث دالة initMap
+function initMap() {
+    // الإحداثيات الافتراضية (بغداد)
+    const defaultLocation = { lat: 33.3152, lng: 44.3661 };
+    
+    // إنشاء الخريطة
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: defaultLocation,
+        zoom: 12,
+        styles: [
+            {
+                "featureType": "all",
+                "elementType": "labels.text.fill",
+                "stylers": [{"color": "#000000"}]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [{"color": "#e9e9e9"}]
+            }
+        ]
+    });
+
+    // تفعيل تحديد الموقع
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(
+            updateUserLocation,
+            handleLocationError,
+            { enableHighAccuracy: true }
+        );
+    }
+}
+
+// تحديث دالة تحديث موقع المستخدم
+function updateUserLocation(position) {
+    const newLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+    };
+
+    if (!userLocation || 
+        Math.abs(newLocation.lat - userLocation.lat) > 0.0001 || 
+        Math.abs(newLocation.lng - userLocation.lng) > 0.0001) {
+        
+        userLocation = newLocation;
+
+        // تحديث علامة المستخدم
+        if (!userMarker) {
+            userMarker = new google.maps.Marker({
+                position: newLocation,
+                map: map,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 10,
+                    fillColor: "#007bff",
+                    fillOpacity: 1,
+                    strokeWeight: 2,
+                    strokeColor: "#FFFFFF"
+                },
+                title: 'موقعك الحالي'
+            });
+        } else {
+            userMarker.setPosition(newLocation);
         }
 
-        // إضافة أزرار التبديل بين الطبقات
-        const layersControl = {
-            "خريطة الشوارع": tileLayer,
-            "خريطة القمر الصناعي": L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-                subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-                attribution: '© Google',
-            }),
-        };
-
-        L.control.layers(layersControl).addTo(map);
+        map.setCenter(newLocation);
+        loadDrivers();
     }
+}
+
+// تحديث دالة عرض موقع السائق
+function viewDriverLocation(driverId) {
+    database.ref(`drivers/${driverId}`).once('value', (snapshot) => {
+        const driver = snapshot.val();
+        if (driver && driver.coordinates) {
+            const driverLocation = new google.maps.LatLng(
+                driver.coordinates.lat,
+                driver.coordinates.lng
+            );
+
+            map.setCenter(driverLocation);
+            map.setZoom(15);
+
+            // إضافة علامة السائق
+            const driverMarker = new google.maps.Marker({
+                position: driverLocation,
+                map: map,
+                icon: {
+                    url: driver.imageUrl || '/default-driver-icon.png',
+                    scaledSize: new google.maps.Size(40, 40)
+                },
+                title: driver.name
+            });
+
+            // إنشاء نافذة معلومات السائق
+            const infoWindow = new google.maps.InfoWindow({
+                content: createDriverInfoWindowContent(driver, driverId)
+            });
+
+            driverMarker.addListener('click', () => {
+                infoWindow.open(map, driverMarker);
+            });
+        }
+    });
+}
+
+
+function viewDriverLocation(driverId) {
+    isViewingDriverLocation = true;
+    
+    database.ref(`drivers/${driverId}`).once('value', (snapshot) => {
+        const driver = snapshot.val();
+        if (driver && driver.coordinates) {
+            const driverLocation = new google.maps.LatLng(
+                driver.coordinates.lat,
+                driver.coordinates.lng
+            );
+
+            map.setCenter(driverLocation);
+            map.setZoom(15);
+
+            // إضافة علامة السائق مع نافذة معلومات
+            const driverMarker = new google.maps.Marker({
+                position: driverLocation,
+                map: map,
+                icon: {
+                    url: driver.imageUrl || '/default-driver-icon.png',
+                    scaledSize: new google.maps.Size(40, 40)
+                },
+                title: driver.name
+            });
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: createDriverInfoWindowContent(driver, driverId)
+            });
+
+            driverMarker.addListener('click', () => {
+                infoWindow.open(map, driverMarker);
+            });
+
+            // تنظيف العلامات السابقة
+            markers.forEach(marker => marker.setMap(null));
+            markers = [driverMarker];
+
+            // عرض رسالة نجاح
+            Swal.fire({
+                title: '🚖 تم تحديد موقع السائق!',
+                html: `السائق ${driver.name} بانتظارك. هل ترغب بمراسلته الآن؟`,
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#FFD700',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '📨 نعم، مراسلة السائق',
+                cancelButtonText: '❌ إغلاق'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    openChatWindow(driverId);
+                }
+            });
+        } else {
+            showToast('لم يتم العثور على موقع السائق.', 'error');
+        }
+    });
+
+    setTimeout(() => {
+        isViewingDriverLocation = false;
+    }, 30000);
+}
+
+function createDriverInfoWindowContent(driver, driverId) {
+    return `
+        <div class="driver-info-window">
+            <img src="${driver.imageUrl || '/default-avatar.png'}" alt="${driver.name}" 
+                 style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px;">
+            <h5>${driver.name}</h5>
+            <p>${driver.carType} - ${driver.carModel}</p>
+            <div class="rating">
+                <i class="fas fa-star"></i> ${driver.rating ? driver.rating.toFixed(1) : '5.0'}
+            </div>
+            <button onclick="openChatWindow('${driverId}')" class="btn btn-primary btn-sm mt-2">
+                <i class="fas fa-comment"></i> مراسلة
+            </button>
+        </div>
+    `;
+}
 
     function updateUserLocation(position) {
         const newLocation = {
@@ -2613,7 +2916,7 @@ class LocationNotificationSystem {
         document.body.appendChild(toast);
 
         // تشغيل صوت الإشعار
-        const audio = new Audio('/https://github.com/AlQasimMall/Al-Pasha/blob/main/%D8%A7%D9%84%D9%87%D8%A7%D8%AA%D9%81-%D8%A7%D9%84%D8%AB%D8%A7%D8%A8%D8%AA.mp3');
+        const audio = new Audio('/https://github.com/AlQasimMall/Pasha-taxi/blob/main/%D8%A7%D9%84%D9%87%D8%A7%D8%AA%D9%81-%D8%A7%D9%84%D8%AB%D8%A7%D8%A8%D8%AA.mp3');
         audio.play().catch(error => console.log('Could not play notification sound:', error));
 
         // إزالة الإشعار بعد 5 ثواني
