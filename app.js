@@ -1,6 +1,4 @@
-
-
-    const firebaseConfig = {
+const firebaseConfig = {
         apiKey: "AIzaSyDGpAHia_wEmrhnmYjrPf1n1TrAzwEMiAI",
         authDomain: "messageemeapp.firebaseapp.com",
         databaseURL: "https://messageemeapp-default-rtdb.firebaseio.com",
@@ -28,13 +26,13 @@ class NotificationHandler {
 async initialize() {
     try {
         // محاولة تسجيل Service Worker
-        if ('serviceWorker' in navigator) {
-          this.swRegistration = await navigator.serviceWorker.register('https://alqasimmall.github.io/Pasha-taxi/firebase-messaging-sw.js', {
-            scope: '/Pasha-taxi/'
-        });
-        
-            console.log('Service Worker registered successfully:', this.swRegistration);
-        }
+       // يجب تحديث جميع المسارات لتتضمن /Al-Pasha/
+// مثلاً في ملف firebase-messaging-sw.js
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./firebase-messaging-sw.js', {
+        scope: './'
+    })
+}
 
         await this.checkNotificationSupport();
         await this.requestPermission();
@@ -295,6 +293,34 @@ notificationHandler.initialize().catch(console.error);
         }
     }
 
+    // إضافة في نهاية الملف
+function showNearbyDriversMap() {
+    // إغلاق القائمة الجانبية
+    toggleSideNav();
+
+    // عرض نافذة منبثقة تحتوي على الخريطة
+    Swal.fire({
+        title: 'السائقين في الجوار',
+        html: '<div id="nearbyDriversMap"></div>',
+        width: '90%',
+        padding: '0',
+        background: '#1a1a1a',
+        showConfirmButton: false,
+        showCloseButton: true,
+        customClass: {
+            popup: 'dark-popup',
+            title: 'text-white',
+            htmlContainer: 'p-0'
+        },
+        didOpen: () => {
+            // تهيئة الخريطة
+            const mapContainer = document.getElementById('nearbyDriversMap');
+            const root = ReactDOM.createRoot(mapContainer);
+            root.render(React.createElement(NearbyDriversMap));
+        }
+    });
+}
+
     function addRating(driverId) {
         database.ref(`drivers/${driverId}`).transaction((driver) => {
             if (driver) {
@@ -388,7 +414,7 @@ notificationHandler.initialize().catch(console.error);
 
                 if (driverData) {
                     // الوصول المباشر إلى الصورة من البيانات الرئيسية
-                    const imageUrl = driverData.imageUrl || 'default-avatar.png';
+                    const imageUrl = driverData.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527';
                     // الوصول إلى الاسم من coordinates
                     const name = driverData?.name || 'اسم غير متوفر';
                     // معلومات السيارة من البيانات الرئيسية
@@ -441,7 +467,7 @@ notificationHandler.initialize().catch(console.error);
         return `
         <div class="driver-card">
             <div class="driver-image-container">
-                <img src="${driver.imageUrl || 'default-avatar.png'}" class="driver-image">
+                <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" class="driver-image">
             </div>
             <div class="driver-info">
                 <h3 class="driver-name">${driver.name || 'اسم غير متوفر'}</h3>
@@ -513,7 +539,7 @@ notificationHandler.initialize().catch(console.error);
                     icon: L.divIcon({
                         html: `
                         <div style="position: relative; text-align: center;">
-                            <img src="${driver.imageUrl || 'default-avatar.png'}" 
+                            <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
                                  alt="صورة السائق" 
                                  style="width: 50px; height: 50px; border: 3px solid #FFD700; 
                                  border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
@@ -530,7 +556,7 @@ notificationHandler.initialize().catch(console.error);
                 const popupContent = `
                 <div style="text-align: center; font-family: 'Segoe UI', sans-serif; min-width: 200px; background: #000000; border-radius: 10px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
                     <div class="driver-popup-header" style="margin-bottom: 10px;">
-                        <img src="${driver.imageUrl || 'default-avatar.png'}" 
+                        <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
                              alt="صورة السائق" 
                              style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #FFD700; 
                              margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
@@ -749,27 +775,63 @@ notificationHandler.initialize().catch(console.error);
     }
 
     // مثال على الاستخدام في دالة إضافة السائق
-    async function handleAddDriver(event) {
-        event.preventDefault();
+  async function handleAddDriver(event) {
+    event.preventDefault();
+    showLoading();
 
-        const location = document.getElementById('driverLocation').value;
-        const coordinates = getCoordinatesForLocation(location);
+    try {
+        const imageFile = document.getElementById('driverImage').files[0];
+        if (!imageFile) {
+            throw new Error('الرجاء اختيار صورة للسائق');
+        }
 
-        // استخدام الإحداثيات في البيانات المرسلة
+        // الحصول على الإحداثيات مباشرة من حقول الإدخال
+        const latitude = parseFloat(document.getElementById('driverLatitude').value);
+        const longitude = parseFloat(document.getElementById('driverLongitude').value);
+        
+        // التحقق من وجود الإحداثيات
+        if (!latitude || !longitude) {
+            throw new Error('يرجى تحديد موقع السائق أولاً');
+        }
+
+        const imageRef = storage.ref(`drivers/${Date.now()}_${imageFile.name}`);
+        const uploadTask = await imageRef.put(imageFile);
+        const imageUrl = await uploadTask.ref.getDownloadURL();
 
         const driverData = {
-            // ... البيانات الأخرى
-            latitude: coordinates.lat,
-            longitude: coordinates.lng
+            name: document.getElementById('driverName').value,
+            phone: document.getElementById('driverPhone').value,
+            carType: document.getElementById('carType').value,
+            carModel: document.getElementById('carModel').value,
+            location: document.getElementById('driverLocation').value, // المحافظة فقط
+            coordinates: {
+                lat: latitude,
+                lng: longitude
+            },
+            bio: document.getElementById('driverBio').value,
+            imageUrl: imageUrl,
+            rating: 5,
+            trips: 0,
+            active: true,
+            createdAt: firebase.database.ServerValue.TIMESTAMP
         };
 
-        // إكمال عملية إضافة السائق
-        try {
-            // ... كود إرسال البيانات
-        } catch (error) {
-            console.error('Error adding driver:', error);
-        }
+        await database.ref('drivers').push(driverData);
+
+        // إغلاق النافذة المنبثقة بعد النجاح
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addDriverModal'));
+        modal.hide();
+
+        document.getElementById('addDriverForm').reset();
+        showToast('تم إضافة السائق بنجاح');
+        loadDrivers();
+    } catch (error) {
+        console.error('Error adding driver:', error);
+        showToast(error.message, 'error');
+    } finally {
+        hideLoading();
     }
+}
 
     function handleLocationError(error) {
         // التعامل مع خطأ في الموقع الجغرافي
@@ -977,7 +1039,7 @@ notificationHandler.initialize().catch(console.error);
                             driverMarker.bindPopup(`
                             <div style="text-align: center;">
                                 <div style="margin-bottom: 10px;">
-                                    <img src="${driver.imageUrl || 'default-avatar.png'}" 
+                                    <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
                                          alt="صورة السائق" 
                                          style="width: 70px; height: 70px; border-radius: 50%; border: 3px solid #FFD700; margin-bottom: 10px;">
                                     <h6 style="margin: 5px 0; font-weight: bold;">${driver.name}</h6>
@@ -1029,51 +1091,66 @@ notificationHandler.initialize().catch(console.error);
     // تحديث دالة إنشاء بطاقة السائق
     // دالة إنشاء بطاقة السائق المحدثة
     function createDriverCard(driver, key) {
-        const distance = userLocation && driver.coordinates ?
-            calculateDistance(userLocation, driver.coordinates) : null;
-
-        return `
+    const distance = userLocation && driver.coordinates ?
+        calculateDistance(userLocation, driver.coordinates) : null;
+    
+    return `
         <div class="driver-card animate__animated animate__fadeIn" data-driver-id="${key}">
-            <!-- أزرار الحذف والتعديل -->
+            <!-- قسم أزرار الإجراءات العلوية -->
             <div class="driver-card-actions">
-                <button class="action-icon delete-btn" onclick="confirmDeleteDriver('${key}')">
+                <button class="action-icon delete-btn" onclick="confirmDeleteDriver('${key}')" title="حذف السائق">
                     <i class="fas fa-trash-alt"></i>
                 </button>
-                <button class="action-icon edit-btn" onclick="showEditDriverModal('${key}')">
+                <button class="action-icon edit-btn" onclick="showEditDriverModal('${key}')" title="تعديل البيانات">
                     <i class="fas fa-edit"></i>
+                </button>
+                <!-- إضافة أزرار التتبع -->
+                <button class="action-icon track-btn" onclick="startDriverLocationTracking('${key}')" title="تفعيل تتبع الموقع">
+                    <i class="fas fa-location-arrow"></i>
+                </button>
+                <button class="action-icon stop-track-btn" onclick="stopDriverLocationTracking()" title="إيقاف التتبع">
+                    <i class="fas fa-stop-circle"></i>
                 </button>
             </div>
 
+            <!-- صورة السائق والحالة -->
             <div class="driver-image-container">
                 <img src="${driver.imageUrl}" alt="${driver.name}" class="driver-image">
                 <div class="driver-status ${driver.active ? 'status-active' : 'status-inactive'}">
                     ${driver.active ? 'متاح' : 'مشغول'}
                 </div>
+                <!-- مؤشر التتبع -->
+                <div class="tracking-indicator" id="tracking-${key}">
+                    <i class="fas fa-satellite-dish fa-pulse"></i>
+                </div>
             </div>
-               <div class="driver-info">
-    <h5 class="driver-name">${driver.name}</h5>
-    <div class="driver-stats">
-        <div class="stat-item" onclick="addRating('${key}')" style="cursor: pointer">
-            <div class="stat-value">
-                <i class="fas fa-star" style="color: #FFD700;"></i>
-                ${driver.rating ? driver.rating.toFixed(1) : '5.0'}
-            </div>
-            <div class="stat-label">اضغط للتقييم</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-value">
-                <i class="fas fa-route"></i>
-                ${driver.trips || 0}
-            </div>
-            <div class="stat-label">عدد الرحلات</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-value">
-                ${distance ? distance.toFixed(1) : '--'}
-            </div>
-            <div class="stat-label">كم</div
+
+            <!-- معلومات السائق -->
+            <div class="driver-info">
+                <h5 class="driver-name">${driver.name}</h5>
+                <div class="driver-stats">
+                    <div class="stat-item" onclick="addRating('${key}')" style="cursor: pointer">
+                        <div class="stat-value">
+                            <i class="fas fa-star" style="color: #FFD700;"></i>
+                            ${driver.rating ? driver.rating.toFixed(1) : '5.0'}
+                        </div>
+                        <div class="stat-label">اضغط للتقييم</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">
+                            <i class="fas fa-route"></i>
+                            ${driver.trips || 0}
+                        </div>
+                        <div class="stat-label">عدد الرحلات</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">
+                            ${distance ? distance.toFixed(1) : '--'}
+                        </div>
+                        <div class="stat-label">كم</div>
                     </div>
                 </div>
+                
                 <div class="text-muted">
                     <p class="mb-2">
                         <i class="fas fa-car me-2"></i>
@@ -1085,20 +1162,49 @@ notificationHandler.initialize().catch(console.error);
                     </p>
                 </div>
             </div>
+
+            <!-- أزرار الإجراءات السفلية -->
             <div class="driver-actions">
                 <button class="action-btn primary" onclick="viewDriverLocation('${key}')">
                     <i class="fas fa-map-marker-alt"></i>
                     عرض الموقع
                 </button>
-               <button class="action-btn secondary" onclick="openChatWindow('${key}')">
-    <i class="fas fa-comment"></i> مراسلة
-</button>
-
-
+                <button class="action-btn secondary" onclick="openChatWindow('${key}')">
+                    <i class="fas fa-comment"></i> 
+                    مراسلة
+                </button>
             </div>
         </div>
     `;
+}
+function startDriverLocationTracking(driverId) {
+    // ... الكود السابق ...
+
+    // تحديث حالة التتبع في البطاقة
+    const driverCard = document.querySelector(`[data-driver-id="${driverId}"]`);
+    if (driverCard) {
+        driverCard.setAttribute('data-tracking', 'true');
+        const indicator = driverCard.querySelector('.tracking-indicator');
+        if (indicator) {
+            indicator.classList.add('active');
+        }
     }
+
+    showToast('تم تفعيل تتبع الموقع بنجاح', 'success');
+}
+
+function stopDriverLocationTracking() {
+    // ... الكود السابق ...
+
+    // إزالة حالة التتبع من جميع البطاقات
+    document.querySelectorAll('.driver-card').forEach(card => {
+        card.setAttribute('data-tracking', 'false');
+        const indicator = card.querySelector('.tracking-indicator');
+        if (indicator) {
+            indicator.classList.remove('active');
+        }
+    });
+}
 
 
 
@@ -1395,56 +1501,63 @@ notificationHandler.initialize().catch(console.error);
             reader.readAsDataURL(file);
         }
     }
+async function handleAddDriver(event) {
+    event.preventDefault();
+    showLoading();
 
-    async function handleAddDriver(event) {
-        event.preventDefault();
-        showLoading();
-
-        try {
-            const imageFile = document.getElementById('driverImage').files[0];
-            if (!imageFile) {
-                throw new Error('الرجاء اختيار صورة للسائق');
-            }
-
-            // الحصول على الإحداثيات من اسم الموقع
-            const location = document.getElementById('driverLocation').value;
-            const coordinates = await getCoordinatesForLocation(location);
-
-            const imageRef = storage.ref(`drivers/${Date.now()}_${imageFile.name}`);
-            const uploadTask = await imageRef.put(imageFile);
-            const imageUrl = await uploadTask.ref.getDownloadURL();
-
-            const driverData = {
-                name: document.getElementById('driverName').value,
-                phone: document.getElementById('driverPhone').value,
-                carType: document.getElementById('carType').value,
-                carModel: document.getElementById('carModel').value,
-                location: location,
-                coordinates: coordinates, // استخدام الإحداثيات التي تم الحصول عليها
-                bio: document.getElementById('driverBio').value,
-                imageUrl: imageUrl,
-                rating: 5,
-                trips: 0,
-                active: true,
-                createdAt: firebase.database.ServerValue.TIMESTAMP
-            };
-
-            await database.ref('drivers').push(driverData);
-
-            // إغلاق النافذة المنبثقة بعد النجاح
-            const modal = bootstrap.Modal.getInstance(document.getElementById('addDriverModal'));
-            modal.hide();
-
-            document.getElementById('addDriverForm').reset();
-            showToast('تم إضافة السائق بنجاح');
-            loadDrivers();
-        } catch (error) {
-            console.error('Error adding driver:', error);
-            showToast(error.message, 'error');
-        } finally {
-            hideLoading();
+    try {
+        const imageFile = document.getElementById('driverImage').files[0];
+        if (!imageFile) {
+            throw new Error('الرجاء اختيار صورة للسائق');
         }
+
+        // الحصول على الإحداثيات مباشرة من حقول الإدخال
+        const latitude = parseFloat(document.getElementById('driverLatitude').value);
+        const longitude = parseFloat(document.getElementById('driverLongitude').value);
+        
+        // التحقق من وجود الإحداثيات
+        if (!latitude || !longitude) {
+            throw new Error('يرجى تحديد موقع السائق أولاً');
+        }
+
+        const imageRef = storage.ref(`drivers/${Date.now()}_${imageFile.name}`);
+        const uploadTask = await imageRef.put(imageFile);
+        const imageUrl = await uploadTask.ref.getDownloadURL();
+
+        const driverData = {
+            name: document.getElementById('driverName').value,
+            phone: document.getElementById('driverPhone').value,
+            carType: document.getElementById('carType').value,
+            carModel: document.getElementById('carModel').value,
+            location: document.getElementById('driverLocation').value, // المحافظة فقط
+            coordinates: {
+                lat: latitude,
+                lng: longitude
+            },
+            bio: document.getElementById('driverBio').value,
+            imageUrl: imageUrl,
+            rating: 5,
+            trips: 0,
+            active: true,
+            createdAt: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        await database.ref('drivers').push(driverData);
+
+        // إغلاق النافذة المنبثقة بعد النجاح
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addDriverModal'));
+        modal.hide();
+
+        document.getElementById('addDriverForm').reset();
+        showToast('تم إضافة السائق بنجاح');
+        loadDrivers();
+    } catch (error) {
+        console.error('Error adding driver:', error);
+        showToast(error.message, 'error');
+    } finally {
+        hideLoading();
     }
+}
 
     function bookDriver(driverId) {
         showLoading();
@@ -2312,6 +2425,27 @@ notificationHandler.initialize().catch(console.error);
             grid.appendChild(card);
         });
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        // التأكد من تحميل Firebase
+        if (typeof firebase !== 'undefined') {
+            // تهيئة Firebase
+            firebase.initializeApp(firebaseConfig);
+            
+            // بدء تحميل البيانات
+            loadDrivers();
+            
+            // تهيئة الخريطة
+            if (!window.mapInitialized) {
+                window.mapInitialized = true;
+                initMap();
+            }
+        } else {
+            console.error('Firebase not loaded');
+        }
+    });
+
+
+
 
     document.addEventListener('DOMContentLoaded', function () {
         displayAllDrivers(); // استدعاء الدالة التي تعرض جميع السائقين
@@ -2613,7 +2747,7 @@ class LocationNotificationSystem {
         document.body.appendChild(toast);
 
         // تشغيل صوت الإشعار
-        const audio = new Audio('/https://github.com/AlQasimMall/Pasha-taxi/blob/main/%D8%A7%D9%84%D9%87%D8%A7%D8%AA%D9%81-%D8%A7%D9%84%D8%AB%D8%A7%D8%A8%D8%AA.mp3');
+        const audio = new Audio('/https://github.com/AlQasimMall/Al-Pasha/blob/main/%D8%A7%D9%84%D9%87%D8%A7%D8%AA%D9%81-%D8%A7%D9%84%D8%AB%D8%A7%D8%A8%D8%AA.mp3');
         audio.play().catch(error => console.log('Could not play notification sound:', error));
 
         // إزالة الإشعار بعد 5 ثواني
@@ -2666,169 +2800,185 @@ class LocationNotificationSystem {
 // إنشاء نسخة عامة من نظام الإشعارات
 const locationNotificationSystem = new LocationNotificationSystem();
 
-// دوال مساعدة للتعامل مع الإشعارات
-async function requestNotificationPermission() {
-    if ('Notification' in window) {
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-            showToast('تم تفعيل الإشعارات بنجاح');
-        } else {
-            showToast('لم يتم السماح بالإشعارات', 'warning');
-        }
+// نظام الإشعارات المحسن
+// نظام الإشعارات المحسن
+class NotificationSystem {
+    constructor() {
+        this.container = this.createContainer();
+        this.notifications = new Set();
+        this.initialize();
     }
-}
 
-// تحديث دالة قبول الرحلة
-async function acceptTrip(tripId, driverId) {
-    try {
-        showLoading();
-
-        // تحديث حالة الرحلة
-        await database.ref(`trips/${tripId}`).update({
-            status: 'active',
-            acceptedAt: firebase.database.ServerValue.TIMESTAMP
-        });
-
-        // بدء تتبع موقع السائق
-        const watchId = locationNotificationSystem.startDriverLocationUpdates(driverId);
-
-        if (watchId) {
-            localStorage.setItem(`watchId_${tripId}`, watchId);
-            showToast('تم قبول الرحلة وبدء تتبع الموقع');
-        } else {
-            showToast('تم قبول الرحلة ولكن تعذر تتبع الموقع', 'warning');
-        }
-
-    } catch (error) {
-        console.error('Error accepting trip:', error);
-        showToast('حدث خطأ أثناء قبول الرحلة', 'error');
-    } finally {
-        hideLoading();
-    }
-}
-
-// تحديث دالة إنهاء الرحلة
-async function endTrip(tripId, driverId) {
-    try {
-        showLoading();
-
-        // تحديث حالة الرحلة
-        await database.ref(`trips/${tripId}`).update({
-            status: 'completed',
-            completedAt: firebase.database.ServerValue.TIMESTAMP
-        });
-
-        // إيقاف تتبع موقع السائق
-        locationNotificationSystem.stopDriverLocationUpdates(driverId);
-        localStorage.removeItem(`watchId_${tripId}`);
-
-        showToast('تم إنهاء الرحلة بنجاح');
-    } catch (error) {
-        console.error('Error ending trip:', error);
-        showToast('حدث خطأ أثناء إنهاء الرحلة', 'error');
-    } finally {
-        hideLoading();
-    }
-}
-
-// طلب أذونات الإشعارات عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-    requestNotificationPermission();
-});
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-
-
-  function getAllDrivers() {
-    return firebase.database().ref('drivers').once('value')
-        .then(snapshot => {
-            const drivers = [];
-            snapshot.forEach(child => {
-                drivers.push({
-                    id: child.key,
-                    ...child.val()
-                });
+    // تهيئة نظام الإشعارات
+    initialize() {
+        this.checkNotificationSupport()
+            .then(() => this.requestPermission())
+            .catch(error => {
+                console.error('Notification initialization error:', error);
             });
-            return drivers;
-        });
-}
+    }
 
+    // إنشاء حاوية الإشعارات
+    createContainer() {
+        const container = document.createElement('div');
+        container.className = 'notification-container';
+        document.body.appendChild(container);
+        return container;
+    }
 
-// Modified display functions for proper async handling
-async function displayAllDrivers() {
-  try {
-      const drivers = await getAllDrivers();
-      const grid = document.getElementById('driversGrid');
-      grid.innerHTML = '';
-      
-      if (!drivers || drivers.length === 0) {
-          grid.innerHTML = '<div class="no-drivers">لا يوجد سائقين متاحين حالياً</div>';
-          return;
-      }
-
-      drivers.forEach(driver => {
-          const card = createDriverCard(driver);
-          grid.insertAdjacentHTML('beforeend', card);
-      });
-  } catch (error) {
-      console.error('Error displaying drivers:', error);
-      showToast('حدث خطأ في تحميل بيانات السائقين', 'error');
-  }
-}
-
-// Modified event listener
-document.addEventListener('DOMContentLoaded', async function() {
-  await displayAllDrivers();
-  document.querySelector('.location-chip[data-location="all"]').classList.add('active');
-});
-
-// Modified location filter handler
-document.querySelectorAll('.location-chip').forEach(chip => {
-  chip.addEventListener('click', async function() {
-      document.querySelectorAll('.location-chip').forEach(c => c.classList.remove('active'));
-      this.classList.add('active');
-      const location = this.getAttribute('data-location');
-      
-      try {
-          if (location === 'all') {
-              await displayAllDrivers();
-          } else {
-              const drivers = await getAllDrivers();
-              const filteredDrivers = drivers.filter(driver => driver.location === location);
-              const grid = document.getElementById('driversGrid');
-              grid.innerHTML = '';
-              
-              if (filteredDrivers.length === 0) {
-                  grid.innerHTML = '<div class="no-drivers">لا يوجد سائقين في هذه المنطقة</div>';
-                  return;
-              }
-
-              filteredDrivers.forEach(driver => {
-                  const card = createDriverCard(driver);
-                  grid.insertAdjacentHTML('beforeend', card);
-              });
-          }
-      } catch (error) {
-          console.error('Error filtering drivers:', error);
-          showToast('حدث خطأ في تصفية السائقين', 'error');
-      }
-  });
-});
-
-self.addEventListener('install', function(event) {
-    event.waitUntil(
-      caches.open(CACHE_NAME).then(function(cache) {
-        try {
-          console.log('Opened cache');
-          return cache.addAll(urlsToCache);
-        } catch (error) {
-          console.error('Error caching files:', error);
+    // التحقق من دعم الإشعارات
+    async checkNotificationSupport() {
+        if (!('Notification' in window)) {
+            throw new Error('المتصفح لا يدعم الإشعارات');
         }
-      })
+    }
+
+    // طلب إذن الإشعارات
+    async requestPermission() {
+        if (Notification.permission === 'default') {
+            this.showPermissionDialog();
+        } else if (Notification.permission === 'granted') {
+            this.show('مرحباً بك!', 'تم تفعيل الإشعارات بنجاح', 'success');
+        }
+    }
+
+    // عرض نافذة طلب الإذن
+    showPermissionDialog() {
+        const dialog = document.createElement('div');
+        dialog.className = 'permission-dialog';
+        dialog.innerHTML = `
+            <div class="permission-dialog-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <h3 class="permission-dialog-title">تفعيل الإشعارات</h3>
+            <p class="permission-dialog-message">
+                نود إرسال إشعارات لإبقائك على اطلاع بآخر التحديثات والعروض.
+                هل تود تفعيل الإشعارات؟
+            </p>
+            <div class="permission-dialog-buttons">
+                <button class="permission-button allow">نعم، تفعيل الإشعارات</button>
+                <button class="permission-button deny">لا، شكراً</button>
+            </div>
+        `;
+
+        document.body.appendChild(dialog);
+
+        dialog.querySelector('.allow').addEventListener('click', async () => {
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') {
+                this.show('تم!', 'تم تفعيل الإشعارات بنجاح', 'success');
+            }
+            dialog.remove();
+        });
+
+        dialog.querySelector('.deny').addEventListener('click', () => {
+            dialog.remove();
+            this.show('تم الإلغاء', 'يمكنك تفعيل الإشعارات لاحقاً من الإعدادات', 'info');
+        });
+    }
+
+    // عرض إشعار
+    show(title, message, type = 'info', duration = 3000) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-icon">
+                ${this.getIconForType(type)}
+            </div>
+            <div class="notification-content">
+                <div class="notification-title">${title}</div>
+                <div class="notification-message">${message}</div>
+            </div>
+            <button class="notification-close">&times;</button>
+            <div class="notification-progress"></div>
+        `;
+
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => this.close(notification));
+
+        this.container.appendChild(notification);
+        this.notifications.add(notification);
+
+        setTimeout(() => this.close(notification), duration);
+
+        return notification;
+    }
+
+    // إغلاق إشعار
+    close(notification) {
+        if (!this.notifications.has(notification)) return;
+        
+        notification.style.animation = 'slideOut 0.5s ease forwards';
+        
+        setTimeout(() => {
+            notification.remove();
+            this.notifications.delete(notification);
+        }, 500);
+    }
+
+    // الحصول على أيقونة الإشعار حسب النوع
+    getIconForType(type) {
+        const icons = {
+            success: '<i class="fas fa-check-circle"></i>',
+            error: '<i class="fas fa-times-circle"></i>',
+            warning: '<i class="fas fa-exclamation-circle"></i>',
+            info: '<i class="fas fa-info-circle"></i>'
+        };
+        return icons[type] || icons.info;
+    }
+}
+
+// إنشاء نسخة عامة من نظام الإشعارات
+const notificationSystem = new NotificationSystem();
+
+// دالة مختصرة لعرض الإشعارات
+function showNotification(title, message, type = 'info') {
+    notificationSystem.show(title, message, type);
+}
+
+// مثال على الاستخدام عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    // إشعار ترحيبي
+    setTimeout(() => {
+        showNotification(
+            'مرحباً بك في تاكسي العراق!',
+            'نحن سعداء بانضمامك إلينا',
+            'info'
+        );
+    }, 1000);
+    
+    // التحقق من حالة الاتصال
+    if (navigator.onLine) {
+        showNotification(
+            'متصل بالإنترنت',
+            'يمكنك الآن استخدام جميع خدمات التطبيق',
+            'success'
+        );
+    } else {
+        showNotification(
+            'غير متصل',
+            'يرجى التحقق من اتصال الإنترنت',
+            'error'
+        );
+    }
+});
+
+// مراقبة حالة الاتصال
+window.addEventListener('online', () => {
+    showNotification(
+        'تم استعادة الاتصال',
+        'يمكنك الآن استخدام جميع خدمات التطبيق',
+        'success'
     );
-  });
+});
+
+window.addEventListener('offline', () => {
+    showNotification(
+        'انقطع الاتصال',
+        'يرجى التحقق من اتصال الإنترنت',
+        'error'
+    );
+});
   // إضافة هذا الكود في ملف app.js
 class NotificationTester {
     constructor() {
@@ -2910,87 +3060,273 @@ class NotificationTester {
         };
     }
 }
-
-// إضافة زر اختبار في واجهة المستخدم
-function addTestButton() {
-    const button = document.createElement('button');
-    button.className = 'btn btn-primary position-fixed bottom-0 end-0 m-3';
-    button.innerHTML = '<i class="fas fa-bell me-2"></i>اختبار الإشعارات';
-    
-    button.onclick = async () => {
-        const tester = new NotificationTester();
-        const result = await tester.testNotifications();
-        
-        if (result.success) {
-            showToast('تم إعداد الإشعارات بنجاح', 'success');
-        } else {
-            showToast(result.error, 'error');
+function captureCurrentLocation() {
+    // إنشاء وعد لمعالجة تحديد الموقع
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            Swal.fire({
+                icon: 'error',
+                title: 'خطأ!',
+                text: 'متصفحك لا يدعم تحديد الموقع'
+            });
+            reject('Geolocation not supported');
+            return;
         }
-    };
-    
-    document.body.appendChild(button);
+
+        // عرض مؤشر التحميل
+        const loadingAlert = Swal.fire({
+            title: 'جاري تحديد موقعك...',
+            text: 'يرجى الانتظار',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                // إغلاق مؤشر التحميل فوراً
+                loadingAlert.close();
+
+                // تحديث حقول الإحداثيات
+                document.getElementById('driverLatitude').value = position.coords.latitude;
+                document.getElementById('driverLongitude').value = position.coords.longitude;
+
+                // عرض رسالة النجاح لفترة قصيرة
+                Swal.fire({
+                    icon: 'success',
+                    title: 'تم!',
+                    text: 'تم تحديد موقعك بنجاح',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+
+                resolve(position);
+            },
+            (error) => {
+                // إغلاق مؤشر التحميل
+                loadingAlert.close();
+
+                let errorMessage = 'حدث خطأ في تحديد الموقع';
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage = 'تم رفض الوصول إلى الموقع. يرجى السماح للتطبيق باستخدام خدمة الموقع';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage = 'معلومات الموقع غير متوفرة';
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage = 'انتهت مهلة طلب الموقع';
+                        break;
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطأ!',
+                    text: errorMessage
+                });
+
+                reject(error);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    });
 }
+
 
 // تشغيل الاختبار عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', addTestButton);
+// إضافة متغير عالمي لتخزين معرف المراقبة
+let locationWatchId = null;
 
-// supabase-init.js
-import { createClient } from '@supabase/supabase-js'
+// دالة بدء تتبع موقع السائق
+function startDriverLocationTracking(driverId) {
+    if (!navigator.geolocation) {
+        showToast('متصفحك لا يدعم خدمة تحديد الموقع', 'error');
+        return;
+    }
 
-// تكوين Supabase - قم بتغيير هذه القيم بقيم مشروعك على Supabase
-const supabaseUrl = 'YOUR_SUPABASE_URL'
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'
+    // إيقاف أي تتبع سابق إذا كان موجوداً
+    if (locationWatchId) {
+        stopDriverLocationTracking();
+    }
 
-// إنشاء عميل Supabase
-const supabase = createClient(supabaseUrl, supabaseKey)
+    // بدء مراقبة الموقع
+    locationWatchId = navigator.geolocation.watchPosition(
+        (position) => {
+            updateDriverLocation(driverId, position);
+        },
+        (error) => {
+            handleLocationError(error);
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        }
+    );
 
-// دالة للتحقق من حالة الاتصال
-export const checkConnection = async () => {
-    try {
-        const { data, error } = await supabase
-            .from('drivers')
-            .select('count')
-            .single()
-        
-        if (error) throw error
-        console.log('Connected to Supabase successfully')
-        return true
-    } catch (error) {
-        console.error('Supabase connection error:', error.message)
-        return false
+    // تخزين معرف السائق في localStorage
+    localStorage.setItem('activeDriverId', driverId);
+    
+    showToast('تم تفعيل تتبع الموقع بنجاح', 'success');
+}
+
+// دالة إيقاف تتبع موقع السائق
+function stopDriverLocationTracking() {
+    if (locationWatchId) {
+        navigator.geolocation.clearWatch(locationWatchId);
+        locationWatchId = null;
+        localStorage.removeItem('activeDriverId');
+        showToast('تم إيقاف تتبع الموقع', 'info');
     }
 }
 
-// تصدير عميل Supabase للاستخدام في بقية التطبيق
-export default supabase
-
-// المراقبة في الوقت الفعلي للسائقين
-export const setupRealtimeDrivers = (callback) => {
-    const subscription = supabase
-        .channel('public:drivers')
-        .on('postgres_changes', 
-            { event: '*', schema: 'public', table: 'drivers' },
-            (payload) => callback(payload)
-        )
-        .subscribe()
-
-    return subscription
-}
-
-// إعداد المراقبة في الوقت الفعلي للمحادثات
-export const setupRealtimeChat = (userId, driverId, callback) => {
-    const subscription = supabase
-        .channel('public:messages')
-        .on('postgres_changes',
-            {
-                event: '*',
-                schema: 'public',
-                table: 'messages',
-                filter: `user_id=eq.${userId},driver_id=eq.${driverId}`
+// دالة تحديث موقع السائق
+async function updateDriverLocation(driverId, position) {
+    try {
+        const locationUpdate = {
+            coordinates: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
             },
-            (payload) => callback(payload)
-        )
-        .subscribe()
+            lastUpdated: firebase.database.ServerValue.TIMESTAMP
+        };
 
-    return subscription
+        // تحديث الموقع في قاعدة البيانات
+        await database.ref(`drivers/${driverId}`).update(locationUpdate);
+
+        // تحديث موقع السائق على الخريطة
+        updateDriverMarkerOnMap(driverId, locationUpdate.coordinates);
+    } catch (error) {
+        console.error('Error updating driver location:', error);
+        showToast('حدث خطأ في تحديث الموقع', 'error');
+    }
 }
+
+// دالة تحديث موقع السائق على الخريطة
+function updateDriverMarkerOnMap(driverId, coordinates) {
+    if (!map || !markerLayer) return;
+
+    // البحث عن علامة السائق الحالية
+    let driverMarker = markerLayer.getLayers().find(
+        layer => layer.options.driverId === driverId
+    );
+
+    if (driverMarker) {
+        // تحديث موقع العلامة الحالية
+        driverMarker.setLatLng([coordinates.lat, coordinates.lng]);
+    } else {
+        // إنشاء علامة جديدة للسائق
+        database.ref(`drivers/${driverId}`).once('value')
+            .then(snapshot => {
+                const driver = snapshot.val();
+                if (driver) {
+                    driverMarker = L.marker([coordinates.lat, coordinates.lng], {
+                        icon: L.divIcon({
+                            html: `
+                                <div style="position: relative; text-align: center;">
+                                    <img src="${driver.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527'}" 
+                                         alt="صورة السائق" 
+                                         style="width: 35px; height: 35px; border-radius: 50%; border: 2px solid #FFD700;">
+                                    <i class="fas fa-taxi" 
+                                       style="position: absolute; bottom: -5px; right: 50%; transform: translateX(50%); 
+                                       color: #FFD700; font-size: 1.2rem;"></i>
+                                </div>
+                            `,
+                            className: 'driver-marker',
+                            iconSize: [40, 40]
+                        }),
+                        driverId: driverId
+                    }).addTo(markerLayer);
+
+                    // إضافة النافذة المنبثقة
+                    driverMarker.bindPopup(`
+                        <div style="text-align: center;">
+                            <h6>${driver.name}</h6>
+                            <p>${driver.carType} - ${driver.carModel}</p>
+                            <button class="btn btn-sm btn-primary" onclick="openChatWindow('${driverId}')">
+                                <i class="fas fa-comment"></i> مراسلة
+                            </button>
+                        </div>
+                    `);
+                }
+            });
+    }
+}
+
+// تعديل دالة handleAddDriver لتفعيل التتبع المباشر
+async function handleAddDriver(event) {
+    event.preventDefault();
+    showLoading();
+
+    try {
+        const imageFile = document.getElementById('driverImage').files[0];
+        if (!imageFile) {
+            throw new Error('الرجاء اختيار صورة للسائق');
+        }
+
+        const latitude = parseFloat(document.getElementById('driverLatitude').value);
+        const longitude = parseFloat(document.getElementById('driverLongitude').value);
+        
+        if (!latitude || !longitude) {
+            throw new Error('يرجى تحديد موقع السائق أولاً');
+        }
+
+        const imageRef = storage.ref(`drivers/${Date.now()}_${imageFile.name}`);
+        const uploadTask = await imageRef.put(imageFile);
+        const imageUrl = await uploadTask.ref.getDownloadURL();
+
+        const driverData = {
+            name: document.getElementById('driverName').value,
+            phone: document.getElementById('driverPhone').value,
+            carType: document.getElementById('carType').value,
+            carModel: document.getElementById('carModel').value,
+            location: document.getElementById('driverLocation').value,
+            coordinates: {
+                lat: latitude,
+                lng: longitude
+            },
+            bio: document.getElementById('driverBio').value,
+            imageUrl: imageUrl,
+            rating: 5,
+            trips: 0,
+            active: true,
+            createdAt: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        // إضافة السائق إلى قاعدة البيانات
+        const newDriverRef = await database.ref('drivers').push(driverData);
+        const driverId = newDriverRef.key;
+
+        // تفعيل تتبع الموقع المباشر
+        startDriverLocationTracking(driverId);
+
+        // إغلاق النافذة المنبثقة
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addDriverModal'));
+        modal.hide();
+
+        document.getElementById('addDriverForm').reset();
+        showToast('تم إضافة السائق وتفعيل تتبع الموقع بنجاح');
+        loadDrivers();
+    } catch (error) {
+        console.error('Error adding driver:', error);
+        showToast(error.message, 'error');
+    } finally {
+        hideLoading();
+    }
+}
+
+// إضافة استعادة حالة التتبع عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    const activeDriverId = localStorage.getItem('activeDriverId');
+    if (activeDriverId) {
+        startDriverLocationTracking(activeDriverId);
+    }
+});

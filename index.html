@@ -1,4 +1,101 @@
 <!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="تطبيق القرعة العشوائية الفاخر - أداة مبتكرة لاختيار الفائزين بسهولة وشفافية">
+    <meta name="keywords" content="القرعة, تطبيق القرعة, اختيار عشوائي, فائز, قرعة عشوائية">
+    <meta name="author" content="   القرعة">
+    <meta name="theme-color" content="#FFD700">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>القرعة - تطبيق القرعة العشوائية الفاخر</title>
+
+    <!-- App Icons -->
+
+    <!-- قبل إغلاق وسم head -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react-leaflet@4.2.1/dist/react-leaflet.min.js"></script>
+    <link rel="icon" type="image/png"
+        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <link rel="apple-touch-startup-image"
+        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- External CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Meta Tags -->
+    <meta property="og:title" content="القرعة">
+    <meta property="og:description" content="القرعة">
+    <meta property="og:image"
+        content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+    <meta property="og:url" content="https://taxi-iraq.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="القرعة">
+    <meta name="twitter:description" content="القرعة">
+    <meta name="twitter:image"
+        content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
+</head>
+
+
+<!-- Content will be here -->
+
+<!-- External Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+
+<!-- Firebase Scripts -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
+<!-- Primero jQuery (si es necesario para tu versión de Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Luego Bootstrap Bundle (incluye Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Finalmente tus scripts personalizados -->
+<script src="modal.js"></script>
+
+<!-- App Scripts -->
+
+<!-- إضافة المزيد من الأصوات -->
+<audio id="notificationSound" src="notification-sound.mp3" preload="auto"></audio>
+<audio id="messageSound" src="message-sound.mp3" preload="auto"></audio>
+
+<!-- إضافة الملفات الجديدة -->
+<script type="module" src="user-auth-notifications.js"></script>
+<script type="module" src="notifications-manager.js"></script>
+<script src="firebase-config.js"></script>
+<!-- قبل إغلاق body -->
+<script src="nearby-drivers-map.js"></script>
+
+
+
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +117,7 @@
             --border-radius: 1rem;
             --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        } /* Missing closing brace added here */
+        }
 
         * {
             box-sizing: border-box;
@@ -88,6 +185,175 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
+
+
+
+
+        .fullscreen-winner {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.85);
+                    z-index: 2000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    animation: fadeIn 0.5s ease;
+                    backdrop-filter: blur(10px);
+                }
+                
+                .fullscreen-winner.fade-out {
+                    animation: fadeOut 0.5s ease forwards;
+                }
+                
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+                
+                .fullscreen-winner-content {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                }
+                
+                .fullscreen-winner-content img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
+                    animation: zoomIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                }
+                
+                @keyframes zoomIn {
+                    from { transform: scale(0.5); opacity: 0; }
+                    to { transform: scale(1); opacity: 1; }
+                }
+                
+                .fullscreen-winner-overlay {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    padding: 2rem;
+                    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+                    color: white;
+                    text-align: center;
+                    animation: slideUp 0.8s ease;
+                }
+                
+                @keyframes slideUp {
+                    from { transform: translateY(100%); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                
+                .fullscreen-winner-overlay h2 {
+                    font-size: 3rem;
+                    margin-bottom: 1rem;
+                    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+                    color: white;
+                }
+                
+                .close-fullscreen {
+                    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+                    color: white;
+                    border: none;
+                    padding: 1rem 2rem;
+                    border-radius: 9999px;
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                    cursor: pointer;
+                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                    transition: all 0.3s ease;
+                    margin-top: 1rem;
+                }
+                
+                .close-fullscreen:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+                }
+                
+                .around-confetti {
+                    position: absolute;
+                    pointer-events: none;
+                    z-index: 1;
+                }
+                
+                /* تحسينات على كارت الفائز */
+                .winner-card {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    animation: winnerCardAppear 0.8s cubic-bezier(0.26, 0.53, 0.74, 1.48) forwards;
+                    opacity: 0;
+                    transform: scale(0.8) translateY(30px);
+                    position: relative;
+                    width: 100%;
+                    max-width: 24rem;
+                }
+                
+                .winner-image-container {
+                    width: 100%;
+                    height: 24rem;
+                    overflow: hidden;
+                    position: relative;
+                    border-radius: 1.5rem;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                    transform-style: preserve-3d;
+                    perspective: 1000px;
+                }
+                
+                .winner-image-container img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
+                    cursor: pointer;
+                }
+                
+                .winner-image-container:hover img {
+                    transform: scale(1.05);
+                }
+                
+                .winner-name-container {
+                    width: 100%;
+                    height: 24rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: linear-gradient(135deg, #f0f9ff, #e6f0f8);
+                    border-radius: 1.5rem;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                    overflow: hidden;
+                }
+                
+                .winner-name-container span {
+                    font-size: 3rem;
+                    font-weight: bold;
+                    color: var(--primary-color);
+                    text-align: center;
+                    padding: 2rem;
+                    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                }
+                
+                /* تحديث أسلوب عرض الفائزين */
+                .winners-container {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+                    gap: 3rem;
+                    width: 100%;
+                    margin: 3rem 0;
+                    z-index: 1;
+
+                }
+
+
 
         .container {
             max-width: 1200px;
@@ -651,9 +917,38 @@
         }
 
         @keyframes highlightWinner {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { transform: scale(1); }
+            0% { transform: scale(0.95); filter: brightness(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            25% { transform: scale(1.1); filter: brightness(1.5); box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+            50% { transform: scale(1.05); filter: brightness(1.3); box-shadow: 0 0 30px rgba(239, 68, 68, 0.8); }
+            75% { transform: scale(1.08); filter: brightness(1.4); box-shadow: 0 0 20px rgba(239, 68, 68, 0.6); }
+            100% { transform: scale(1); filter: brightness(1.2); box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+        }
+        
+        /* مؤثرات إضافية للفائز */
+        .highlight-winner {
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.8), 0 0 60px rgba(255, 165, 0, 0.6);
+            animation: highlightWinner 1.5s ease-in-out forwards;
+        }
+        
+        .highlight-winner::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 5px solid gold;
+            border-radius: 1rem;
+            animation: pulseGold 1.5s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes pulseGold {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .countdown-wrapper {
@@ -816,8 +1111,9 @@
         .winner-modal h2 {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-        }
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+             }
 
         /* Confetti styles */
         .confetti {
@@ -1512,8 +1808,6 @@
             }
         }
 
-        let spinningSound; // Variable to hold the spinning sound
-
         function startLottery() {
             // عرض النافذة المنبثقة
             modal.style.display = 'block';
@@ -1529,12 +1823,6 @@
         function startCarousel() {
             spinner.innerHTML = '';
             
-            // Initialize the spinning sound
-            spinningSound = new Audio('https://www.soundjay.com/button/sounds/button-16.mp3');
-            spinningSound.loop = true; // Loop the sound while spinning
-            spinningSound.volume = 0.5;
-            spinningSound.play();
-
             // إنشاء قائمة الصور المتحركة
             const imageList = document.createElement('div');
             imageList.classList.add('image-list');
@@ -1638,13 +1926,6 @@
                 if (count === 0) {
                     clearInterval(countdownInterval);
                     countdownText.textContent = 'تم اختيار الفائزين!';
-                    
-                    // Stop the spinning sound
-                    if (spinningSound) {
-                        spinningSound.pause();
-                        spinningSound.currentTime = 0;
-                    }
-
                     setTimeout(pickRandomWinners, 1000);
                 }
             }, 1000);
@@ -1666,21 +1947,87 @@
                 sourceItems.splice(randomIndex, 1);
             }
 
-            // إغلاق نافذة العد التنازلي وعرض نافذة الفائزين
-            modal.style.display = 'none';
-            winnerModal.style.display = 'block';
-
-            // عرض الفائزين وإضافة التأثيرات
-            displayWinners(winners);
-            createConfetti();
+            // مؤثر صوتي لإعلان الفائز
             playWinnerSound();
             
-            // إغلاق نافذة الفائزين بعد مدة محددة
-            setTimeout(function() {
-                winnerModal.style.display = 'none';
-                // إعادة تفعيل الأزرار
-                validateInputs();
-            }, parseInt(winnerDisplayTimeInput.value) * 1000);
+            // إضافة مؤثر لتجميد الصورة المتحركة
+            if (currentLotteryType === 'images') {
+                freezeSpinnerOnWinner(winners[0]);
+            } else {
+                freezeSpinnerOnNameWinner(winners[0]);
+            }
+            
+            // تأخير صغير قبل إظهار نافذة الفائز
+            setTimeout(() => {
+                // إغلاق نافذة العد التنازلي وعرض نافذة الفائزين
+                modal.style.display = 'none';
+                winnerModal.style.display = 'block';
+                
+                // عرض الفائزين وإضافة التأثيرات
+                displayWinners(winners);
+                createConfetti();
+                
+                // إغلاق نافذة الفائزين بعد مدة محددة
+                setTimeout(function() {
+                    winnerModal.style.display = 'none';
+                    // إعادة تفعيل الأزرار
+                    validateInputs();
+                }, parseInt(winnerDisplayTimeInput.value) * 1000);
+            }, 1500);
+        }
+        
+        // تجميد الصور المتحركة على صورة الفائز
+        function freezeSpinnerOnWinner(winnerImage) {
+            // إيقاف تحريك الصور
+            const imageList = document.querySelector('.image-list');
+            if (imageList) {
+                imageList.style.animationPlayState = 'paused';
+                
+                // إضافة مؤثر توهج على الصورة الفائزة
+                setTimeout(() => {
+                    const images = imageList.querySelectorAll('img');
+                    images.forEach(img => {
+                        if (img.src === winnerImage) {
+                            img.classList.add('highlight-winner');
+                            
+                            // تحريك الصورة الفائزة إلى المركز
+                            const imageListRect = imageList.getBoundingClientRect();
+                            const imgRect = img.getBoundingClientRect();
+                            const spinnerRect = spinner.getBoundingClientRect();
+                            
+                            const offsetY = spinnerRect.height / 2 - (imgRect.top - imageListRect.top) - imgRect.height / 2;
+                            imageList.style.transform = `translateY(${offsetY}px)`;
+                        }
+                    });
+                }, 500);
+            }
+        }
+        
+        // تجميد الأسماء المتحركة على اسم الفائز
+        function freezeSpinnerOnNameWinner(winnerName) {
+            // إيقاف تحريك الأسماء
+            const nameList = document.querySelector('.image-list');
+            if (nameList) {
+                nameList.style.animationPlayState = 'paused';
+                
+                // إضافة مؤثر توهج على الاسم الفائز
+                setTimeout(() => {
+                    const nameElements = nameList.querySelectorAll('div');
+                    nameElements.forEach(nameEl => {
+                        if (nameEl.textContent === winnerName) {
+                            nameEl.classList.add('highlight-winner');
+                            
+                            // تحريك الاسم الفائز إلى المركز
+                            const nameListRect = nameList.getBoundingClientRect();
+                            const nameElRect = nameEl.getBoundingClientRect();
+                            const spinnerRect = spinner.getBoundingClientRect();
+                            
+                            const offsetY = spinnerRect.height / 2 - (nameElRect.top - nameListRect.top) - nameElRect.height / 2;
+                            nameList.style.transform = `translateY(${offsetY}px)`;
+                        }
+                    });
+                }, 500);
+            }
         }
 
         function displayWinners(winners) {
@@ -1692,14 +2039,17 @@
                 
                 // عرض مختلف حسب نوع القرعة
                 if (currentLotteryType === 'images') {
+                    // إظهار صورة الفائز بشكل كامل على الواجهة بدون إطار
                     winnerCard.innerHTML = `
-                        <img src="${winner}" alt="الفائز ${index + 1}" onclick="showLargeWinnerImage('${winner}')">
+                        <div class="winner-image-container">
+                            <img src="${winner}" alt="الفائز ${index + 1}" onclick="showFullscreenWinner('${winner}')">
+                        </div>
                         <p>الفائز ${index + 1}</p>
                     `;
                 } else {
                     winnerCard.innerHTML = `
-                        <div style="width: 16rem; height: 16rem; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f0f9ff, #e6f0f8); border-radius: 1rem; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); border: 0.5rem solid white;">
-                            <span style="font-size: 2.5rem; font-weight: bold; color: var(--primary-color); text-align: center; padding: 1rem;">${winner}</span>
+                        <div class="winner-name-container">
+                            <span>${winner}</span>
                         </div>
                         <p>الفائز ${index + 1}</p>
                     `;
@@ -1707,45 +2057,130 @@
                 
                 winnersContainer.appendChild(winnerCard);
             });
+            
+            // عرض الفائز الأول بطريقة منبثقة بعد لحظات
+            if (winners.length > 0 && currentLotteryType === 'images') {
+                setTimeout(() => {
+                    showFullscreenWinner(winners[0]);
+                }, 300);
+            }
         }
         
-        // دالة لعرض صورة الفائز بحجم كبير
-        function showLargeWinnerImage(src) {
-            // إنشاء نافذة عرض الصورة المكبرة
-            const imgPreview = document.createElement('div');
-            imgPreview.style.position = 'fixed';
-            imgPreview.style.top = '0';
-            imgPreview.style.left = '0';
-            imgPreview.style.width = '100%';
-            imgPreview.style.height = '100%';
-            imgPreview.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-            imgPreview.style.zIndex = '1200';
-            imgPreview.style.display = 'flex';
-            imgPreview.style.alignItems = 'center';
-            imgPreview.style.justifyContent = 'center';
-            imgPreview.style.cursor = 'pointer';
-            imgPreview.style.padding = '2rem';
-            imgPreview.style.backdropFilter = 'blur(10px)';
-            imgPreview.style.animation = 'fadeIn 0.3s ease';
+        // دالة لعرض الفائز بشكل كامل على الشاشة
+        function showFullscreenWinner(src) {
+            // إزالة أي نافذة منبثقة سابقة للفائز
+            const existingFullscreen = document.getElementById('fullscreen-winner');
+            if (existingFullscreen) {
+                document.body.removeChild(existingFullscreen);
+            }
             
-            const img = document.createElement('img');
-            img.src = src;
-            img.style.maxWidth = '90%';
-            img.style.maxHeight = '90%';
-            img.style.objectFit = 'contain';
-            img.style.borderRadius = '1rem';
-            img.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.4)';
-            img.style.border = '0.5rem solid white';
-            img.style.animation = 'popIn 0.6s cubic-bezier(0.26, 0.53, 0.74, 1.48)';
+            // إنشاء نافذة عرض الفائز بكامل الشاشة
+            const fullscreenWinner = document.createElement('div');
+            fullscreenWinner.id = 'fullscreen-winner';
+            fullscreenWinner.className = 'fullscreen-winner';
             
-            imgPreview.appendChild(img);
-            document.body.appendChild(imgPreview);
+            fullscreenWinner.innerHTML = `
+                <div class="fullscreen-winner-content">
+                    <img src="${src}" alt="الفائز">
+                    <div class="fullscreen-winner-overlay">
+                        <h2>تهانينا للفائز!</h2>
+                        <button class="close-fullscreen">إغلاق</button>
+                    </div>
+                </div>
+            `;
             
-            // إغلاق النافذة بالنقر عليها
-            imgPreview.addEventListener('click', () => {
-                document.body.removeChild(imgPreview);
+            document.body.appendChild(fullscreenWinner);
+            
+            // إضافة تأثيرات الكونفيتي حول الصورة
+            createConfettiAround(fullscreenWinner);
+            
+            // إغلاق العرض بالنقر على زر الإغلاق أو بالنقر خارج الصورة
+            const closeBtn = fullscreenWinner.querySelector('.close-fullscreen');
+            closeBtn.addEventListener('click', () => {
+                fullscreenWinner.classList.add('fade-out');
+                setTimeout(() => {
+                    if (document.body.contains(fullscreenWinner)) {
+                        document.body.removeChild(fullscreenWinner);
+                    }
+                }, 500);
+            });
+            
+            fullscreenWinner.addEventListener('click', (e) => {
+                if (e.target === fullscreenWinner) {
+                    fullscreenWinner.classList.add('fade-out');
+                    setTimeout(() => {
+                        if (document.body.contains(fullscreenWinner)) {
+                            document.body.removeChild(fullscreenWinner);
+                        }
+                    }, 500);
+                }
             });
         }
+        
+        // دالة لإنشاء كونفيتي حول عنصر محدد
+        function createConfettiAround(element) {
+            const colors = [
+                '#ff5252', '#ffeb3b', '#2196f3', '#4caf50', '#e040fb', 
+                '#f06292', '#ffc107', '#03a9f4', '#8bc34a', '#9c27b0'
+            ];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'around-confetti';
+                
+                // تخصيص حجم وشكل ولون الكونفيتي بشكل عشوائي
+                const size = Math.random() * 10 + 5;
+                const shape = Math.random() > 0.5 ? '50%' : '0';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.borderRadius = shape;
+                confetti.style.backgroundColor = color;
+                
+                // توزيع الكونفيتي حول العنصر بشكل عشوائي
+                const angle = Math.random() * Math.PI * 2; // زاوية عشوائية
+                const distance = 300 + Math.random() * 100; // مسافة عشوائية من المركز
+                
+                // حساب المواقع بناءً على الزاوية والمسافة
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                
+                confetti.style.left = `calc(50% + ${x}px)`;
+                confetti.style.top = `calc(50% + ${y}px)`;
+                
+                // إضافة الكونفيتي إلى العنصر
+                element.appendChild(confetti);
+                
+                // تحريك الكونفيتي
+                const animationDuration = Math.random() * 2 + 2;
+                const finalX = x + (Math.random() - 0.5) * 100;
+                const finalY = y + (Math.random() - 0.5) * 100;
+                
+                confetti.animate(
+                    [
+                        { transform: `translate(0, 0) rotate(0deg)`, opacity: 0 },
+                        { transform: `translate(${finalX * 0.3}px, ${finalY * 0.3}px) rotate(180deg)`, opacity: 1 },
+                        { transform: `translate(${finalX}px, ${finalY}px) rotate(360deg)`, opacity: 0 }
+                    ],
+                    {
+                        duration: animationDuration * 1000,
+                        easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                        fill: 'forwards'
+                    }
+                );
+                
+                // إزالة الكونفيتي بعد انتهاء الرسوم المتحركة
+                setTimeout(() => {
+                    if (element.contains(confetti)) {
+                        element.removeChild(confetti);
+                    }
+                }, animationDuration * 1000);
+            }
+        }
+           position: relative;
+        
+       
 
         function createConfetti() {
             // إزالة أي كونفيتي موجود
@@ -1862,3 +2297,12 @@
     </script>
 </body>
 </html>
+
+
+
+
+</body>
+
+</html>
+
+1234567890-

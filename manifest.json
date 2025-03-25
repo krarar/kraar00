@@ -1,117 +1,120 @@
 {
-  "name": "تطبيق القرعة العشوائية الفاخر",
-  "short_name": "القرعة العشوائية",
+  "name": "القرعة",
+  "short_name": "القرعة",
   "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f0f9ff",
-  "theme_color": "#3b82f6",
+  "background_color": "#FFD700",
+  "theme_color": "#FFD700",
   "orientation": "portrait-primary",
-  "description": "تطبيق يساعدك على إجراء القرعة العشوائية بطريقة سهلة وجذابة",
-  "categories": ["utilities", "entertainment"],
+  "description": "تطبيق القرعة - خدمة حجز سيارات الأجرة الأفضل في العراق",
+  "categories": ["travel", "transportation"],
   "lang": "ar",
   "dir": "rtl",
+
   "icons": [
     {
-      "src": "icons/lottery-icon-192.png",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "icons/lottery-icon-384.png",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
       "type": "image/png",
       "sizes": "384x384"
     },
     {
-      "src": "icons/lottery-icon-512.png",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
       "type": "image/png",
       "sizes": "512x512"
     },
     {
-      "src": "icons/lottery-icon-1024.png",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
       "type": "image/png",
       "sizes": "1024x1024"
     }
   ],
+
   "screenshots": [
     {
-      "src": "screenshots/lottery-screenshot-1.png",
+      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
       "type": "image/png",
-      "sizes": "1080x1920"
-    },
-    {
-      "src": "screenshots/lottery-screenshot-2.png",
-      "type": "image/png",
-      "sizes": "1080x1920"
+      "sizes": "1080x1920",
+      "form_factor": "narrow",
+      "label": "شاشة البحث عن السائقين"
     }
   ],
-  "splash_screens": [
-    {
-      "src": "splash/lottery-splash.png",
-      "sizes": "2048x2732",
-      "type": "image/png"
-    }
-  ],
-  "prefer_related_applications": false,
-  "related_applications": [],
+
   "shortcuts": [
     {
-      "name": "بدء قرعة جديدة",
-      "url": "/index.html?quickstart=true",
+      "name": "البحث عن سائق",
+      "url": "/search",
+      "description": "البحث عن سائقين في الجوار",
       "icons": [
         {
-          "src": "icons/shortcut-new-lottery.png",
+          "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
           "sizes": "96x96"
         }
       ]
     },
     {
-      "name": "إعدادات القرعة",
-      "url": "/index.html?settings=open",
+      "name": "سائقين في الجوار",
+      "url": "/nearby",
+      "description": "عرض السائقين القريبين من موقعك",
       "icons": [
         {
-          "src": "icons/shortcut-settings.png",
+          "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
           "sizes": "96x96"
         }
       ]
     }
   ],
+
+  "permissions": [
+    "notifications",
+    "geolocation",
+    "storage"
+  ],
+
+  "serviceworker": {
+    "src": "./firebase-messaging-sw.js",
+    "scope": "/",
+    "use_cache": true
+  },
+
   "notification_preferences": {
     "vibrate": true,
     "sound": true,
-    "alerts": ["winner_announcement", "lottery_results"]
+    "alerts": [
+      "new_driver",
+      "trip_updates",
+      "chat_messages",
+      "nearby_drivers",
+      "location_updates"
+    ]
   },
-  "permissions": [
-    "notifications",
-    "storage"
+
+  "prefer_related_applications": false,
+  "related_applications": [],
+
+  "features": [
+    "Cross Platform",
+    "Offline Support",
+    "Push Notifications",
+    "Location Services",
+    "Real-time Updates"
   ],
-  "serviceworker": {
-    "src": "/lottery-sw.js",
-    "scope": "/"
-  },
-  "install_prompt": {
-    "title": "تثبيت تطبيق القرعة العشوائية",
-    "description": "قم بتثبيت التطبيق للاستخدام دون اتصال بالإنترنت",
-    "button_text": "تثبيت"
-  },
-  "update_preferences": {
-    "auto_update": true,
-    "update_interval": "weekly"
-  },
-  "offline_functionality": {
-    "enabled": true,
-    "cache_images": true,
-    "cache_results": true
-  },
-  "custom_settings": {
-    "default_winners_count": 1,
-    "default_duration": 5,
-    "default_winner_display_time": 8,
-    "default_speed": 3,
-    "enable_sound": true,
-    "enable_vibration": true,
-    "enable_confetti": true,
-    "dark_mode": false,
-    "language": "ar"
-  }
+
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+
+  "id": "taxi-iraq-app-v1",
+  "version": "1.0.0",
+  "author": "Taxi Iraq Team",
+  "default_locale": "ar",
+  "gcm_sender_id": "255034474844",
+  "gcm_user_visible_only": true
 }
