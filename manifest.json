@@ -1,49 +1,53 @@
 {
-  "name": "القرعة ",
-  "short_name": "القرعة ",
-  "start_url": "/Pasha-taxi/index.html",
+  "name": "تطبيق القرعة العشوائية الفاخر",
+  "short_name": "القرعة العشوائية",
+  "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#FFD700",
+  "background_color": "#f0f9ff",
+  "theme_color": "#3b82f6",
   "orientation": "portrait-primary",
-  "gcm_sender_id": "255034474844",
-  "description": "خدمة حجز سيارات الأجرة الأفضل في العراق",
-  "categories": ["travel", "transportation"],
+  "description": "تطبيق يساعدك على إجراء القرعة العشوائية بطريقة سهلة وجذابة",
+  "categories": ["utilities", "entertainment"],
   "lang": "ar",
   "dir": "rtl",
   "icons": [
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "icons/lottery-icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "icons/lottery-icon-384.png",
       "type": "image/png",
       "sizes": "384x384"
     },
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "icons/lottery-icon-512.png",
       "type": "image/png",
       "sizes": "512x512"
     },
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "icons/lottery-icon-1024.png",
       "type": "image/png",
       "sizes": "1024x1024"
     }
   ],
   "screenshots": [
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "screenshots/lottery-screenshot-1.png",
+      "type": "image/png",
+      "sizes": "1080x1920"
+    },
+    {
+      "src": "screenshots/lottery-screenshot-2.png",
       "type": "image/png",
       "sizes": "1080x1920"
     }
   ],
   "splash_screens": [
     {
-      "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+      "src": "splash/lottery-splash.png",
       "sizes": "2048x2732",
       "type": "image/png"
     }
@@ -52,11 +56,21 @@
   "related_applications": [],
   "shortcuts": [
     {
-      "name": "البحث عن سائق",
-      "url": "/Pasha-taxi/search",
+      "name": "بدء قرعة جديدة",
+      "url": "/index.html?quickstart=true",
       "icons": [
         {
-          "src": "https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527",
+          "src": "icons/shortcut-new-lottery.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "إعدادات القرعة",
+      "url": "/index.html?settings=open",
+      "icons": [
+        {
+          "src": "icons/shortcut-settings.png",
           "sizes": "96x96"
         }
       ]
@@ -65,15 +79,39 @@
   "notification_preferences": {
     "vibrate": true,
     "sound": true,
-    "alerts": ["new_driver", "trip_updates", "chat_messages"]
+    "alerts": ["winner_announcement", "lottery_results"]
   },
   "permissions": [
-    "gcm",
     "notifications",
-    "geolocation"
+    "storage"
   ],
   "serviceworker": {
-    "src": "/Pasha-taxi/firebase-messaging-sw.js",
-    "scope": "/Pasha-taxi/"
+    "src": "/lottery-sw.js",
+    "scope": "/"
+  },
+  "install_prompt": {
+    "title": "تثبيت تطبيق القرعة العشوائية",
+    "description": "قم بتثبيت التطبيق للاستخدام دون اتصال بالإنترنت",
+    "button_text": "تثبيت"
+  },
+  "update_preferences": {
+    "auto_update": true,
+    "update_interval": "weekly"
+  },
+  "offline_functionality": {
+    "enabled": true,
+    "cache_images": true,
+    "cache_results": true
+  },
+  "custom_settings": {
+    "default_winners_count": 1,
+    "default_duration": 5,
+    "default_winner_display_time": 8,
+    "default_speed": 3,
+    "enable_sound": true,
+    "enable_vibration": true,
+    "enable_confetti": true,
+    "dark_mode": false,
+    "language": "ar"
   }
 }
