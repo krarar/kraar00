@@ -1,990 +1,1864 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
-
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="تطبيق تاكسي العراق - خدمة حجز سيارات الأجرة الأفضل في العراق">
-    <meta name="keywords" content="تاكسي العراق, سيارات أجرة, حجز تاكسي, نقل, مواصلات">
-    <meta name="author" content="تاكسي العراق">
-    <meta name="theme-color" content="#FFD700">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <title>تاكسي العراق - خدمة حجز السيارات الأولى في العراق</title>
-
-    <!-- App Icons -->
-    <link rel="icon" type="image/png"
-        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
-    <link rel="apple-touch-icon" sizes="180x180"
-        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
-    <link rel="apple-touch-startup-image"
-        href="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
-
-    <!-- Web App Manifest -->
-    <link rel="manifest" href="manifest.json">
-
-    <!-- External CSS Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.rtl.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق القرعة العشوائية الفاخر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
-
-    <!-- App CSS -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="تاكسي العراق">
-    <meta property="og:description" content="خدمة حجز سيارات الأجرة الأفضل في العراق">
-    <meta property="og:image"
-        content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
-    <meta property="og:url" content="https://taxi-iraq.com">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="تاكسي العراق">
-    <meta name="twitter:description" content="خدمة حجز سيارات الأجرة الأفضل في العراق">
-    <meta name="twitter:image"
-        content="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527">
-
-
-    <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <!-- أضف هذا قبل script.js -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js"></script>
-    
-
-
-
-    <!-- App Scripts -->
-
- <script src="firebase-messaging-sw.js></script>
- 
- <script src=" script.js"></script>
- 
-
-
-
-
-
-
-
-    <!-- Application CSS -->
     <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --background-color: #f0f9ff;
+            --text-color: #1e3a8a;
+            --winner-color: #ef4444;
+            --error-color: #dc2626;
+            --sidebar-width: 350px;
+            --header-height: 5rem;
+            --border-radius: 1rem;
+            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        } /* Missing closing brace added here */
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+            color: var(--text-color);
+            line-height: 1.8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            animation: fadeInPage 0.8s ease-in;
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .header {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            height: var(--header-height);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 900;
+        }
+
+        .menu-icon {
+            font-size: 1.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .menu-icon:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .app-title {
+            font-size: 1.75rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #ffffff, #f0f9ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            margin: calc(var(--header-height) + 2rem) auto 3rem;
+            padding: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 60%),
+                         radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent 60%);
+            z-index: -1;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .lottery-type-switch {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            background-color: #f3f4f6;
+            border-radius: 9999px;
+            padding: 0.5rem;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .switch-btn {
+            padding: 1rem 2rem;
+            margin: 0 0.5rem;
+            background-color: transparent;
+            color: var(--text-color);
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .switch-btn.active {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .switch-btn:hover:not(.active) {
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .file-input-wrapper {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .main-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 1.25rem 2.5rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            font-weight: bold;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn i {
+            margin-left: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .btn:disabled {
+            background: linear-gradient(45deg, #94a3b8, #cbd5e1);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+            width: 100%;
+        }
+
+        .image-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .image-item:hover {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .image-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-item .remove-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            border-radius: 9999px;
+            width: 2rem;
+            height: 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 2;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .image-item:hover .remove-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .image-item .remove-btn:hover {
+            background-color: rgb(239, 68, 68);
+            transform: scale(1.2);
+        }
+
+        /* Names lottery section styles */
+        #namesLotterySection {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #namesInput {
+            width: 100%;
+            height: 10rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border: 2px solid #d1d5db;
+            border-radius: 1rem;
+            resize: vertical;
+            transition: var(--transition);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        #namesInput:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        #namesList {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 1rem;
+            max-height: 20rem;
+            overflow-y: auto;
+            background-color: #f8fafc;
+        }
+
+        .name-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.75rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .name-item:hover {
+            background-color: #f0f9ff;
+            transform: translateX(5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .name-item span {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .remove-name {
+            background-color: #f87171;
+            color: white;
+            border: none;
+            border-radius: 9999px;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.25rem;
+        }
+
+        .remove-name:hover {
+            background-color: #ef4444;
+            transform: scale(1.1);
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: calc(-1 * var(--sidebar-width));
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            transition: right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 3rem 2rem;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 2rem;
+            font-size: 1.75rem;
+            color: var(--primary-color);
+            text-align: center;
+            position: relative;
+        }
+
+        .sidebar h2::after {
+            content: '';
+            position: absolute;
+            bottom: -0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .close-sidebar {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: var(--transition);
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-sidebar:hover {
+            color: var(--primary-color);
+            background-color: #f0f9ff;
+            transform: rotate(90deg);
+        }
+
+        .settings {
+            margin-bottom: 2.5rem;
+        }
+
+        .settings label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .settings .info-text {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+        }
+
+        .settings input[type="number"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            background-color: #f8fafc;
+        }
+
+        .settings input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            background-color: white;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            animation: fadeIn 0.4s ease;
+            backdrop-filter: blur(8px);
+            overflow: hidden;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 8vh auto;
+            padding: 3rem;
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 50rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+
+        .lottery-animation-modal {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 2.5rem;
+            border-radius: 2rem;
+            overflow: visible;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+        }
+
+        .lottery-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .spinner-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+            perspective: 1000px;
+        }
+
+        .spinner-frame {
+            position: relative;
+            width: 24rem;
+            height: 24rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 
+                        0 0 0 0.75rem rgba(255, 255, 255, 0.8),
+                        0 0 0 1.5rem rgba(59, 130, 246, 0.2);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: rotateX(5deg);
+            background: linear-gradient(to bottom, #f0f9ff, #d4e8f9);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .spinner-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.8) 0%, 
+                rgba(255, 255, 255, 0) 100%);
+            z-index: 5;
+            pointer-events: none;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+        }
+
+        .spinner-frame::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(to top, 
+                rgba(0, 0, 0, 0.2) 0%, 
+                rgba(0, 0, 0, 0) 100%);
+            z-index: 5;
+            pointer-events: none;
+            border-bottom-left-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-5rem); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: var(--transition);
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 20;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .close:hover {
+            color: var(--primary-color);
+            background-color: #f0f9ff;
+            transform: rotate(90deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Spinner and countdown styles */
+        .spinner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .image-list {
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 3s linear infinite;
+            will-change: transform;
+        }
+
+        .image-list img, .image-list div {
+            width: 100%;
+            height: 24rem;
+            object-fit: cover;
+            transition: all 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 0.5rem 0;
+            border-radius: 0.5rem;
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* Highlight effect for the selected item */
+        .highlight-winner {
+            animation: highlightWinner 0.5s ease-in-out;
+        }
+
+        @keyframes highlightWinner {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); }
+        }
+
+        .countdown-wrapper {
+            position: relative;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .countdown {
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 1rem 0;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .countdown.pulse {
+            animation: pulsate 0.5s ease-in-out;
+        }
+
+        @keyframes pulsate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .countdown::after {
+            content: '';
+            position: absolute;
+            bottom: -0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.4);
+        }
+
+        #countdownText {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-top: 0.5rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Winner modal styles */
+        .winner-modal {
+            background: radial-gradient(circle at center, #ef4444 0%, #b91c1c 100%);
+            padding: 3rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.8s cubic-bezier(0.26, 0.53, 0.74, 1.48);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .winner-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .winners-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            z-index: 1;
+            position: relative;
+        }
+
+        .winner-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: winnerCardAppear 0.8s cubic-bezier(0.26, 0.53, 0.74, 1.48) forwards;
+            opacity: 0;
+            transform: scale(0.8) translateY(30px);
+            perspective: 1000px;
+        }
+
+        @keyframes winnerCardAppear {
+            0% { opacity: 0; transform: scale(0.8) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .winner-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .winner-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .winner-card img {
+            width: 20rem;
+            height: 20rem;
+            border-radius: 1rem;
+            object-fit: cover;
+            border: 0.75rem solid white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                        0 0 0 2px rgba(255, 255, 255, 0.6),
+                        0 0 30px rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: winnerImageReveal 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: translateZ(-100px) rotateY(-10deg);
+            cursor: pointer;
+        }
+
+        @keyframes winnerImageReveal {
+            0% { opacity: 0; transform: translateZ(-100px) rotateY(-10deg); }
+            60% { opacity: 1; transform: translateZ(50px) rotateY(15deg); }
+            100% { opacity: 1; transform: translateZ(0) rotateY(0); }
+        }
+
+        .winner-card:hover img {
+            transform: scale(1.05) rotateY(12deg) translateZ(30px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5),
+                        0 0 0 2px rgba(255, 255, 255, 0.8),
+                        0 0 40px rgba(255, 255, 255, 0.9);
+        }
+
+        .winner-card p {
+            margin-top: 1.5rem;
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.8s forwards;
+        }
+
+        .winner-modal h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Confetti styles */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 1000;
+            animation: confetti 5s ease-in-out infinite, confettiSway 2s ease-in-out infinite;
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(-10vh) rotateZ(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotateZ(720deg); opacity: 0; }
+        }
+
+        @keyframes confettiSway {
+            0%, 100% { margin-left: 0; }
+            50% { margin-left: 30px; }
+        }
+
+        /* Footer styles */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            font-size: 1rem;
+            margin-top: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Video modal styles */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            backdrop-filter: blur(10px);
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 64rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            animation: fadeInScale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes fadeInScale {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .video-modal iframe {
+            width: 100%;
+            height: 36rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-video {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: var(--transition);
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: white;
+            z-index: 10;
+        }
+
+        .close-video:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg);
+            background-color: #f0f9ff;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header {
+                padding: 0 1.5rem;
+            }
+            
+            .app-title {
+                font-size: 1.5rem;
+            }
+            
+            .container {
+                padding: 2rem;
+            }
+            
+            .spinner {
+                width: 14rem;
+                height: 14rem;
+            }
+            
+            .image-list img {
+                height: 14rem;
+            }
+            
+            .winner-card img {
+                width: 14rem;
+                height: 14rem;
+            }
+            
+            .video-modal iframe {
+                height: 32rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 100vw;
+            }
+            
+            .header {
+                padding: 0 1rem;
+            }
+            
+            .app-title {
+                font-size: 1.25rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+                margin-top: calc(var(--header-height) + 1rem);
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 2rem;
+                margin: 5% auto;
+            }
+            
+            .spinner {
+                width: 12rem;
+                height: 12rem;
+            }
+            
+            .image-list img {
+                height: 12rem;
+            }
+            
+            .countdown {
+                font-size: 4rem;
+            }
+            
+            .winner-modal h2 {
+                font-size: 2.5rem;
+            }
+            
+            .winner-card img {
+                width: 12rem;
+                height: 12rem;
+            }
+            
+            .btn {
+                font-size: 1.1rem;
+                padding: 1rem 2rem;
+            }
+            
+            .image-item {
+                width: 100%;
+            }
+            
+            .video-modal-content {
+                width: 95%;
+            }
+            
+            .video-modal iframe {
+                height: 24rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                height: 4.5rem;
+            }
+            
+            .app-title {
+                font-size: 1.1rem;
+            }
+            
+            .container {
+                margin-top: calc(4.5rem + 1rem);
+                padding: 1.25rem;
+            }
+            
+            .spinner {
+                width: 10rem;
+                height: 10rem;
+            }
+            
+            .image-list img {
+                height: 10rem;
+            }
+            
+            .countdown {
+                font-size: 3rem;
+            }
+            
+            .winner-modal {
+                padding: 2rem;
+            }
+            
+            .winner-modal h2 {
+                font-size: 2rem;
+            }
+            
+            .winner-card img {
+                width: 10rem;
+                height: 10rem;
+            }
+            
+            .btn {
+                font-size: 1rem;
+                padding: 0.875rem 1.75rem;
+            }
+            
+            .switch-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .video-modal iframe {
+                height: 18rem;
+            }
+        }
+
+        /* Custom scrollbar for webkit browsers */
+        ::-webkit-scrollbar {
+            width: 0.5rem;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 0.25rem;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 0.25rem;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Animation for drag and drop */
+        .drag-over {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 2px dashed var(--secondary-color);
+        }
+
+        /* Improved accessibility */
+        .btn:focus, .switch-btn:focus, .remove-name:focus, .close:focus, .close-video:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Modern input focus styles */
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-dark app-header fixed-top">
+    <header class="header">
+        <div class="menu-icon" id="menuIcon">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="app-title">تطبيق القرعة العشوائية الفاخر</div>
+    </header>
 
-        <div class="container">
-            <a class="app-logo navbar-brand" href="#">
-                <i class="fas fa-taxi"></i>
-                تاكسي العراق
-            </a>
-            <!-- زر فتح الشريط الجانبي -->
-            <button class="nav-toggle" onclick="toggleSideNav()">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav class="navbar app-header fixed-top">
-                <div class="container d-flex justify-content-between align-items-center">
-                    <!-- اللوجو واسم التطبيق مع أيقونة البحث -->
-                    <div class="d-flex align-items-center app-title">
-                        <a class="app-logo d-flex align-items-center" href="index.html">
-                            <i class="fas fa-taxi me-2"></i>
-                            <span>ataxiPash</span>
-                        </a>
-                        <!-- أيقونة البحث بجانب الاسم -->
-                        <div class="side-nav" id="sideNav">
-                            <div class="side-nav-header">
-                                <h2 class="side-nav-title">تاكسي العراق</h2>
-                                <button class="side-nav-close" onclick="toggleSideNav()">×</button>
-                            </div>
-                            <div class="side-nav-items">
-                                <a href="/" class="side-nav-item"><i class="fas fa-home"></i> الرئيسية</a>
-                                <a href="/drivers" class="side-nav-item"><i class="fas fa-users"></i> السائقين</a>
-                                <!-- زر الإضافة تحت السائقين -->
-                                <button class="add-driver-btn side-nav-item" onclick="showAddDriverModal()">
-                                    <i class="fas fa-user-plus"></i> إضافة سائق
-                                </button>
-                                <a href="/trips" class="side-nav-item"><i class="fas fa-car"></i> الرحلات</a>
-                                <a href="/map" class="side-nav-item"><i class="fas fa-map"></i> الخريطة</a>
-                                <a href="/notifications" class="side-nav-item"><i class="fas fa-bell"></i> الإشعارات</a>
-                                <a href="/messages" class="side-nav-item"><i class="fas fa-envelope"></i> الرسائل</a>
-                                <a href="/settings" class="side-nav-item"><i class="fas fa-cog"></i> الإعدادات</a>
-                            </div>
+    <div class="sidebar" id="sidebar">
+        <div class="close-sidebar" id="closeSidebar">
+            <i class="fas fa-times"></i>
+        </div>
+        <h2>إعدادات القرعة</h2>
+        <div class="settings">
+            <label for="winnersCount">عدد الفائزين:</label>
+            <div class="info-text">أدخل رقمًا بين 1 و 10</div>
+            <input type="number" id="winnersCount" min="1" max="10" value="1">
+            <div id="winnersCountError" class="error-message"></div>
+        </div>
+        <div class="settings">
+            <label for="duration">مدة القرعة (بالثواني):</label>
+            <div class="info-text">أدخل رقمًا بين 1 و 60</div>
+            <input type="number" id="duration" min="1" max="60" value="5">
+            <div id="durationError" class="error-message"></div>
+        </div>
+        <div class="settings">
+            <label for="winnerDisplayTime">مدة عرض الفائز (بالثواني):</label>
+            <div class="info-text">أدخل رقمًا بين 1 و 30</div>
+            <input type="number" id="winnerDisplayTime" min="1" max="30" value="8">
+            <div id="winnerDisplayTimeError" class="error-message"></div>
+        </div>
+        <div class="settings">
+            <label for="speed">سرعة تقلب الصور (بالثواني):</label>
+            <div class="info-text">أدخل رقمًا بين 1 و 10</div>
+            <input type="number" id="speed" min="1" max="10" value="3">
+            <div id="speedError" class="error-message"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lottery-type-switch">
+            <button id="imagesLotteryBtn" class="switch-btn active">قرعة بالصور</button>
+            <button id="namesLotteryBtn" class="switch-btn">قرعة بالأسماء</button>
+        </div>
+
+        <div id="imagesLotterySection">
+            <div class="main-buttons">
+                <div class="file-input-wrapper">
+                    <button class="btn" id="uploadButton"><i class="fas fa-images"></i> اختر الصور</button>
+                    <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
+                </div>
+                <button class="btn" id="startButton" disabled><i class="fas fa-play"></i> بدء القرعة</button>
+            </div>
+            <div class="image-preview" id="imagePreview"></div>
+        </div>
+
+        <div id="namesLotterySection" style="display: none;">
+            <textarea id="namesInput" placeholder="أدخل الأسماء هنا، اسم واحد في كل سطر"></textarea>
+            <div class="main-buttons">
+                <button class="btn" id="addNamesButton"><i class="fas fa-plus"></i> إضافة الأسماء</button>
+                <button class="btn" id="startNamesButton" disabled><i class="fas fa-play"></i> بدء القرعة</button>
+            </div>
+            <div id="namesList"></div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content lottery-animation-modal">
+            <span class="close" id="closeModal">&times;</span>
+            <div class="lottery-container">
+                <div class="spinner-wrapper">
+                    <div class="spinner-frame">
+                        <div class="spinner" id="spinner"></div>
+                    </div>
+                </div>
+                <div class="countdown-wrapper">
+                    <div class="countdown" id="countdown"></div>
+                    <p id="countdownText">جاري اختيار الفائزين...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="winnerModal" class="modal">
+        <div class="modal-content winner-modal">
+            <h2>تهانينا للفائزين!</h2>
+            <div id="winnersContainer" class="winners-container"></div>
+            <p>تم اختيار الفائزين. ألف مبروك!</p>
+        </div>
+    </div>
+
+    <div id="videoModal" class="video-modal" style="display: none;">
+        <div class="video-modal-content">
+            <span class="close-video" id="closeVideo">&times;</span>
+            <iframe id="videoIframe" src="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/videos%2Flv_0_%D9%A2%D9%A0%D9%A2%D9%A4%D9%A0%D9%A9%D9%A1%D9%A2%D9%A0%D9%A2%D9%A5%D9%A4%D9%A1%D9%A7.mp4?alt=media&token=5ede2382-bbf5-4a1e-a18f-99fbcc0d81c7" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2025 تطبيق القرعة العشوائية الفاخر. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script>
+        let images = [];
+        let names = [];
+        let currentLotteryType = 'images'; // 'images' أو 'names'
+
+        // DOM عناصر 
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const startButton = document.getElementById('startButton');
+        const startNamesButton = document.getElementById('startNamesButton');
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
+        const winnerModal = document.getElementById('winnerModal');
+        const spinner = document.getElementById('spinner');
+        const countdown = document.getElementById('countdown');
+        const countdownText = document.getElementById('countdownText');
+        const durationInput = document.getElementById('duration');
+        const winnerDisplayTimeInput = document.getElementById('winnerDisplayTime');
+        const speedInput = document.getElementById('speed');
+        const durationError = document.getElementById('durationError');
+        const winnerDisplayTimeError = document.getElementById('winnerDisplayTimeError');
+        const speedError = document.getElementById('speedError');
+        const winnersCountInput = document.getElementById('winnersCount');
+        const winnersCountError = document.getElementById('winnersCountError');
+        const winnersContainer = document.getElementById('winnersContainer');
+        const sidebar = document.getElementById('sidebar');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const uploadButton = document.getElementById('uploadButton');
+        const videoModal = document.getElementById('videoModal');
+        const closeVideo = document.getElementById('closeVideo');
+
+        // أزرار التبديل بين أنواع القرعة
+        const imagesLotteryBtn = document.getElementById('imagesLotteryBtn');
+        const namesLotteryBtn = document.getElementById('namesLotteryBtn');
+        const imagesLotterySection = document.getElementById('imagesLotterySection');
+        const namesLotterySection = document.getElementById('namesLotterySection');
+
+        // عناصر القرعة بالأسماء
+        const namesInput = document.getElementById('namesInput');
+        const addNamesButton = document.getElementById('addNamesButton');
+        const namesList = document.getElementById('namesList');
+
+        // مستمعو الأحداث
+        imageInput.addEventListener('change', handleImageUpload);
+        startButton.addEventListener('click', startLottery);
+        startNamesButton.addEventListener('click', startLottery);
+        durationInput.addEventListener('input', validateInputs);
+        winnerDisplayTimeInput.addEventListener('input', validateInputs);
+        speedInput.addEventListener('input', validateInputs);
+        winnersCountInput.addEventListener('input', validateInputs);
+        menuIcon.addEventListener('click', toggleSidebar);
+        closeSidebar.addEventListener('click', toggleSidebar);
+        uploadButton.addEventListener('click', () => imageInput.click());
+        closeModal.addEventListener('click', () => modal.style.display = 'none');
+        closeVideo.addEventListener('click', () => videoModal.style.display = 'none');
+
+        // مستمعو الأحداث للقرعة
+        imagesLotteryBtn.addEventListener('click', () => switchLotteryType('images'));
+        namesLotteryBtn.addEventListener('click', () => switchLotteryType('names'));
+        addNamesButton.addEventListener('click', addNames);
+
+        // النقر خارج النوافذ المنبثقة
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+            if (e.target === winnerModal) winnerModal.style.display = 'none';
+            if (e.target === videoModal) videoModal.style.display = 'none';
+        });
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+        }
+
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            
+            if (files.length === 0) return;
+            
+            images = [];
+            imagePreview.innerHTML = '';
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // التحقق من أن الملف صورة
+                if (!file.type.startsWith('image/')) {
+                    alert('الرجاء اختيار ملفات صور فقط.');
+                    continue;
+                }
+                
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const index = images.length;
+                    images.push(e.target.result);
+                    createImagePreview(e.target.result, index);
+                };
+
+                reader.readAsDataURL(file);
+            }
+
+            validateInputs();
+        }
+
+        function createImagePreview(src, index) {
+            const imageItem = document.createElement('div');
+            imageItem.classList.add('image-item');
+            imageItem.dataset.index = index;
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = `صورة ${index + 1}`;
+            imageItem.appendChild(img);
+
+            const removeBtn = document.createElement('button');
+            removeBtn.classList.add('remove-btn');
+            removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+            removeBtn.onclick = (e) => {
+                e.stopPropagation();
+                removeImage(index);
+            };
+            imageItem.appendChild(removeBtn);
+
+            // تكبير الصورة عند النقر عليها
+            imageItem.addEventListener('click', () => showImagePreview(src));
+
+            imagePreview.appendChild(imageItem);
+            
+            // تحديث الازرار بعد إضافة الصور
+            validateInputs();
+        }
+
+        function showImagePreview(src) {
+            // إنشاء نافذة عرض الصورة المكبرة
+            const imgPreview = document.createElement('div');
+            imgPreview.style.position = 'fixed';
+            imgPreview.style.top = '0';
+            imgPreview.style.left = '0';
+            imgPreview.style.width = '100%';
+            imgPreview.style.height = '100%';
+            imgPreview.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            imgPreview.style.zIndex = '1100';
+            imgPreview.style.display = 'flex';
+            imgPreview.style.alignItems = 'center';
+            imgPreview.style.justifyContent = 'center';
+            imgPreview.style.cursor = 'pointer';
+            imgPreview.style.padding = '2rem';
+            imgPreview.style.backdropFilter = 'blur(10px)';
+            
+            const img = document.createElement('img');
+            img.src = src;
+            img.style.maxWidth = '90%';
+            img.style.maxHeight = '90%';
+            img.style.objectFit = 'contain';
+            img.style.borderRadius = '0.5rem';
+            img.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+            img.style.transition = 'transform 0.3s ease';
+            
+            imgPreview.appendChild(img);
+            document.body.appendChild(imgPreview);
+            
+            // إغلاق النافذة بالنقر عليها
+            imgPreview.addEventListener('click', () => {
+                document.body.removeChild(imgPreview);
+            });
+        }
+
+        function removeImage(index) {
+            // إزالة الصورة من المصفوفة
+            images.splice(index, 1);
+            
+            // إعادة رسم معاينة الصور
+            imagePreview.innerHTML = '';
+            images.forEach((src, i) => {
+                createImagePreview(src, i);
+            });
+            
+            validateInputs();
+        }
+
+        function switchLotteryType(type) {
+            currentLotteryType = type;
+            
+            if (type === 'images') {
+                imagesLotteryBtn.classList.add('active');
+                namesLotteryBtn.classList.remove('active');
+                imagesLotterySection.style.display = 'block';
+                namesLotterySection.style.display = 'none';
+            } else {
+                imagesLotteryBtn.classList.remove('active');
+                namesLotteryBtn.classList.add('active');
+                imagesLotterySection.style.display = 'none';
+                namesLotterySection.style.display = 'block';
+            }
+            
+            validateInputs();
+        }
+
+        function addNames() {
+            const inputNames = namesInput.value.trim().split('\n').filter(name => name.trim() !== '');
+            
+            if (inputNames.length === 0) {
+                alert('الرجاء إدخال اسم واحد على الأقل.');
+                return;
+            }
+            
+            // إضافة الأسماء الجديدة
+            names = [...names, ...inputNames];
+            
+            // تحديث قائمة الأسماء
+            updateNamesList();
+            
+            // مسح حقل الإدخال
+            namesInput.value = '';
+            
+            validateInputs();
+        }
+
+        function updateNamesList() {
+            namesList.innerHTML = '';
+            
+            if (names.length === 0) {
+                namesList.innerHTML = '<p class="text-center text-gray-500">لا توجد أسماء مضافة بعد</p>';
+                return;
+            }
+            
+            names.forEach((name, index) => {
+                const nameItem = document.createElement('div');
+                nameItem.classList.add('name-item');
+                nameItem.style.animationDelay = `${index * 0.05}s`;
+                
+                nameItem.innerHTML = `
+                    <span>${name}</span>
+                    <button class="remove-name" data-index="${index}">×</button>
+                `;
+                
+                namesList.appendChild(nameItem);
+                
+                // إضافة حدث إزالة الاسم
+                const removeBtn = nameItem.querySelector('.remove-name');
+                removeBtn.addEventListener('click', () => removeName(index));
+            });
+        }
+
+        function removeName(index) {
+            // إزالة الاسم من المصفوفة
+            names.splice(index, 1);
+            
+            // تحديث قائمة الأسماء
+            updateNamesList();
+            
+            validateInputs();
+        }
+
+        function validateInputs() {
+            const duration = parseInt(durationInput.value);
+            const winnerDisplayTime = parseInt(winnerDisplayTimeInput.value);
+            const speed = parseInt(speedInput.value);
+            const winnersCount = parseInt(winnersCountInput.value);
+            let isValid = true;
+
+            // التحقق من مدة القرعة
+            if (isNaN(duration) || duration < 1 || duration > 60) {
+                durationError.textContent = 'الرجاء إدخال رقم بين 1 و 60';
+                isValid = false;
+            } else {
+                durationError.textContent = '';
+            }
+
+            // التحقق من مدة عرض الفائز
+            if (isNaN(winnerDisplayTime) || winnerDisplayTime < 1 || winnerDisplayTime > 30) {
+                winnerDisplayTimeError.textContent = 'الرجاء إدخال رقم بين 1 و 30';
+                isValid = false;
+            } else {
+                winnerDisplayTimeError.textContent = '';
+            }
+
+            // التحقق من سرعة التقلب
+            if (isNaN(speed) || speed < 1 || speed > 10) {
+                speedError.textContent = 'الرجاء إدخال رقم بين 1 و 10';
+                isValid = false;
+            } else {
+                speedError.textContent = '';
+            }
+
+            // التحقق من عدد الفائزين
+            if (isNaN(winnersCount) || winnersCount < 1 || winnersCount > 10) {
+                winnersCountError.textContent = 'الرجاء إدخال رقم بين 1 و 10';
+                isValid = false;
+            } else {
+                winnersCountError.textContent = '';
+            }
+
+            // تفعيل أو تعطيل زر البدء حسب نوع القرعة
+            if (currentLotteryType === 'images') {
+                startButton.disabled = !isValid || images.length === 0 || images.length < winnersCount;
+            } else {
+                startNamesButton.disabled = !isValid || names.length === 0 || names.length < winnersCount;
+            }
+        }
+
+        let spinningSound; // Variable to hold the spinning sound
+
+        function startLottery() {
+            // عرض النافذة المنبثقة
+            modal.style.display = 'block';
+            
+            // بدء القرعة حسب النوع
+            if (currentLotteryType === 'images') {
+                startCarousel();
+            } else {
+                startNamesCarousel();
+            }
+        }
+
+        function startCarousel() {
+            spinner.innerHTML = '';
+            
+            // Initialize the spinning sound
+            spinningSound = new Audio('https://www.soundjay.com/button/sounds/button-16.mp3');
+            spinningSound.loop = true; // Loop the sound while spinning
+            spinningSound.volume = 0.5;
+            spinningSound.play();
+
+            // إنشاء قائمة الصور المتحركة
+            const imageList = document.createElement('div');
+            imageList.classList.add('image-list');
+
+            // إضافة الصور إلى القائمة
+            const shuffledImages = [...images].sort(() => Math.random() - 0.5);
+            shuffledImages.forEach((imageSrc) => {
+                const imgElement = document.createElement('img');
+                imgElement.src = imageSrc;
+                imageList.appendChild(imgElement);
+            });
+
+            // تكرار الصور للحصول على تأثير التمرير المستمر
+            for (let i = 0; i < 3; i++) {
+                shuffledImages.forEach((imageSrc) => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageSrc;
+                    imageList.appendChild(imgElement);
+                });
+            }
+
+            spinner.appendChild(imageList);
+
+            // ضبط سرعة التحريك
+            imageList.style.animationDuration = `${speedInput.value}s`;
+
+            // بدء العد التنازلي
+            startCountdown();
+        }
+
+        function startNamesCarousel() {
+            spinner.innerHTML = '';
+            
+            // إنشاء قائمة الأسماء المتحركة
+            const nameList = document.createElement('div');
+            nameList.classList.add('image-list');
+
+            // إضافة الأسماء إلى القائمة
+            const shuffledNames = [...names].sort(() => Math.random() - 0.5);
+            shuffledNames.forEach((name) => {
+                const nameElement = document.createElement('div');
+                nameElement.textContent = name;
+                nameElement.style.height = '16rem';
+                nameElement.style.display = 'flex';
+                nameElement.style.alignItems = 'center';
+                nameElement.style.justifyContent = 'center';
+                nameElement.style.fontSize = '2rem';
+                nameElement.style.fontWeight = 'bold';
+                nameElement.style.backgroundColor = '#f8fafc';
+                nameElement.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+                nameElement.style.borderRadius = '0.5rem';
+                nameElement.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                nameElement.style.margin = '0.5rem 0';
+                nameElement.style.padding = '1rem';
+                nameList.appendChild(nameElement);
+            });
+
+            // تكرار الأسماء للحصول على تأثير التمرير المستمر
+            for (let i = 0; i < 3; i++) {
+                shuffledNames.forEach((name) => {
+                    const nameElement = document.createElement('div');
+                    nameElement.textContent = name;
+                    nameElement.style.height = '16rem';
+                    nameElement.style.display = 'flex';
+                    nameElement.style.alignItems = 'center';
+                    nameElement.style.justifyContent = 'center';
+                    nameElement.style.fontSize = '2rem';
+                    nameElement.style.fontWeight = 'bold';
+                    nameElement.style.backgroundColor = '#f8fafc';
+                    nameElement.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text-color').trim();
+                    nameElement.style.borderRadius = '0.5rem';
+                    nameElement.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                    nameElement.style.margin = '0.5rem 0';
+                    nameElement.style.padding = '1rem';
+                    nameList.appendChild(nameElement);
+                });
+            }
+
+            spinner.appendChild(nameList);
+
+            // ضبط سرعة التحريك
+            nameList.style.animationDuration = `${speedInput.value}s`;
+
+            // بدء العد التنازلي
+            startCountdown();
+        }
+
+        function startCountdown() {
+            let count = parseInt(durationInput.value);
+            countdown.textContent = count;
+            
+            // تعطيل الأزرار أثناء القرعة
+            startButton.disabled = true;
+            startNamesButton.disabled = true;
+            
+            // تشغيل العد التنازلي
+            const countdownInterval = setInterval(function() {
+                count--;
+                countdown.textContent = count;
+                
+                if (count === 0) {
+                    clearInterval(countdownInterval);
+                    countdownText.textContent = 'تم اختيار الفائزين!';
+                    
+                    // Stop the spinning sound
+                    if (spinningSound) {
+                        spinningSound.pause();
+                        spinningSound.currentTime = 0;
+                    }
+
+                    setTimeout(pickRandomWinners, 1000);
+                }
+            }, 1000);
+        }
+
+        function pickRandomWinners() {
+            const winnersCount = parseInt(winnersCountInput.value);
+            const winners = [];
+            
+            // نسخة من العناصر للاختيار منها
+            const sourceItems = currentLotteryType === 'images' ? [...images] : [...names];
+            
+            // اختيار الفائزين بشكل عشوائي
+            for (let i = 0; i < winnersCount; i++) {
+                if (sourceItems.length === 0) break;
+                
+                const randomIndex = Math.floor(Math.random() * sourceItems.length);
+                winners.push(sourceItems[randomIndex]);
+                sourceItems.splice(randomIndex, 1);
+            }
+
+            // إغلاق نافذة العد التنازلي وعرض نافذة الفائزين
+            modal.style.display = 'none';
+            winnerModal.style.display = 'block';
+
+            // عرض الفائزين وإضافة التأثيرات
+            displayWinners(winners);
+            createConfetti();
+            playWinnerSound();
+            
+            // إغلاق نافذة الفائزين بعد مدة محددة
+            setTimeout(function() {
+                winnerModal.style.display = 'none';
+                // إعادة تفعيل الأزرار
+                validateInputs();
+            }, parseInt(winnerDisplayTimeInput.value) * 1000);
+        }
+
+        function displayWinners(winners) {
+            winnersContainer.innerHTML = '';
+            
+            winners.forEach((winner, index) => {
+                const winnerCard = document.createElement('div');
+                winnerCard.classList.add('winner-card');
+                
+                // عرض مختلف حسب نوع القرعة
+                if (currentLotteryType === 'images') {
+                    winnerCard.innerHTML = `
+                        <img src="${winner}" alt="الفائز ${index + 1}" onclick="showLargeWinnerImage('${winner}')">
+                        <p>الفائز ${index + 1}</p>
+                    `;
+                } else {
+                    winnerCard.innerHTML = `
+                        <div style="width: 16rem; height: 16rem; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f0f9ff, #e6f0f8); border-radius: 1rem; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); border: 0.5rem solid white;">
+                            <span style="font-size: 2.5rem; font-weight: bold; color: var(--primary-color); text-align: center; padding: 1rem;">${winner}</span>
                         </div>
+                        <p>الفائز ${index + 1}</p>
+                    `;
+                }
+                
+                winnersContainer.appendChild(winnerCard);
+            });
+        }
+        
+        // دالة لعرض صورة الفائز بحجم كبير
+        function showLargeWinnerImage(src) {
+            // إنشاء نافذة عرض الصورة المكبرة
+            const imgPreview = document.createElement('div');
+            imgPreview.style.position = 'fixed';
+            imgPreview.style.top = '0';
+            imgPreview.style.left = '0';
+            imgPreview.style.width = '100%';
+            imgPreview.style.height = '100%';
+            imgPreview.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            imgPreview.style.zIndex = '1200';
+            imgPreview.style.display = 'flex';
+            imgPreview.style.alignItems = 'center';
+            imgPreview.style.justifyContent = 'center';
+            imgPreview.style.cursor = 'pointer';
+            imgPreview.style.padding = '2rem';
+            imgPreview.style.backdropFilter = 'blur(10px)';
+            imgPreview.style.animation = 'fadeIn 0.3s ease';
+            
+            const img = document.createElement('img');
+            img.src = src;
+            img.style.maxWidth = '90%';
+            img.style.maxHeight = '90%';
+            img.style.objectFit = 'contain';
+            img.style.borderRadius = '1rem';
+            img.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.4)';
+            img.style.border = '0.5rem solid white';
+            img.style.animation = 'popIn 0.6s cubic-bezier(0.26, 0.53, 0.74, 1.48)';
+            
+            imgPreview.appendChild(img);
+            document.body.appendChild(imgPreview);
+            
+            // إغلاق النافذة بالنقر عليها
+            imgPreview.addEventListener('click', () => {
+                document.body.removeChild(imgPreview);
+            });
+        }
 
-                        <!-- شريط الأدوات السفلي -->
-                        <div class="bottom-nav">
-                            <a href="/" class="bottom-nav-item">
-                                <i class="fas fa-home"></i>
-                                <span>الرئيسية</span>
-                            </a>
-                            <a href="/explore" class="bottom-nav-item">
-                                <i class="fas fa-compass"></i>
-                                <span>استكشاف</span>
-                            </a>
-                            <a href="/favorites" class="bottom-nav-item">
-                                <i class="fas fa-star"></i>
-                                <span>المفضلة</span>
-                            </a>
-                            <a href="/trips" class="bottom-nav-item">
-                                <i class="fas fa-car"></i>
-                                <span>الرحلات</span>
-                            </a>
-                        </div>
+        function createConfetti() {
+            // إزالة أي كونفيتي موجود
+            document.querySelectorAll('.confetti').forEach(el => el.remove());
+            
+            // إنشاء كونفيتي جديد
+            const colors = [
+                '#ff5252', '#ffeb3b', '#2196f3', '#4caf50', '#e040fb', 
+                '#f06292', '#ffc107', '#03a9f4', '#8bc34a', '#9c27b0'
+            ];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // تخصيص حجم وشكل ولون الكونفيتي بشكل عشوائي
+                const size = Math.random() * 10 + 5;
+                const shape = Math.random() > 0.5 ? '50%' : '0';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.borderRadius = shape;
+                confetti.style.backgroundColor = color;
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                confetti.style.animationDelay = `${Math.random() * 2}s`;
+                
+                document.body.appendChild(confetti);
 
+                // إزالة الكونفيتي بعد انتهاء التحريك
+                setTimeout(() => {
+                    if (document.body.contains(confetti)) {
+                        confetti.remove();
+                    }
+                }, 5000);
+            }
+        }
 
+        function playWinnerSound() {
+            try {
+                // صوت الفوز (جرس)
+                const winnerSound = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
+                winnerSound.volume = 0.7;
+                winnerSound.play();
+                
+                // صوت التصفيق بعد لحظة قصيرة
+                setTimeout(() => {
+                    const applauseSound = new Audio('https://www.soundjay.com/human/sounds/applause-01.mp3');
+                    applauseSound.volume = 0.5;
+                    applauseSound.play();
+                }, 500);
+            } catch (error) {
+                console.error('خطأ في تشغيل الصوت:', error);
+            }
+        }
 
-                        <!-- كود الـ Backdrop للشريط الجانبي -->
-                        <div class="nav-backdrop" id="navBackdrop" onclick="toggleSideNav()"></div>
+        // ميزة السحب والإفلات للصور
+        const dropZone = document.querySelector('.container');
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (currentLotteryType === 'images') {
+                dropZone.classList.add('drag-over');
+            }
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('drag-over');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            
+            if (currentLotteryType === 'images') {
+                const files = e.dataTransfer.files;
+                handleImageUpload({ target: { files } });
+            }
+        });
+
+        // إضافة تأثيرات نقر للأزرار
+        document.querySelectorAll('.btn, .switch-btn, .remove-btn, .remove-name').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                if (!button.disabled) {
+                    button.style.transform = 'scale(0.95)';
+                }
+            });
+            
+            button.addEventListener('mouseup', () => {
+                if (!button.disabled) {
+                    button.style.transform = '';
+                }
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                if (!button.disabled) {
+                    button.style.transform = '';
+                }
+            });
+        });
+
+        // عرض فيديو تعليمي
+        function showTutorialVideo() {
+            videoModal.style.display = 'flex';
+        }
+
+        // دوال إضافية للتفاعل
+        window.showLargeWinnerImage = showLargeWinnerImage;
+        window.showTutorialVideo = showTutorialVideo;
+
+        // التحقق من الإدخال الأولي
+        validateInputs();
+    </script>
 </body>
-
-
-<!-- الأدوات الأخرى (التنبيهات، حسابي) -->
-<div class="tools d-flex align-items-center">
-    <!-- Search Icon -->
-    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#searchModal">
-        <i class="fas fa-search"></i>
-    </a>
-
-    <!-- Notifications Icon -->
-    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#notificationsModal">
-        <i class="fas fa-bell"></i>
-    </a>
-
-    <!-- Profile/Account Icon - يفتح نافذة اختيار نوع الحساب -->
-    <a class="nav-link user-profile-btn" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
-        <i class="fas fa-user"></i>
-        <span class="ms-1 d-none d-md-inline">تسجيل</span>
-    </a>
-</div>
-
-</nav>
-
-</a>
-</div>
-</div>
-</nav>
-
-</a>
-</li>
-</ul>
-</div>
-</div>
-</nav>
-
-<!-- Main Content -->
-<div class="container">
-    <!-- Map View -->
-    <div id="map"></div>
-
-    <!-- Location Filter -->
-    <div class="location-filter">
-        <div class="location-chips" id="locationFilter">
-            <span class="location-chip active" data-location="all">
-                <i class="fas fa-globe"></i>
-                الكل
-            </span>
-            <span class="location-chip" data-location="بغداد">
-                <i class="fas fa-map-marker-alt"></i>
-                بغداد
-            </span>
-            <span class="location-chip" data-location="الكرخ">
-                <i class="fas fa-map-marker-alt"></i>
-                الكرخ
-            </span>
-            <span class="location-chip" data-location="الرصافة">
-                <i class="fas fa-map-marker-alt"></i>
-                الرصافة
-            </span>
-            <span class="location-chip" data-location="البصرة">
-                <i class="fas fa-map-marker-alt"></i>
-                البصرة
-            </span>
-            <span class="location-chip" data-location="نينوى">
-                <i class="fas fa-map-marker-alt"></i>
-                نينوى
-            </span>
-            <span class="location-chip" data-location="الموصل">
-                <i class="fas fa-map-marker-alt"></i>
-                الموصل
-            </span>
-            <span class="location-chip" data-location="النجف">
-                <i class="fas fa-map-marker-alt"></i>
-                النجف
-            </span>
-            <span class="location-chip" data-location="الكوفة">
-                <i class="fas fa-map-marker-alt"></i>
-                الكوفة
-            </span>
-            <span class="location-chip" data-location="كربلاء">
-                <i class="fas fa-map-marker-alt"></i>
-                كربلاء
-            </span>
-            <span class="location-chip" data-location="الحسينية">
-                <i class="fas fa-map-marker-alt"></i>
-                الحسينية
-            </span>
-            <span class="location-chip" data-location="أربيل">
-                <i class="fas fa-map-marker-alt"></i>
-                أربيل
-            </span>
-            <span class="location-chip" data-location="كركوك">
-                <i class="fas fa-map-marker-alt"></i>
-                كركوك
-            </span>
-            <span class="location-chip" data-location="الأنبار">
-                <i class="fas fa-map-marker-alt"></i>
-                الأنبار
-            </span>
-            <span class="location-chip" data-location="الرمادي">
-                <i class="fas fa-map-marker-alt"></i>
-                الرمادي
-            </span>
-            <span class="location-chip" data-location="الفلوجة">
-                <i class="fas fa-map-marker-alt"></i>
-                الفلوجة
-            </span>
-            <span class="location-chip" data-location="بابل">
-                <i class="fas fa-map-marker-alt"></i>
-                بابل
-            </span>
-            <span class="location-chip" data-location="الحلة">
-                <i class="fas fa-map-marker-alt"></i>
-                الحلة
-            </span>
-            <span class="location-chip" data-location="المسيب">
-                <i class="fas fa-map-marker-alt"></i>
-                المسيب
-            </span>
-            <span class="location-chip" data-location="الهاشمية">
-                <i class="fas fa-map-marker-alt"></i>
-                الهاشمية
-            </span>
-            <span class="location-chip" data-location="القاسم">
-                <i class="fas fa-map-marker-alt"></i>
-                القاسم
-            </span>
-            <span class="location-chip" data-location="ديالى">
-                <i class="fas fa-map-marker-alt"></i>
-                ديالى
-            </span>
-            <span class="location-chip" data-location="بعقوبة">
-                <i class="fas fa-map-marker-alt"></i>
-                بعقوبة
-            </span>
-            <span class="location-chip" data-location="ذي قار">
-                <i class="fas fa-map-marker-alt"></i>
-                ذي قار
-            </span>
-            <span class="location-chip" data-location="الناصرية">
-                <i class="fas fa-map-marker-alt"></i>
-                الناصرية
-            </span>
-            <span class="location-chip" data-location="السليمانية">
-                <i class="fas fa-map-marker-alt"></i>
-                السليمانية
-            </span>
-            <span class="location-chip" data-location="صلاح الدين">
-                <i class="fas fa-map-marker-alt"></i>
-                صلاح الدين
-            </span>
-            <span class="location-chip" data-location="تكريت">
-                <i class="fas fa-map-marker-alt"></i>
-                تكريت
-            </span>
-            <span class="location-chip" data-location="واسط">
-                <i class="fas fa-map-marker-alt"></i>
-                واسط
-            </span>
-            <span class="location-chip" data-location="الكوت">
-                <i class="fas fa-map-marker-alt"></i>
-                الكوت
-            </span>
-            <span class="location-chip" data-location="ميسان">
-                <i class="fas fa-map-marker-alt"></i>
-                ميسان
-            </span>
-            <span class="location-chip" data-location="العمارة">
-                <i class="fas fa-map-marker-alt"></i>
-                العمارة
-            </span>
-            <span class="location-chip" data-location="المثنى">
-                <i class="fas fa-map-marker-alt"></i>
-                المثنى
-            </span>
-            <span class="location-chip" data-location="السماوة">
-                <i class="fas fa-map-marker-alt"></i>
-                السماوة
-            </span>
-            <span class="location-chip" data-location="دهوك">
-                <i class="fas fa-map-marker-alt"></i>
-                دهوك
-            </span>
-            <span class="location-chip" data-location="القادسية">
-                <i class="fas fa-map-marker-alt"></i>
-                القادسية
-            </span>
-            <span class="location-chip" data-location="الديوانية">
-                <i class="fas fa-map-marker-alt"></i>
-                الديوانية
-            </span>
-
-        </div>
-
-    </div>
-
-    <!-- Drivers Grid -->
-    <div class="drivers-grid" id="driversGrid"></div>
-</div>
-
-
-
-<!-- Add Driver Modal -->
-<div class="modal fade" id="addDriverModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">إضافة سائق جديد</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-
-                <form id="addDriverForm" onsubmit="handleAddDriver(event)">
-                    <div class="mb-4 text-center">
-                        <div class="image-upload-container" onclick="document.getElementById('driverImage').click()">
-                            <input type="file" id="driverImage" accept="image/*" style="display: none"
-                                onchange="handleImagePreview(event)">
-                            <img id="imagePreview" src="#" alt=""
-                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
-                            <div class="upload-placeholder">
-                                <i class="fas fa-camera fa-2x mb-2"></i>
-                                <p>انقر لإضافة صورة</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="form-label">رابط موقع السائق</label>
-                        <input type="url" class="form-control" id="driverMapLink"
-                            placeholder="أدخل رابط الموقع (Google Maps)">
-                    </div>
-
-
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">اسم السائق</label>
-                            <input type="text" class="form-control" id="driverName" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">رقم الهاتف</label>
-                            <input type="tel" class="form-control" id="driverPhone" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">نوع السيارة</label>
-                            <input type="text" class="form-control" id="carType" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">موديل السيارة</label>
-                            <input type="number" class="form-control" id="carModel" required>
-                        </div>
-                        <div class="col-md-12">
-                            <label class="form-label">المنطقة</label>
-                            <select class="form-control" id="driverLocation" required>
-                                <option value="">اختر المحافظة</option>
-                                <option value="بغداد">بغداد</option>
-                                <option value="الكرخ">الكرخ</option>
-                                <option value="الرصافة">الرصافة</option>
-                                <option value="البصرة">البصرة</option>
-                                <option value="نينوى">نينوى</option>
-                                <option value="الموصل">الموصل</option>
-                                <option value="النجف">النجف</option>
-                                <option value="الكوفة">الكوفة</option>
-                                <option value="كربلاء">كربلاء</option>
-                                <option value="الحسينية">الحسينية</option>
-                                <option value="أربيل">أربيل</option>
-                                <option value="كركوك">كركوك</option>
-                                <option value="الأنبار">الأنبار</option>
-                                <option value="الرمادي">الرمادي</option>
-                                <option value="الفلوجة">الفلوجة</option>
-                                <option value="بابل">بابل</option>
-                                <option value="الحلة">الحلة</option>
-                                <option value="المسيب">المسيب</option>
-                                <option value="الهاشمية">الهاشمية</option>
-                                <option value="القاسم">القاسم</option>
-                                <option value="ديالى">ديالى</option>
-                                <option value="بعقوبة">بعقوبة</option>
-                                <option value="ذي قار">ذي قار</option>
-                                <option value="الناصرية">الناصرية</option>
-                                <option value="السليمانية">السليمانية</option>
-                                <option value="صلاح الدين">صلاح الدين</option>
-                                <option value="تكريت">تكريت</option>
-                                <option value="واسط">واسط</option>
-                                <option value="الكوت">الكوت</option>
-                                <option value="ميسان">ميسان</option>
-                                <option value="العمارة">العمارة</option>
-                                <option value="المثنى">المثنى</option>
-                                <option value="السماوة">السماوة</option>
-                                <option value="دهوك">دهوك</option>
-                                <option value="القادسية">القادسية</option>
-                                <option value="الديوانية">الديوانية</option>
-
-
-
-                            </select>
-
-
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">معلومات إضافية</label>
-                            <textarea class="form-control" id="driverBio" rows="3"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <button type="submit" class="btn btn-primary w-100">إضافة السائق</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Toast Container -->
-<div class="toast-container" id="toastContainer"></div>
-
-<!-- Loading Spinner -->
-<div class="loading-spinner" id="loadingSpinner">
-    <div class="spinner"></div>
-</div>
-<!-- نافذة تعديل بيانات السائق -->
-<div class="modal fade" id="editDriverModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">تعديل بيانات السائق</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editDriverForm" onsubmit="handleEditDriver(event)">
-                    <input type="hidden" id="editDriverId">
-
-                    <div class="mb-4 text-center">
-                        <div class="image-upload-container"
-                            onclick="document.getElementById('editDriverImage').click()">
-                            <input type="file" id="editDriverImage" accept="image/*" style="display: none"
-                                onchange="handleEditImagePreview(event)">
-                            <img id="editImagePreview" src="#" alt=""
-                                style="display: none; width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
-                            <div class="upload-placeholder">
-                                <i class="fas fa-camera fa-2x mb-2"></i>
-                                <p>انقر لتغيير الصورة</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">اسم السائق</label>
-                            <input type="text" class="form-control" id="editDriverName" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">رقم الهاتف</label>
-                            <input type="tel" class="form-control" id="editDriverPhone" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">نوع السيارة</label>
-                            <input type="text" class="form-control" id="editCarType" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">موديل السيارة</label>
-                            <input type="number" class="form-control" id="editCarModel" required>
-                        </div>
-                        <div class="col-md-12">
-                            <label class="form-label">المنطقة</label>
-                            <select class="form-control" id="editDriverLocation" required>
-                                <option value="">اختر المحافظة</option>
-                                <option value="بغداد">بغداد</option>
-                                <option value="الكرخ">الكرخ</option>
-                                <option value="الرصافة">الرصافة</option>
-                                <option value="البصرة">البصرة</option>
-                                <option value="نينوى">نينوى</option>
-                                <option value="الموصل">الموصل</option>
-                                <option value="النجف">النجف</option>
-                                <option value="الكوفة">الكوفة</option>
-                                <option value="كربلاء">كربلاء</option>
-                                <option value="الحسينية">الحسينية</option>
-                                <option value="أربيل">أربيل</option>
-                                <option value="كركوك">كركوك</option>
-                                <option value="الأنبار">الأنبار</option>
-                                <option value="الرمادي">الرمادي</option>
-                                <option value="الفلوجة">الفلوجة</option>
-                                <option value="بابل">بابل</option>
-                                <option value="الحلة">الحلة</option>
-                                <option value="المسيب">المسيب</option>
-                                <option value="الهاشمية">الهاشمية</option>
-                                <option value="القاسم">القاسم</option>
-                                <option value="ديالى">ديالى</option>
-                                <option value="بعقوبة">بعقوبة</option>
-                                <option value="ذي قار">ذي قار</option>
-                                <option value="الناصرية">الناصرية</option>
-                                <option value="السليمانية">السليمانية</option>
-                                <option value="صلاح الدين">صلاح الدين</option>
-                                <option value="تكريت">تكريت</option>
-                                <option value="واسط">واسط</option>
-                                <option value="الكوت">الكوت</option>
-                                <option value="ميسان">ميسان</option>
-                                <option value="العمارة">العمارة</option>
-                                <option value="المثنى">المثنى</option>
-                                <option value="السماوة">السماوة</option>
-                                <option value="دهوك">دهوك</option>
-                                <option value="القادسية">القادسية</option>
-                                <option value="الديوانية">الديوانية</option>
-                                <!-- إضافة باقي المدن -->
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">معلومات إضافية</label>
-                            <textarea class="form-control" id="editDriverBio" rows="3"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <button type="submit" class="btn btn-primary w-100">حفظ التغييرات</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="searchModalLabel">بحث عن سائق</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="search-wrapper">
-                    <!-- حقل البحث -->
-                    <div class="search-input-wrapper mb-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control search-input" id="navbarSearchInput"
-                                placeholder="ابحث عن اسم السائق، المنطقة، نوع السيارة..." autofocus>
-                            <span class="input-group-text">
-                                <i class="fas fa-search"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- خيارات البحث -->
-                    <div class="search-options mb-3">
-                        <div class="btn-group w-100" role="group">
-                            <input type="radio" class="btn-check" name="searchType" id="searchAll" checked>
-                            <label class="btn btn-outline-primary" for="searchAll">الكل</label>
-
-                            <input type="radio" class="btn-check" name="searchType" id="searchName">
-                            <label class="btn btn-outline-primary" for="searchName">الاسم</label>
-
-                            <input type="radio" class="btn-check" name="searchType" id="searchLocation">
-                            <label class="btn btn-outline-primary" for="searchLocation">المنطقة</label>
-
-                            <input type="radio" class="btn-check" name="searchType" id="searchCar">
-                            <label class="btn btn-outline-primary" for="searchCar">السيارة</label>
-                        </div>
-                    </div>
-
-                    <!-- نتائج البحث -->
-                    <div id="searchResults" class="search-results"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- نافذة المحادثة -->
-<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content chat-window">
-            <!-- رأس النافذة مع صورة واسم السائق -->
-            <div class="modal-header chat-header">
-                <img id="driverImage" src="default-avatar.png" alt="صورة السائق" class="rounded-circle me-2"
-                    style="width: 60px; height: 60px;">
-                <div>
-                    <h5 class="modal-title" id="driverName">اسم السائق</h5>
-                    <small id="driverCardInfo" style="color: #ffffff;">بطاقة السائق</small>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-            </div>
-            <!-- اختيار المشوار -->
-            <div class="modal-body chat-body">
-                <div id="tripSelection" class="mb-3">
-                    <small id="driverCardInfo" style="color: #ffffff;"> عدد الـــمشــوار </small>
-                    <input type="number" id="tripCount" class="form-control mb-2" placeholder="أدخل عدد المشاوير"
-                        min="1">
-
-                    <small id="driverCardInfo" style="color: #ffffff;"> نوع الواجــــهة</small>
-
-                    <input type="text" id="tripDestination" class="form-control mb-2" placeholder="أدخل الوجهة">
-
-                    <small id="driverCardInfo" style="color: #ffffff;"> نوع الرحـــله</small>
-                    <select id="tripType" class="form-control mb-3">
-                        <option value="ذهاب">ذهاب</option>
-                        <option value="ذهاب وعودة">ذهاب وعودة</option>
-                    </select>
-
-                    <button class="btn btn-success w-100" onclick="confirmTrip()">تأكيد المشوار</button>
-                </div>
-                <!-- منطقة الرسائل -->
-                <div id="chatMessages" class="chat-messages d-none"></div>
-            </div>
-            <!-- شريط الإدخال -->
-            <div class="modal-footer chat-footer d-none">
-                <div class="input-group">
-                    <input type="text" id="chatInput" class="form-control chat-input" placeholder="اكتب رسالتك هنا...">
-                    <button class="btn btn-primary send-btn" onclick="sendMessage()">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="profileModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0 text-center">
-                <h5 class="modal-title w-100">اختر نوع الحساب</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body py-4">
-                <div class="row g-4">
-                    <div class="col-6">
-                        <div class="account-type-card" onclick="openDriverRegistration()">
-                            <div class="icon-container mb-3">
-                                <i class="fas fa-taxi fa-3x"></i>
-                            </div>
-                            <h6>تسجيل كسائق</h6>
-                            <p class="small text-muted"> إلى فريق السائقين </p>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="account-type-card" onclick="openUserRegistration()">
-                            <div class="icon-container mb-3">
-                                <i class="fas fa-user fa-3x"></i>
-                            </div>
-                            <h6>تسجيل كمستخدم</h6>
-                            <p class="small text-muted">احجز رحلاتك بسهولة</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- نافذة تسجيل السائق -->
-<div class="modal fade" id="driverRegistrationModal" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="text-center w-100">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527"
-                        alt="شعار التطبيق" style="height: 60px;">
-                    <h5 class="modal-title mt-2">تسجيل سائق جديد</h5>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="driverRegistrationForm" class="needs-validation" novalidate>
-                    <!-- المعلومات الشخصية -->
-                    <div class="registration-section mb-4">
-                        <h6 class="section-title">المعلومات الشخصية</h6>
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <div class="text-center mb-3">
-                                    <div class="driver-photo-upload"
-                                        onclick="document.getElementById('driverPhoto').click()">
-                                        <img id="driverPhotoPreview" src="#" alt="">
-                                        <div class="upload-placeholder">
-                                            <i class="fas fa-camera"></i>
-                                            <span>صورة شخصية</span>
-                                        </div>
-                                    </div>
-                                    <input type="file" id="driverPhoto" accept="image/*" style="display: none;"
-                                        onchange="previewDriverPhoto(this)">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label">الاسم الثلاثي</label>
-                                <input type="text" class="form-control" name="fullName" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">العمر</label>
-                                <input type="number" class="form-control" name="age" min="18" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">رقم الهاتف</label>
-                                <input type="tel" class="form-control" name="phone" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- معلومات المركبة -->
-                    <div class="registration-section mb-4">
-                        <h6 class="section-title">معلومات المركبة</h6>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">نوع المركبة</label>
-                                <select class="form-select" name="vehicleType" required>
-                                    <option value="">اختر نوع المركبة</option>
-                                    <option value="أجرة">أجرة</option>
-                                    <option value="خصوصي">خصوصي</option>
-                                    <option value="باص">باص</option>
-                                    <option value="صالون">صالون</option>
-                                    <option value="تحميل">تحميل</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">موديل المركبة</label>
-                                <input type="number" class="form-control" name="vehicleModel" min="1990" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">رقم المركبة</label>
-                                <input type="text" class="form-control" name="vehicleNumber" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">لون المركبة</label>
-                                <input type="text" class="form-control" name="vehicleColor" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- المستمسكات -->
-                    <div class="registration-section mb-4">
-                        <h6 class="section-title">المستمسكات</h6>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">صورة الهوية الوجه الأمامي</label>
-                                <div class="document-upload" onclick="document.getElementById('idFront').click()">
-                                    <div class="upload-placeholder">
-                                        <i class="fas fa-id-card"></i>
-                                        <span>اضغط للرفع</span>
-                                    </div>
-                                    <img id="idFrontPreview" src="#" alt="">
-                                </div>
-                                <input type="file" id="idFront" accept="image/*" style="display: none;"
-                                    onchange="previewDocument(this, 'idFrontPreview')" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">صورة الهوية الوجه الخلفي</label>
-                                <div class="document-upload" onclick="document.getElementById('idBack').click()">
-                                    <div class="upload-placeholder">
-                                        <i class="fas fa-id-card"></i>
-                                        <span>اضغط للرفع</span>
-                                    </div>
-                                    <img id="idBackPreview" src="#" alt="">
-                                </div>
-                                <input type="file" id="idBack" accept="image/*" style="display: none;"
-                                    onchange="previewDocument(this, 'idBackPreview')" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">إجازة السوق الوجه الأمامي</label>
-                                <div class="document-upload" onclick="document.getElementById('licenseFront').click()">
-                                    <div class="upload-placeholder">
-                                        <i class="fas fa-id-card"></i>
-                                        <span>اضغط للرفع</span>
-                                    </div>
-                                    <img id="licenseFrontPreview" src="#" alt="">
-                                </div>
-                                <input type="file" id="licenseFront" accept="image/*" style="display: none;"
-                                    onchange="previewDocument(this, 'licenseFrontPreview')" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">إجازة السوق الوجه الخلفي</label>
-                                <div class="document-upload" onclick="document.getElementById('licenseBack').click()">
-                                    <div class="upload-placeholder">
-                                        <i class="fas fa-id-card"></i>
-                                        <span>اضغط للرفع</span>
-                                    </div>
-                                    <img id="licenseBackPreview" src="#" alt="">
-                                </div>
-                                <input type="file" id="licenseBack" accept="image/*" style="display: none;"
-                                    onchange="previewDocument(this, 'licenseBackPreview')" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- معلومات السكن -->
-                    <div class="registration-section mb-4">
-                        <h6 class="section-title">معلومات السكن</h6>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">المحافظة</label>
-                                <select class="form-select" name="province" onchange="loadAreas(this.value)" required>
-                                    <option value="">اختر المحافظة</option>
-                                    <!-- سيتم ملء الخيارات بواسطة JavaScript -->
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">المنطقة</label>
-                                <select class="form-select" name="area" required>
-                                    <option value="">اختر المنطقة</option>
-                                    <!-- سيتم ملء الخيارات بواسطة JavaScript -->
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">العنوان التفصيلي</label>
-                                <textarea class="form-control" name="address" rows="2" required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg px-5">
-                            <i class="fas fa-user-plus me-2"></i>
-                            تسجيل
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<select id="driverLocation" class="form-control" required>
-</select>
-<div id="locationOptions">
-    <!-- other elements -->
-</div>
-<!-- نافذة تسجيل المستخدم -->
-<div class="modal fade" id="userRegistrationModal" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="text-center w-100">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/messageemeapp.appspot.com/o/driver-images%2F7605a607-6cf8-4b32-aee1-fa7558c98452.png?alt=media&token=5cf9e67c-ba6e-4431-a6a0-79dede15b527"
-                        alt="شعار التطبيق" style="height: 60px;">
-                    <h5 class="modal-title mt-2">تسجيل مستخدم جديد</h5>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="userRegistrationForm" class="needs-validation" novalidate>
-                    <!-- المعلومات الشخصية -->
-                    <div class="registration-section mb-4">
-                        <h6 class="section-title">المعلومات الشخصية</h6>
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <div class="text-center mb-3">
-                                    <div class="user-photo-upload"
-                                        onclick="document.getElementById('userPhoto').click()">
-                                        <img id="userPhotoPreview" src="#" alt="">
-                                        <div class="upload-placeholder">
-                                            <i class="fas fa-camera"></i>
-                                            <span>صورة شخصية</span>
-                                        </div>
-                                    </div>
-                                    <input type="file" id="userPhoto" accept="image/*" style="display: none;"
-                                        onchange="previewUserPhoto(this)">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label">الاسم الثلاثي</label>
-                                <input type="text" class="form-control" name="fullName" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">البريد الإلكتروني</label>
-                                <input type="email" class="form-control" name="email" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">رقم الهاتف</label>
-                                <input type="tel" class="form-control" name="phone" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">كلمة المرور</label>
-                                <input type="password" class="form-control" name="password" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">تأكيد كلمة المرور</label>
-                                <input type="password" class="form-control" name="confirmPassword" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- معلومات السكن -->
-                    <div class="registration-section mb-4">
-                        <h6 class="section-title">معلومات السكن</h6>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">المحافظة</label>
-                                <select class="form-select" name="province" onchange="loadAreas(this.value)" required>
-                                    <option value="">اختر المحافظة</option>
-                                    <!-- سيتم ملء الخيارات عبر JavaScript -->
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">المنطقة</label>
-                                <select class="form-select" name="area" required>
-                                    <option value="">اختر المنطقة</option>
-                                    <!-- سيتم ملء الخيارات عبر JavaScript -->
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">العنوان التفصيلي</label>
-                                <textarea class="form-control" name="address" rows="2" required></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- الشروط والأحكام -->
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="terms" id="terms" required>
-                        <label class="form-check-label" for="terms">
-                            أوافق على <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">الشروط
-                                والأحكام</a>
-                        </label>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg px-5">
-                            <i class="fas fa-user-plus me-2"></i>
-                            تسجيل
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-</script>
-</main>
-<!-- ربط ملف الجافا سكريبت -->
-<script src="app.js"></script>
-
-</body>
-
 </html>
